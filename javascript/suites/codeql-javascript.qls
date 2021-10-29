@@ -1,0 +1,19 @@
+
+- description: "GitHub's Field Team JavaScript/TypeScript extended Suite"
+
+- import: codeql-suites/javascript-security-extended.qls
+  from: codeql-javascript
+
+- qlpack: codeql-javascript
+- include:
+    id:
+      # Cookies
+      - js/insecure-cookie
+      - js/cookie-httponly-not-set
+      # Actions
+      - js/actions/injection
+      - js/actions/pull-request-target
+      # Misc
+      - js/jwt-missing-verification
+      - javascript/ldap-injection
+      - js/missing-postmessageorigin-verification

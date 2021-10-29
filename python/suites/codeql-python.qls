@@ -1,0 +1,22 @@
+#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
+#   for additional ways to exclude queries
+
+- description: "GitHub's Field Team Python Extended Suite"
+
+- qlpack: github-queries-python
+
+- import: codeql-suites/python-security-extended.qls
+  from: codeql-python
+
+- qlpack: codeql-python
+- include:
+    id:
+      - py/template-injection
+      - py/xslt-injection
+      - py/ip-address-spoofing
+      - py/xpath-injection
+      - py/nosql-injection
+      # LDAP
+      - py/ldap-injection
+      - py/improper-ldap-auth
+      - py/insecure-ldap-auth

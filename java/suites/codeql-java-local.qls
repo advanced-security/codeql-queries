@@ -1,0 +1,22 @@
+#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
+#   for additional ways to exclude queries
+
+- description: "GitHub's Field Team Java Local Variate Suite"
+
+- import: codeql-suites/java-security-extended.qls
+  from: codeql-java
+
+- qlpack: codeql-java
+- include:
+    id:
+      - java/path-injection-local
+      - java/command-line-injection-local
+      - java/xss-local
+      - java/sql-injection-local
+      - java/http-response-splitting-local
+      - java/improper-validation-of-array-construction-local
+      - java/improper-validation-of-array-index-local
+      - java/tainted-format-string-local
+      - java/tainted-arithmetic-local
+      - java/unvalidated-url-redirection-local
+      - java/tainted-numeric-cast-local

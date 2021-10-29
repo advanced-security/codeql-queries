@@ -1,0 +1,10 @@
+
+- description: "GitHub's Field Team Java External API Suite"
+
+- import: codeql-suites/java-security-extended.qls
+  from: codeql-java
+
+- qlpack: codeql-java
+- include:
+    id:
+      - java/untrusted-data-to-external-api

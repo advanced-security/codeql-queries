@@ -1,0 +1,30 @@
+
+- description: "GitHub's Field Team C/CPP extended suite"
+
+- import: codeql-suites/cpp-security-extended.qls
+  from: codeql-cpp
+
+- qlpack: codeql-cpp
+- include:
+    id:
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/MemoryMayNotBeFreed.ql
+      - cpp/memory-never-freed
+      - cpp/memory-may-not-be-freed
+      
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Security/CWE/CWE-078/ExecTainted.ql
+      - cpp/command-line-injection
+
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/UseAfterFree.ql
+      - cpp/use-after-free
+
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/OverflowCalculated.ql
+      - cpp/overflow-calculated
+      
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/OverflowDestination.ql
+      - cpp/overflow-destination
+      
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Security/CWE/CWE-170/ImproperNullTerminationTainted.ql
+      - cpp/user-controlled-null-termination-tainted
+      
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Security/CWE/CWE-190/IntegerOverflowTainted.ql
+      - cpp/integer-overflow-tainted

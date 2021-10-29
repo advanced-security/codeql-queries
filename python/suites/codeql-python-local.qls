@@ -1,0 +1,11 @@
+#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
+#   for additional ways to exclude queries
+
+- description: "GitHub's Field Team Python Local Variate Suite"
+
+- qlpack: github-queries-python
+- include:
+    tags contain: local
+
+- import: codeql-suites/python-security-extended.qls
+  from: codeql-python
