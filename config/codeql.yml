@@ -1,0 +1,37 @@
+name: "GitHub Field CodeQL Configuration"
+
+disable-default-queries: true
+
+queries:
+  # C/CPP queries
+  - uses: advanced-security/codeql-queries/cpp/suites/codeql-cpp.qls@main
+
+  # CSharp queries
+  - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
+
+  # Go queries
+  - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
+
+  # Java queries
+  - uses: advanced-security/codeql-queries/java/suites/codeql-java.qls@main
+
+  # JavaScript/TypeScript queries
+  - uses: advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main
+
+  # Python queries
+  - uses: advanced-security/codeql-queries/python/suites/codeql-python.qls@main
+
+
+paths-ignore:
+  # JavaScript
+  - 'node_modules'
+  - '**/*.test.js'
+  # JavaScript Frameworks/Libraries
+  - '**/bootstrap.js'
+  - '**/bootstrap.min.js'
+  - '**/jquery-*.js'
+  # Python
+  - '.env'
+
+paths:
+  - '/**/'
