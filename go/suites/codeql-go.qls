@@ -1,0 +1,7 @@
+#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
+#   for additional ways to exclude queries
+
+- description: "GitHub's Field Team CodeQL GoLang extended Suite"
+
+- import: codeql-suites/go-security-extended.qls
+  from: codeql-go
