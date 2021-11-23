@@ -10,7 +10,7 @@ queries:
   - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
 
   # Go queries
-  - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
+  - uses: advanced-security/codeql-queries/go/suites/codeql-go.qls@main
 
   # Java queries
   - uses: advanced-security/codeql-queries/java/suites/codeql-java.qls@main
