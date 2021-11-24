@@ -4,7 +4,7 @@ import go
 module LocalSources {
   abstract class Sources extends DataFlow::Node { }
 
-  // https://pkg.go.dev/os#pkg-variables
+  // https://pkg.go.dev/os#Args
   // class OsArgs extends Sources {
   //   OsArgs() {
   //     exists(ValueEntity value | value.hasQualifiedName(package("os", ""), "Args") and this = value)
