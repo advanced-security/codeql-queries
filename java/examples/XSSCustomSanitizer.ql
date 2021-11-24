@@ -16,18 +16,12 @@ import semmle.code.java.dataflow.FlowSources
 import semmle.code.java.security.XSS
 import DataFlow::PathGraph
 
-private class CustomXSSSanitizer extends XssSanitizer {
+class CustomXSSSanitizer extends XssSanitizer {
   CustomXSSSanitizer() {
-    exists(MethodAccess ma |
-      // Namespace + Object/Class
-      ma.getMethod().getDeclaringType().hasQualifiedName("org.example", "Santitizes") and
-      (
-        // Sanitizer methods
-        ma.getMethod().getName() = "escapeHtml" or
-        ma.getMethod().getName() = "escapeJavaScript"
-      ) and
-      this.asExpr() = ma
-    )
+    this.asExpr()
+        .(MethodAccess)
+        .getMethod()
+        .hasQualifiedName("org.example", "Sanitizes",  ["escapeHtml", "escapeJavaScript"])
   }
 }
 
