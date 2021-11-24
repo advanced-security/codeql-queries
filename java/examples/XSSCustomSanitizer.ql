@@ -33,7 +33,7 @@ class XSSConfig extends TaintTracking::Configuration {
   override predicate isSink(DataFlow::Node sink) { sink instanceof XssSink }
 
   // Add our custom sanitizer class in the configuration
-  override predicate isSanitizer(DataFlow::Node node) { node instanceof CustomXSSSanitizer }
+  override predicate isSanitizer(DataFlow::Node node) { node instanceof XssSanitizer }
 
   override predicate isSanitizerOut(DataFlow::Node node) { node instanceof XssSinkBarrier }
 
