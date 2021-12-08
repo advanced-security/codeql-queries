@@ -2,9 +2,10 @@
 - description: "GitHub's Field Team C/CPP External API Suite"
 
 - import: codeql-suites/cpp-security-extended.qls
-  from: codeql-cpp
+  from: codeql/cpp-queries
 
-- qlpack: codeql-cpp
+- queries: '.'
+  from: codeql/cpp-queries
 - include:
     id:
       - cpp/untrusted-data-to-external-api

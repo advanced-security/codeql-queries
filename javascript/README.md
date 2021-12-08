@@ -11,10 +11,10 @@
 <!-- AUTOMATION-SUITES -->
 | Name | Queries Count | Description | Path |
 | :--- | :---- | :--- | :--- |
-| `default` | 74 | Default Query Suite | `code-scanning` |
-| `extended` | 84 | Security Extended Suite | `security-extended` |
-| `quality` | 182 | Security and Quality Extended Suite | `security-and-quality` |
-| `super-extended` | 90 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main` |
+| `default` | 79 | Default Query Suite | `code-scanning` |
+| `extended` | 90 | Security Extended Suite | `security-extended` |
+| `quality` | 188 | Security and Quality Extended Suite | `security-and-quality` |
+| `super-extended` | 94 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main` |
 
 
 <!-- AUTOMATION-SUITES -->

@@ -4,9 +4,10 @@
 - description: "GitHub's Field Team Java Local Variate Suite"
 
 - import: codeql-suites/java-security-extended.qls
-  from: codeql-java
+  from: codeql/java-queries
 
-- qlpack: codeql-java
+- queries: '.'
+  from: codeql/java-queries
 - include:
     id:
       - java/path-injection-local

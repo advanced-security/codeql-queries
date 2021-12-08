@@ -6,9 +6,10 @@
 - qlpack: github-queries-python
 
 - import: codeql-suites/python-security-extended.qls
-  from: codeql-python
+  from: codeql/python-queries
 
-- qlpack: codeql-python
+- queries: '.'
+  from: codeql/python-queries
 - include:
     id:
       - py/template-injection

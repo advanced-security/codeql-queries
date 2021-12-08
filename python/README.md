@@ -20,11 +20,11 @@
 <!-- AUTOMATION-SUITES -->
 | Name | Queries Count | Description | Path |
 | :--- | :---- | :--- | :--- |
-| `default` | 26 | Default Query Suite | `code-scanning` |
-| `extended` | 31 | Security Extended Suite | `security-extended` |
-| `quality` | 153 | Security and Quality Extended Suite | `security-and-quality` |
-| `local-variants` | 35 | Security Extended with local variants enabled | `advanced-security/codeql-queries/python/suites/codeql-python-local.qls@main` |
-| `super-extended` | 40 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/python/suites/codeql-python.qls@main` |
+| `default` | 30 | Default Query Suite | `code-scanning` |
+| `extended` | 35 | Security Extended Suite | `security-extended` |
+| `quality` | 157 | Security and Quality Extended Suite | `security-and-quality` |
+| `local-variants` | 39 | Security Extended with local variants enabled | `advanced-security/codeql-queries/python/suites/codeql-python-local.qls@main` |
+| `super-extended` | 52 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/python/suites/codeql-python.qls@main` |
 
 
 <!-- AUTOMATION-SUITES -->
