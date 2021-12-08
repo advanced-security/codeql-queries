@@ -21,6 +21,8 @@ queries:
   # Python queries
   - uses: advanced-security/codeql-queries/python/suites/codeql-python.qls@main
 
+  # Ruby queries
+  - uses: advanced-security/codeql-queries/ruby/suites/codeql-ruby.qls@main
 
 paths-ignore:
   # JavaScript
