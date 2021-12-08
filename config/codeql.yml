@@ -5,6 +5,8 @@ disable-default-queries: true
 queries:
   # C/CPP queries
   - uses: advanced-security/codeql-queries/cpp/suites/codeql-cpp.qls@main
+  - name: Use Microsoft Drive Security Queries
+    uses: microsoft/Windows-Driver-Developer-Supplemental-Tools/codeql/windows-drivers@main
 
   # CSharp queries
   - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
