@@ -3,9 +3,9 @@
 
 - description: "GitHub's Field Team Python Local Variate Suite"
 
+- import: codeql-suites/python-security-extended.qls
+  from: codeql/python-queries
+
 - qlpack: github-queries-python
 - include:
     tags contain: local
-
-- import: codeql-suites/python-security-extended.qls
-  from: codeql-python

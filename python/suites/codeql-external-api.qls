@@ -2,9 +2,10 @@
 - description: "GitHub's Field Team Python External API Suite"
 
 - import: codeql-suites/python-security-extended.qls
-  from: codeql-python
+  from: codeql/python-queries
 
-- qlpack: codeql-python
+- queries: '.'
+  from: codeql/python-queries
 - include:
     id:
       - python/untrusted-data-to-external-api

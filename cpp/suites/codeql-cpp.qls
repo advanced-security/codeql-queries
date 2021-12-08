@@ -2,9 +2,10 @@
 - description: "GitHub's Field Team C/CPP extended suite"
 
 - import: codeql-suites/cpp-security-extended.qls
-  from: codeql-cpp
+  from: codeql/cpp-queries
 
-- qlpack: codeql-cpp
+- queries: '.'
+  from: codeql/cpp-queries
 - include:
     id:
       # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/MemoryMayNotBeFreed.ql

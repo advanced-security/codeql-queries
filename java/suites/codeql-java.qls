@@ -17,9 +17,10 @@
 
 
 - import: codeql-suites/java-security-extended.qls
-  from: codeql-java
+  from: codeql/java-queries
 
-- qlpack: codeql-java
+- queries: '.'
+  from: codeql/java-queries
 - include:
     id:
       # Crypto

@@ -2,9 +2,10 @@
 - description: "GitHub's Field Team JavaScript/TypeScript External API Suite"
 
 - import: codeql-suites/javascript-security-extended.qls
-  from: codeql-javascript
+  from: codeql/javascript-queries
 
-- qlpack: codeql-javascript
+- queries: '.'
+  from: codeql/javascript-queries
 - include:
     id:
       - js/untrusted-data-to-external-api
