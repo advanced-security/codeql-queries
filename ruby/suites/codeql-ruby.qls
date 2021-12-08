@@ -1,0 +1,9 @@
+#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
+#   for additional ways to exclude queries
+
+- description: "GitHub's Field Team Ruby Extended Suite"
+
+- qlpack: github-queries-ruby
+
+- import: codeql-suites/ruby-security-extended.qls
+  from: codeql/ruby-queries
