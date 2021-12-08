@@ -17,6 +17,15 @@
       # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/UseAfterFree.ql
       - cpp/use-after-free
 
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Security/CWE/CWE-764/UnreleasedLock.ql
+      - cpp/unreleased-lock
+
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Security/CWE/CWE-129/ImproperArrayIndexValidation.ql
+      - cpp/unclear-array-index-validation
+
+      # https://github.com/github/codeql/blob/main/cpp/ql/src/Security/CWE/CWE-119/OverflowBuffer.ql
+      - cpp/overflow-buffer
+
       # https://github.com/github/codeql/blob/main/cpp/ql/src/Critical/OverflowCalculated.ql
       - cpp/overflow-calculated
       
