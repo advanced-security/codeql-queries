@@ -150,3 +150,22 @@ class PyOtpSink extends CredentialSink {
     this = API::moduleImport("pyotp").getMember("TOTP").getACall().getArg(1)
   }
 }
+
+class Boto3Sink extends CredentialSink {
+  Boto3Sink() {
+    // https://docs.min.io/docs/how-to-use-aws-sdk-for-python-with-minio-server.html
+    exists(DataFlow::CallCfgNode calls |
+      // s3 = boto3.resource('s3',
+      //     aws_access_key_id='YOUR-ACCESSKEYID',
+      //     aws_secret_access_key='YOUR-SECRETACCESSKEY'
+      //     aws_session_token="YOUR-SESSION-TOKEN"
+      // )
+      calls = API::moduleImport("boto3").getMember(["client", "resource"]).getACall() and
+      (
+        this = calls.getArgByName("aws_access_key_id") or
+        this = calls.getArgByName("aws_secret_access_key") or
+        this = calls.getArgByName("aws_session_token")
+      )
+    )
+  }
+}
