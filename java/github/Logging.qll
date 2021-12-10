@@ -24,7 +24,7 @@ class PrintMethods extends LoggingMethodsSinks {
 
 // Ref :: https://github.com/github/codeql/blob/main/java/ql/src/experimental/Security/CWE/CWE-532/SensitiveInfoLog.ql
 // Ref :: https://github.com/github/codeql/blob/main/java/ql/src/experimental/semmle/code/java/Logging.qll#L34
-class LoggerType extends RefType { }
+abstract class LoggerType extends RefType { }
 
 class StandardLoggersType extends LoggerType {
   StandardLoggersType() {
