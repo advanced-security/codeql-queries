@@ -11,3 +11,9 @@ Add the GitHub Field Team's config-file as part of Actions.
   with:
     config-file: advanced-security/codeql-queries/config/codeql.yml@main
 ```
+
+### Local Development
+
+```bash
+git clone --recursive https://github.com/advanced-security/codeql-queries.git && code .
+```
