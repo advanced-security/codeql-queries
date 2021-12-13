@@ -3,6 +3,9 @@ name: "GitHub Field CodeQL Local Threat Model Configuration"
 disable-default-queries: true
 
 queries:
+  # Go local queries
+  - uses: advanced-security/codeql-queries/go/suites/codeql-go-local.qls@main
+
   # Java local queries
   - uses: advanced-security/codeql-queries/java/suites/codeql-java-local.qls@main
 
