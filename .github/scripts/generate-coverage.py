@@ -22,6 +22,7 @@ language_display = {
     "java": "Java",
     "javascript": "JavaScript / TypeScript",
     "python": "Python",
+    "ruby": "Ruby",
 }
 default_suite_order = [
     "default",
@@ -211,7 +212,7 @@ if __name__ == "__main__":
     all_languages = False
     languages = []
     if not arguments.language:
-        languages = ["cpp", "csharp", "java", "javascript", "python"]
+        languages = ["cpp", "csharp", "java", "javascript", "python", "ruby"]
         all_languages = True
     else:
         languages = [arguments.language]

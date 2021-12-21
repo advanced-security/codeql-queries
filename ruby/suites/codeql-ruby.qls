@@ -7,3 +7,6 @@
 
 - import: codeql-suites/ruby-security-extended.qls
   from: codeql/ruby-queries
+- exclude:
+    id:
+      - rb/hardcoded-credentials
