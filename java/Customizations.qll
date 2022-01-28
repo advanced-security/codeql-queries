@@ -13,7 +13,18 @@ import java
 import semmle.code.java.dataflow.FlowSteps
 // SQL sinks
 import semmle.code.java.security.QueryInjection
+import semmle.code.java.security.XSS
 
+
+class WebgoatSink extends XssSink {
+WebgoatSink() {
+  this.asExpr()
+  .(Argument)
+  .getCall()
+  .getCallee()
+  .hasQualifiedName("org.owasp.webgoat.assignments", "AttackResult$AttackResultBuilder",
+  ["output", "outputArgs", "feedback", "feedbackArgs"])
+}}
 /// Missing Sinks
 // ==============================
 class ExtendedSQLSinks extends QueryInjectionSink {
