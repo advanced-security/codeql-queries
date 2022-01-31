@@ -12,7 +12,7 @@
 import java
 import semmle.code.java.dataflow.FlowSteps
 // SQL sinks
-import semmle.code.java.security.QueryInjection
+// import semmle.code.java.security.QueryInjection
 import semmle.code.java.security.XSS
 
 
@@ -27,6 +27,9 @@ WebgoatSink() {
 }}
 /// Missing Sinks
 // ==============================
+/**
+//commenting this out till fix to SqlExpr is found. 
+
 class ExtendedSQLSinks extends QueryInjectionSink {
   ExtendedSQLSinks() {
     this.asExpr() instanceof SqlExpr
@@ -48,3 +51,4 @@ class PreserveGetName extends TaintPreservingCallable {
 
   override predicate returnsTaintFrom(int arg) { arg = -1 }
 }
+*/
