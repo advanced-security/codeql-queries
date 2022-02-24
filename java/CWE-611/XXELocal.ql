@@ -6,7 +6,7 @@
  * @problem.severity error
  * @security-severity 6.0
  * @precision high
- * @id java/xxe
+ * @id java/xxe-local
  * @tags security
  *       external/cwe/cwe-611
  *       external/cwe/cwe-776
