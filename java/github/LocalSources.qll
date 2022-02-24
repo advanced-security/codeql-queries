@@ -5,6 +5,7 @@ class FileReadAccess extends LocalUserInput {
   FileReadAccess() {
     exists(MethodAccess ma |
       // https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getResourceAsStream-java.lang.String-
+      ma.getMethod().getDeclaringType().hasQualifiedName("java.lang", "ClassLoader") and
       ma.getMethod().hasName("getResourceAsStream") and
       // TODO: static string
       // .getResourceAsStream("config.xml")
