@@ -11,22 +11,7 @@
 
 import java
 import semmle.code.java.dataflow.FlowSteps
-// SQL sinks
-import semmle.code.java.security.QueryInjection
 
-/// Missing Sinks
-// ==============================
-class ExtendedSQLSinks extends QueryInjectionSink {
-  ExtendedSQLSinks() {
-    this.asExpr() instanceof SqlExpr
-    or
-    exists(MethodAccess ma |
-      ma.getMethod().getDeclaringType().hasQualifiedName("com.azure.cosmos", "CosmosContainer") and
-      ma.getMethod().hasName("queryItems") and
-      this.asExpr() = ma.getArgument(0)
-    )
-  }
-}
 
 /// Missing taintstep's
 // ==============================
