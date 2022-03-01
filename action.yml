@@ -6,7 +6,9 @@ inputs:
   token:
     default: ${{ github.token }}
   instance:
-    default: https://github.com
+    default: github.com
+  instance-api:
+    default: api.github.com
   bundle-repository:
     default: GeekMasher/codeql-queries
 
@@ -19,7 +21,5 @@ runs:
   steps:
     - shell: bash
       run: |
-        GITHUB_TOKEN=${{ inputs.token }}
-        gh auth login
-        CODEQL_BUNDLE_VERSION=$(gh release list --repo ${{ inputs.bundle-repository }} -L 1 | awk '{split($0,a,"\t"); print a[3]}')
-        echo "::set-output name=tools::${{ inputs.instance }}/${{ inputs.bundle-repository }}/releases/download/${CODEQL_BUNDLE_VERSION}/customized-codeql-bundle.tar.gz"
+        CODEQL_BUNDLE_VERSION=$(curl --silent "https://${{ inputs.instance-api }}/repos/${{ inputs.bundle-repository }}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        echo "::set-output name=tools::https://${{ inputs.instance }}/${{ inputs.bundle-repository }}/releases/download/${CODEQL_BUNDLE_VERSION}/customized-codeql-bundle.tar.gz"
