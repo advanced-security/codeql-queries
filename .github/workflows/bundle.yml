@@ -3,6 +3,8 @@ name: Bundle
 on:
   push:
     branches: [ main ]
+    paths:
+      - "**/customizations/**"
   pull_request:
     branches: [ main ]
     paths:
