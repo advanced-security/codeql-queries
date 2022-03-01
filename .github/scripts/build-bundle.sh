@@ -83,8 +83,8 @@ if [[ -f customized-codeql-bundle.tar.gz ]]; then
   rm customized-codeql-bundle.tar.gz
 fi
 
-# tar -czf customized-codeql-bundle.tar.gz codeql
-# cd ..
+tar -czf customized-codeql-bundle.tar.gz codeql
+cd ..
 
 CUSTOMIZE_BUNDLE_PATH="./$CODEQL_BUNDLE_PATH/customized-codeql-bundle.tar.gz"
 CUSTOMIZE_NOTES="CodeQL Bundle Version :: ${CODEQL_BUNDLE_VERSION}"
