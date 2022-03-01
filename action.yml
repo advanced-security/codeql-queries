@@ -5,7 +5,7 @@ inputs:
   version:
     default: "latest"
   repository:
-    default: ${{ github.repository }}
+    default: advanced-security/codeql-queries
   # output:
   #   default: customized-codeql-bundle.tar.gz
   token:
