@@ -1,0 +1,25 @@
+name: 'codeql-queries-downloader'
+description: 'codeql-queries-downloader'
+
+inputs:
+  version:
+    default: "latest"
+  repository:
+    default: ${{ github.repository }}
+  # output:
+  #   default: customized-codeql-bundle.tar.gz
+  token:
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        if [[ "${{ inputs.version }}" == "latest" ]]; then
+          CODEQL_BUNDLE_VERSION=$(curl --silent "https://api.github.com/repos/${{ inputs.repository }}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        else
+          CODEQL_BUNDLE_VERSION="${{ inputs.version }}"
+        fi
+
+        gh release -R ${{ inputs.repository }} download $CODEQL_BUNDLE_VERSION
