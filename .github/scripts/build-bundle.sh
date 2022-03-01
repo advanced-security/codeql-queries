@@ -82,8 +82,10 @@ tar -czf customized-codeql-bundle.tar.gz $CODEQL_BUNDLE_PATH/codeql
 if [ -z ${GITHUB_SHA+x} ]; then
   GITHUB_SHA=$(git rev-parse HEAD)
 fi
-CUSTOMIZE_RELEASE="${CODEQL_BUNDLE_VERSION}-$(git rev-parse --short $GITHUB_SHA)"
+CUSTOMIZE_RELEASE="codeql-queries-$(git rev-parse --short $GITHUB_SHA)"
+
+CUSTOMIZE_NOTES="CodeQL Bundle Version :: ${CODEQL_BUNDLE_VERSION}"
 
 echo "[+] Uploading release :: $CUSTOMIZE_RELEASE"
 
-gh release create $CUSTOMIZE_RELEASE customized-codeql-bundle.tar.gz --notes "CodeQL Bundle Version :: ${CODEQL_BUNDLE_VERSION}"
+gh release create $CUSTOMIZE_RELEASE customized-codeql-bundle.tar.gz --notes ${CUSTOMIZE_NOTES}
