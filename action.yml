@@ -16,6 +16,7 @@ runs:
   steps:
     - shell: bash
       run: |
+        GITHUB_TOKEN="${{ inputs.token }}"
         if [[ "${{ inputs.version }}" == "latest" ]]; then
           CODEQL_BUNDLE_VERSION=$(curl --silent "https://api.github.com/repos/${{ inputs.repository }}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         else
