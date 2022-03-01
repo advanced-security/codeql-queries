@@ -21,7 +21,7 @@ else
   echo "[+] Using cached CodeQL Bundle"
 fi
 
-for lang_path in {cpp,csharp,java,go,javascript,python}/customizations; do
+for lang_path in {csharp,java,go,javascript,python}/customizations; do
   # Copy custom modules
   lang=${lang_path%/customizations*}
   echo "[+] Processing Customizations for :: $lang"
