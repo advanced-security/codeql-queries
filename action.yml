@@ -22,4 +22,4 @@ runs:
     - shell: bash
       run: |
         CODEQL_BUNDLE_VERSION=$(curl --silent "https://${{ inputs.instance-api }}/repos/${{ inputs.bundle-repository }}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-        echo "::set-output name=tools::https://${{ inputs.instance }}/${{ inputs.bundle-repository }}/releases/download/${CODEQL_BUNDLE_VERSION}/customized-codeql-bundle.tar.gz"
+        echo "::set-output name=tools::https://${{ inputs.instance }}/${{ inputs.bundle-repository }}/releases/download/$CODEQL_BUNDLE_VERSION/customized-codeql-bundle.tar.gz"
