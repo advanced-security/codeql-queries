@@ -22,5 +22,5 @@ runs:
         else
           CODEQL_BUNDLE_VERSION="${{ inputs.version }}"
         fi
-
+        echo "Using CodeQL Bundle Version :: $CODEQL_BUNDLE_VERSION"
         gh release -R ${{ inputs.repository }} download $CODEQL_BUNDLE_VERSION
