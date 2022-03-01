@@ -71,21 +71,31 @@ for lang_path in {cpp,csharp,java,go,javascript,python}/customizations; do
   fi
 done
 
+echo "[+] Adding custom suite helpers"
+SUITE_VERSION=$(ls $CODEQL_BUNDLE_PATH/codeql/qlpacks/codeql/suite-helpers/)
+cp ./suite-helpers/* $CODEQL_BUNDLE_PATH/codeql/qlpacks/codeql/suite-helpers/$SUITE_VERSION
+
+echo "[+] Creating custom bundle..."
+cd $CODEQL_BUNDLE_PATH
+
 if [[ -f customized-codeql-bundle.tar.gz ]]; then
-  echo "[+] Deleting custom bundle..."
+  echo "[+] Deleting old bundle..."
   rm customized-codeql-bundle.tar.gz
 fi
 
-echo "[+] Creating custom bundle..."
-tar -czf customized-codeql-bundle.tar.gz $CODEQL_BUNDLE_PATH/codeql
+# tar -czf customized-codeql-bundle.tar.gz codeql
+# cd ..
+
+CUSTOMIZE_BUNDLE_PATH="./$CODEQL_BUNDLE_PATH/customized-codeql-bundle.tar.gz"
+CUSTOMIZE_NOTES="CodeQL Bundle Version :: ${CODEQL_BUNDLE_VERSION}"
 
 if [ -z ${GITHUB_SHA+x} ]; then
   GITHUB_SHA=$(git rev-parse HEAD)
 fi
 CUSTOMIZE_RELEASE="codeql-queries-$(git rev-parse --short $GITHUB_SHA)"
 
-CUSTOMIZE_NOTES="CodeQL Bundle Version :: ${CODEQL_BUNDLE_VERSION}"
-
 echo "[+] Uploading release :: $CUSTOMIZE_RELEASE"
+echo "[+] File :: $CUSTOMIZE_BUNDLE_PATH"
+echo "[+] Notes :: $CUSTOMIZE_NOTES"
 
-gh release create $CUSTOMIZE_RELEASE customized-codeql-bundle.tar.gz --notes ${CUSTOMIZE_NOTES}
+gh release create $CUSTOMIZE_RELEASE $CUSTOMIZE_BUNDLE_PATH --notes "${CUSTOMIZE_NOTES}"
