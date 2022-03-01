@@ -5,7 +5,7 @@ test-*.ql
 testing/
 
 bundle/
-codeql-bundle.tar.gz
+*.tar.gz
 
 
 ### Linux ###

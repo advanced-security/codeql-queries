@@ -1,9 +1,12 @@
 #!/bin/bash
 set -e
 
+CODEQL_BUNDLE_VERSION=$(gh release list --repo github/codeql-action -L 1 | awk '{split($0,a,"\t"); print a[3]}')
+echo "[+] CodeQL Latest Bundle Release :: $CODEQL_BUNDLE_VERSION"
+
 if [[ ! -f ./codeql-bundle.tar.gz ]]; then
   echo "[+] Downloading latest release of CodeQL"
-  gh release --repo github/codeql-action download -p codeql-bundle.tar.gz $CODEQL_BUNDLE
+  gh release --repo github/codeql-action download -p codeql-bundle.tar.gz $CODEQL_BUNDLE_VERSION
 else
   echo "[+] Using cached archive"
 fi
@@ -41,26 +44,46 @@ for lang_path in {cpp,csharp,java,go,javascript,python}/customizations; do
       sed -i -e '0,/^import/s//private import Customizations\nimport/' $qllib_path/$lang.qll
     fi
     if [ -f $qllib_path/Customizations.qll ]; then
-      mkdir -p $qllib_path/customizations
-      cp $lang_path/*.qll $qllib_path/customizations
-      # Import custom modules
-      for module_path in $lang_path/*.qll; do
-        module_file=${module_path##*/}
-        module_name=${module_file%.*}
-        echo "import customizations.$module_name" >> $qllib_path/Customizations.qll
-      done
-      # Rebuild cache
-      rm -r $qlquery_path/.cache
-      ./$CODEQL_BUNDLE_PATH/codeql/codeql query compile --search-path codeql --threads 0 $qlquery_path
+      if ls $lang_path/*.qll 1> /dev/null 2>&1; then
+        echo "[+] Building customizations..."
+        mkdir -p $qllib_path/customizations
+
+        cp $lang_path/*.qll $qllib_path/customizations | true
+        # Import custom modules
+        for module_path in $lang_path/*.qll; do
+          module_file=${module_path##*/}
+          module_name=${module_file%.*}
+          echo "import customizations.$module_name" >> $qllib_path/Customizations.qll
+        done
+        # Rebuild cache
+        echo "Rebuilding cache for $lang"
+        rm -r $qlquery_path/.cache
+        ./$CODEQL_BUNDLE_PATH/codeql/codeql query compile --search-path codeql --threads 0 $qlquery_path
+
+      else
+        echo "::warning::No QLL files present for '$lang' so skipping..."
+      fi
     else
-      echo "::warning::Skipping customization for language $lang, because it doesn't have a Customizations.qll"
+      echo "::warning::Skipping customization for language $lang, because it does not have a Customizations.qll"
     fi
   else
     echo "::error::Unable to customize language $lang, because it is not present in the CodeQL Bundle $CODEQL_BUNDLE"
   fi
 done
 
-tar -czf codeql-bundle.tar.gz codeql
-rm -r codeql
+if [[ -f customized-codeql-bundle.tar.gz ]]; then
+  echo "[+] Deleting custom bundle..."
+  rm customized-codeql-bundle.tar.gz
+fi
 
-gh release create ${CODEQL_BUNDLE}-$(git rev-parse --short $GITHUB_SHA) codeql-bundle.tar.gz
+echo "[+] Creating custom bundle..."
+tar -czf customized-codeql-bundle.tar.gz $CODEQL_BUNDLE_PATH/codeql
+
+if [ -z ${GITHUB_SHA+x} ]; then
+  GITHUB_SHA=$(git rev-parse HEAD)
+fi
+CUSTOMIZE_RELEASE="${CODEQL_BUNDLE_VERSION}-$(git rev-parse --short $GITHUB_SHA)"
+
+echo "[+] Uploading release :: $CUSTOMIZE_RELEASE"
+
+gh release create $CUSTOMIZE_RELEASE customized-codeql-bundle.tar.gz --notes "CodeQL Bundle Version :: ${CODEQL_BUNDLE_VERSION}"
