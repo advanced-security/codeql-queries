@@ -71,9 +71,9 @@ for lang_path in {csharp,java,go,javascript,python}/customizations; do
   fi
 done
 
-echo "[+] Adding custom suite helpers"
-SUITE_VERSION=$(ls $CODEQL_BUNDLE_PATH/codeql/qlpacks/codeql/suite-helpers/)
-cp ./suite-helpers/* $CODEQL_BUNDLE_PATH/codeql/qlpacks/codeql/suite-helpers/$SUITE_VERSION
+# echo "[+] Adding custom suite helpers"
+# SUITE_VERSION=$(ls $CODEQL_BUNDLE_PATH/codeql/qlpacks/codeql/suite-helpers/)
+# cp ./suite-helpers/* $CODEQL_BUNDLE_PATH/codeql/qlpacks/codeql/suite-helpers/$SUITE_VERSION
 
 echo "[+] Creating custom bundle..."
 cd $CODEQL_BUNDLE_PATH
