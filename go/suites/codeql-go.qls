@@ -5,3 +5,8 @@
 
 - import: codeql-suites/go-security-extended.qls
   from: codeql-go
+
+- exclude:
+    id:
+      - go/log-injection
+
