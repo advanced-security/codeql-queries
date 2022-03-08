@@ -3,6 +3,8 @@
 
 - description: "GitHub's Field Team CodeQL GoLang extended Suite"
 
+- qlpack: github-queries-go
+
 - import: codeql-suites/go-security-extended.qls
   from: codeql-go
 
