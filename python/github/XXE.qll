@@ -31,12 +31,26 @@ module XXE {
     )
   }
 
-  class PyXML extends Sink {
-    PyXML() {
+  class PyXMLSax extends Sink {
+    PyXMLSax() {
       exists(DataFlow::CallCfgNode call |
+        // https://github.com/python/cpython/blob/main/Lib/xml/sax/__init__.py#L70
+        // > from xml.sax import make_parser
+        // > parser = make_parser()
+        // > parser.parse("xxe.xml")
+        call = getPyXMLParser().getMember("parse").getACall() and
+        this = call.getArg(0)
+      )
+    }
+  }
+
+  class PyXMLDom extends Sink {
+    PyXMLDom() {
+      exists(DataFlow::CallCfgNode call |
+        // https://github.com/python/cpython/blob/3.10/Lib/xml/dom/pulldom.py#L331-L349
         // > from xml.dom.pulldom import parseString
         // > parseString(request.body.decode('utf-8'), parser=parser)
-        call = API::moduleImport("xml.dom.pulldom").getMember("parseString").getACall() and
+        call = API::moduleImport("xml.dom.pulldom").getMember(["parseString", "parse"]).getACall() and
         call.getArgByName("parser") = getPyXMLParser().getAUse() and
         this = call.getArg(0)
       )
