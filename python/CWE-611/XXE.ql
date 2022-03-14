@@ -1,7 +1,7 @@
 /**
  * @name XXE
  * @description XXE
- * @kind problem
+ * @kind path-problem
  * @problem.severity error
  * @security-severity 8.0
  * @sub-severity high
@@ -17,6 +17,7 @@ import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.TaintTracking
 import semmle.python.Concepts
 import semmle.python.ApiGraphs
+import DataFlow::PathGraph
 import github.XXE
 
 class XXEConfiguration extends TaintTracking::Configuration {
