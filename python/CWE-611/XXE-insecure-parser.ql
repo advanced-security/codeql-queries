@@ -1,5 +1,5 @@
 /**
- * @name XXE using Insecure XML Parser
+ * @name XML External Entity (XXE) using Insecure XML Parser
  * @description XML Parser using insecure feature
  * @kind problem
  * @problem.severity error

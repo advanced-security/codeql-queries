@@ -1,6 +1,6 @@
 /**
- * @name XXE
- * @description XXE
+ * @name XML External Entity (XXE)
+ * @description XXE using file / string from remote sources
  * @kind path-problem
  * @problem.severity error
  * @security-severity 8.0
