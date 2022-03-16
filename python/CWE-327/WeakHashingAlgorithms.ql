@@ -14,9 +14,6 @@
 
 import python
 import semmle.python.Concepts
-import semmle.python.dataflow.new.DataFlow
-import semmle.python.dataflow.new.TaintTracking
-import DataFlow::PathGraph
 
 from Cryptography::CryptographicOperation operation, Cryptography::HashingAlgorithm algorithm
 where
