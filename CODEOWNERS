@@ -11,3 +11,6 @@ ruby/* @geekmasher
 # CI / Scripts
 .github/workflows/* @geekmasher
 .github/scripts/* @geekmasher
+
+# Misc
+* @geekmasher
