@@ -2,13 +2,12 @@
  * @name Use of Cryptographically Weak Pseudo-Random Number Generator
  * @description Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG).
  * @kind problem
- * @id py/weak-cryptographic-algorithm
+ * @id py/weak-cryptographic-prng
  * @problem.severity warning
  * @security-severity 6.0
  * @sub-severity medium
  * @precision low
  * @tags security
- *       external/cwe/cwe-330
  *       external/cwe/cwe-338
  */
 
