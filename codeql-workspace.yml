@@ -1,2 +1,2 @@
 provide:
-  - "python/customizations/*/qlpack.yml"
+  - "python/customizations/qlpack.yml"
