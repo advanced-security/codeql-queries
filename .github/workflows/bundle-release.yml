@@ -1,0 +1,35 @@
+name: Release Bundle
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    name: Build and release bundle
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: "advanced-security/codeql-bundle-action"
+          token: ${{ secrets.CODEQL_BUNDLE_TOKEN }}
+          path: "./github/actions/codeql-bundle-action"
+
+      - name: CodeQL bundle
+        id: codeql-bundle
+        uses: ./github/actions/codeql-bundle-action
+        with:
+          packs: "advanced-security/codeql-github-python"
+
+      - name: Bundle release
+        env:
+          BUNDLE_PATH: ${{ steps.codeql-bundle.outputs.bundle-path }}
+          BUNDLE_TAG: ${{ steps.codeql-bundle.outputs.bundle-tag }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view $BUNDLE_TAG; then
+            gh release upload --clobber $BUNDLE_TAG $BUNDLE_PATH
+          else
+            gh release create $BUNDLE_TAG $BUNDLE_PATH --generate-notes
+          fi

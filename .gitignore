@@ -1,3 +1,5 @@
 .cache
+.env
+.venv
 test.ql
 test-*.ql
