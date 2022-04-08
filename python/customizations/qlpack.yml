@@ -1,0 +1,6 @@
+name: advanced-security/codeql-github-python
+version: 0.1.0
+dependencies:
+  codeql/python-all: "*"
+library: true
+extractor: python
