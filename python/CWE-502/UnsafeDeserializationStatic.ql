@@ -9,7 +9,7 @@
  * @id py/unsafe-deserialization
  * @tags external/cwe/cwe-502
  *       security
- *       usage
+ *       static
  */
 
 import python

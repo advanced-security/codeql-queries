@@ -8,7 +8,7 @@
     query path:
       - /^testing\/.*/
     id:
-      - usage
+      - static
 
 - import: codeql-suites/python-security-extended.qls
   from: codeql/python-queries

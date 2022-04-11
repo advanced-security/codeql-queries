@@ -12,7 +12,7 @@
  *       external/cwe/cwe-078
  *       external/cwe/cwe-088
  *       external/owasp/owasp-a1
- *       usage
+ *       static
  */
 
 import python
@@ -24,4 +24,4 @@ from DataFlow::Node sink
 where
   sink = any(SystemCommandExecution e) and
   not sink.getScope().getEnclosingModule().getName() in ["os", "subprocess", "platform", "popen2"]
-select sink, "Usage of "
+select sink, "Usage of command line"

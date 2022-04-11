@@ -13,7 +13,7 @@
  *       external/cwe/cwe-095
  *       external/cwe/cwe-116
  *       external/owasp/owasp-a1
- *       usage
+ *       static
  */
 
 import python
