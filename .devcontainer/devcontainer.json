@@ -1,0 +1,14 @@
+{
+    "extensions": [
+      "github.vscode-codeql"
+    ],
+    "settings": {
+      "codeQL.canary": true,
+      "codeQL.runningQueries.autoSave": true,
+      "codeQL.runningQueries.numberOfThreads": 4,
+      "codeQL.runningQueries.debug": true,
+      "codeQL.telemetry.enableTelemetry": false,
+      "editor.formatOnSave": true
+    },
+    "postCreateCommand": "git submodule init && git submodule update --recursive",
+  }
