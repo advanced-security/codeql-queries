@@ -41,3 +41,4 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           checkout_path: ./tests/${{ matrix.language }}
+          ref: testing
