@@ -5,6 +5,8 @@
 - exclude:
     query path:
       - /^testing\/.*/
+    tags contain:
+      - static
 
 - import: codeql-suites/javascript-security-extended.qls
   from: codeql/javascript-queries

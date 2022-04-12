@@ -14,6 +14,9 @@
       # Crypto
       - java/weak-cryptographic-algorithm
       - java/weak-encryption
+- exclude:
+    tags contain:
+      - static
 
 
 - import: codeql-suites/java-security-extended.qls

@@ -7,7 +7,7 @@
 - exclude:
     query path:
       - /^testing\/.*/
-    id:
+    tags contain:
       - static
 
 - import: codeql-suites/python-security-extended.qls
