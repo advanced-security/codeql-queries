@@ -3,6 +3,8 @@
 
 - description: "GitHub's Field Team CodeQL CSharp extended Suite"
 
+- qlpack: github-queries-csharp
+
 - import: codeql-suites/csharp-security-extended.qls
   from: codeql/csharp-queries
 
