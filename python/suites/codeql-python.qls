@@ -4,6 +4,11 @@
 - description: "GitHub's Field Team Python Extended Suite"
 
 - qlpack: github-queries-python
+- exclude:
+    query path:
+      - /^testing\/.*/
+    id:
+      - static
 
 - import: codeql-suites/python-security-extended.qls
   from: codeql/python-queries
