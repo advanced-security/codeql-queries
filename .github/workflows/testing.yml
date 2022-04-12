@@ -47,5 +47,5 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           checkout_path: ./tests/${{ matrix.language }}
-          ref: testing
+          ref: refs/heads/testing
           sha: ${{ steps.git-info.outputs.sha }}
