@@ -26,6 +26,12 @@ jobs:
           token: ${{ github.token }}
           path: ./tests
 
+      - name: Git Info
+        id: git-info
+        run: |
+          cd ./tests
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
@@ -39,6 +45,7 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
-        with:
+        with:jhn
           checkout_path: ./tests/${{ matrix.language }}
           ref: testing
+          sha: ${{ steps.git-info.outputs.sha }}
