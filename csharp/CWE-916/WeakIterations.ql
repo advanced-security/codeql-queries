@@ -31,7 +31,7 @@ module WeakIterations {
    */
 
   class Hardcoded extends Source {
-    Hardcoded() { this.getExpr().(IntLiteral).getValue().toInt() < 1000 }
+    Hardcoded() { this.getExpr().(IntLiteral).getValue().toInt() < 100000 }
   }
 
   /*
