@@ -1,6 +1,11 @@
 
 - description: "GitHub's Field Team JavaScript/TypeScript extended Suite"
 
+- qlpack: github-queries-javascript
+- exclude:
+    query path:
+      - /^testing\/.*/
+
 - import: codeql-suites/javascript-security-extended.qls
   from: codeql/javascript-queries
 
