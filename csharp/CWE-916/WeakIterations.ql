@@ -1,13 +1,13 @@
 /**
- * @name Hardcoded Salt
- * @description Hardcoded Salt
+ * @name Use of Password Hash With Insufficient Computational Effort
+ * @description Use of Password Hash With Insufficient Computational Effort
  * @kind path-problem
- * @problem.severity error
- * @security-severity 6.1
+ * @problem.severity warning
+ * @security-severity 4.0
  * @precision medium
- * @id cs/hardcoded-salt
+ * @id cs/weak-interations
  * @tags security
- *       external/cwe/cwe-760
+ *       external/cwe/cwe-916
  */
 
 import csharp
