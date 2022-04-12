@@ -1,0 +1,25 @@
+
+- description: "GitHub's Field Team JavaScript/TypeScript Extremely Extended Suite"
+
+- qlpack: github-queries-javascript
+- exclude:
+    query path:
+      - /^testing\/.*/
+
+- import: codeql-suites/javascript-security-and-quality.qls
+  from: codeql/javascript-queries
+
+- queries: '.'
+  from: codeql/javascript-queries
+- include:
+    id:
+      # Cookies
+      - js/insecure-cookie
+      - js/cookie-httponly-not-set
+      # Actions
+      - js/actions/injection
+      - js/actions/pull-request-target
+      # Misc
+      - js/jwt-missing-verification
+      - javascript/ldap-injection
+      - js/missing-postmessageorigin-verification
