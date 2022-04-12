@@ -17,7 +17,7 @@ private import semmle.code.csharp.dataflow.DataFlow::DataFlow::PathGraph
 private import github.hardcoded
 private import github.crypto
 
-module HardcodedSalt {
+module WeakIterations {
   abstract class Source extends DataFlow::ExprNode { }
 
   abstract class Sink extends DataFlow::ExprNode { }
@@ -49,10 +49,10 @@ module HardcodedSalt {
   class TaintTrackingConfiguration extends TaintTracking::Configuration {
     TaintTrackingConfiguration() { this = "WeakInteractions" }
 
-    override predicate isSource(DataFlow::Node source) { source instanceof HardcodedSalt::Source }
+    override predicate isSource(DataFlow::Node source) { source instanceof WeakIterations::Source }
 
     override predicate isSink(DataFlow::Node sink) {
-      sink instanceof HardcodedSalt::Sink and
+      sink instanceof WeakIterations::Sink and
       not any(ReturnedByMockObject mock).getAMemberInitializationValue() = sink.asExpr() and
       not any(ReturnedByMockObject mock).getAnArgument() = sink.asExpr()
     }
@@ -66,7 +66,7 @@ module HardcodedSalt {
 }
 
 from
-  HardcodedSalt::TaintTrackingConfiguration config, DataFlow::PathNode source,
+  WeakIterations::TaintTrackingConfiguration config, DataFlow::PathNode source,
   DataFlow::PathNode sink
 where config.hasFlowPath(source, sink)
 select sink.getNode(), source, sink, "Use of $@.", source.getNode(), "hardcoded weak iterations"
