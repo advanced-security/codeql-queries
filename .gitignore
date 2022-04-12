@@ -1,5 +1,12 @@
-.cache
+# Env's
 .env
 .venv
+
+# CodeQL related
+.codeql
+.cache
+
+# Test files / folders
 test.ql
 test-*.ql
+testing/**
