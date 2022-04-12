@@ -13,7 +13,7 @@
 import csharp
 import github.crypto
 
-from Crypto::SymmetricAlgorithms aglms, PropertyAccess props, Expr expr
+from Crypto::AsymmetricAlgorithms aglms, PropertyAccess props, Expr expr
 where
   aglms.getType().hasName(["DSACryptoServiceProvider", "RSACryptoServiceProvider"]) and
   props.getTarget().getDeclaringType() = aglms.getType() and

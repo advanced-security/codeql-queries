@@ -12,7 +12,7 @@
 import csharp
 import github.crypto
 
-from Crypto::SymmetricAlgorithms aglms, int key_size
+from Crypto::AsymmetricAlgorithms aglms, int key_size
 where
   key_size = aglms.getKeySize() and
   key_size > aglms.maxKeySize()

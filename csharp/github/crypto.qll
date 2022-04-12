@@ -9,7 +9,7 @@ module Crypto {
     abstract DataFlow::ExprNode getIterations();
   }
 
-  class SymmetricAlgorithm extends DataFlow::ExprNode {
+  class AsymmetricAlgorithm extends DataFlow::ExprNode {
     abstract int maxKeySize();
 
     abstract int minKeySize();
@@ -20,7 +20,7 @@ module Crypto {
   // Abstraction classes
   abstract class HashingAlgorithms extends HashingAlgorithm { }
 
-  abstract class SymmetricAlgorithms extends SymmetricAlgorithm { }
+  abstract class AsymmetricAlgorithms extends AsymmetricAlgorithm { }
 
   // Content
   class CryptoRfc2898DeriveBytes extends HashingAlgorithms {
@@ -44,7 +44,7 @@ module Crypto {
     }
   }
 
-  class DSACryptoServiceProvider extends SymmetricAlgorithms {
+  class DSACryptoServiceProvider extends AsymmetricAlgorithms {
     DSACryptoServiceProvider() {
       exists(ObjectCreation object |
         object
@@ -67,7 +67,7 @@ module Crypto {
     }
   }
 
-  class RC2CryptoServiceProvider extends SymmetricAlgorithms {
+  class RC2CryptoServiceProvider extends AsymmetricAlgorithms {
     RC2CryptoServiceProvider() {
       exists(ObjectCreation object |
         object
@@ -90,7 +90,7 @@ module Crypto {
     }
   }
 
-  class RSA extends SymmetricAlgorithms {
+  class RSA extends AsymmetricAlgorithms {
     RSA() {
       exists(ObjectCreation object |
         object
