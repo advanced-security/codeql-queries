@@ -47,7 +47,7 @@ module HardcodedSalt {
    */
 
   class TaintTrackingConfiguration extends TaintTracking::Configuration {
-    TaintTrackingConfiguration() { this = "HardcodedSalt" }
+    TaintTrackingConfiguration() { this = "WeakInteractions" }
 
     override predicate isSource(DataFlow::Node source) { source instanceof HardcodedSalt::Source }
 
@@ -69,4 +69,4 @@ from
   HardcodedSalt::TaintTrackingConfiguration config, DataFlow::PathNode source,
   DataFlow::PathNode sink
 where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "Use of $@.", source.getNode(), "hardcoded salt"
+select sink.getNode(), source, sink, "Use of $@.", source.getNode(), "hardcoded weak iterations"
