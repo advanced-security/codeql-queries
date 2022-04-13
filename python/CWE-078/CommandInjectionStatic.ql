@@ -4,14 +4,15 @@
  *              user to change the meaning of the command.
  * @kind problem
  * @problem.severity warning
- * @security-severity 6.0
- * @sub-severity medium
+ * @security-severity 2.5
+ * @sub-severity low
  * @precision very-low
- * @id py/command-line-injection
+ * @id py/command-line-injection-static
  * @tags security
  *       external/cwe/cwe-078
  *       external/cwe/cwe-088
  *       external/owasp/owasp-a1
+ *       experimental
  *       static
  */
 

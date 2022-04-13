@@ -3,12 +3,13 @@
  * @description Deserializing user-controlled data may allow attackers to execute arbitrary code.
  * @kind problem
  * @problem.severity warning
- * @security-severity 6.0
- * @sub-severity medium
+ * @security-severity 2.5
+ * @sub-severity low
  * @precision very-low
- * @id py/unsafe-deserialization
- * @tags external/cwe/cwe-502
- *       security
+ * @id py/unsafe-deserialization-static
+ * @tags security
+ *       external/cwe/cwe-502
+ *       experimental
  *       static
  */
 
