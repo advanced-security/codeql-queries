@@ -35,16 +35,16 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           config-file: ./config/codeql.yml
-          source-root: ./tests/${{ matrix.language }}
+          # source-root: ./tests/${{ matrix.language }}
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
-        with:
-          working-directory: ./tests/${{ matrix.language }}
+        # with:
+        #   working-directory: ./tests/${{ matrix.language }}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          checkout_path: ./tests/${{ matrix.language }}
+          # checkout_path: ./tests/${{ matrix.language }}
           ref: refs/heads/testing
           sha: ${{ steps.git-info.outputs.sha }}
