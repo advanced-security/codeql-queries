@@ -16,21 +16,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
 
       - name: Install CodeQL
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           gh extension install github/gh-codeql
+          # gh codeql set-channel nightly
           gh codeql pack install
-          gh codeql set-channel nightly
           gh codeql version
 
       - name: Compile Queries
         run: |
-          gh codeql query compile --warnings=error ./${{ matrix.language }}/
-        
-        # gh codeql test run --additional-packs ./ --show-extractor-output ./tests
+          gh codeql query compile --warnings=error --search-path=./codeql:./codeql-go ./${{ matrix.language }}/
+          # gh codeql test run --additional-packs ./ --show-extractor-output ./tests
 
   integration-tests:
     runs-on: ubuntu-latest
