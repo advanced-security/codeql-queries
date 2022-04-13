@@ -22,27 +22,19 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           gh extension install github/gh-codeql
+          gh codeql pack install
           gh codeql set-channel nightly
           gh codeql version
 
       - name: Compile Queries
         run: |
           gh codeql query compile --warnings=error ./${{ matrix.language }}/
-
-  # tests:
-  #   runs-on: ubuntu-latest
-  #   needs: [ compile ]
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Test Queries
-  #       run: |
-  #         codeql test run --additional-packs ./ --show-extractor-output ./tests
+        
+        # gh codeql test run --additional-packs ./ --show-extractor-output ./tests
 
   integration-tests:
     runs-on: ubuntu-latest
-    needs: [ compile ]    # tests
+    needs: [ compile ]
     
     strategy:
       fail-fast: false
