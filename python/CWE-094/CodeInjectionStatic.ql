@@ -2,7 +2,7 @@
  * @name Code injection
  * @description Interpreting unsanitized user input as code allows a malicious user to perform arbitrary
  *              code execution.
- * @kind path-problem
+ * @kind problem
  * @problem.severity warning
  * @security-severity 6.0
  * @sub-severity medium
