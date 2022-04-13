@@ -25,7 +25,6 @@ jobs:
         run: |
           gh extension install github/gh-codeql
           # gh codeql set-channel nightly
-          gh codeql pack install
           gh codeql version
 
       - name: Compile Queries
