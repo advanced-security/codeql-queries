@@ -11,7 +11,6 @@
  */
 
 import csharp
-private import semmle.code.csharp.frameworks.Moq
 private import semmle.code.csharp.dataflow.DataFlow::DataFlow::PathGraph
 private import github.crypto
 

@@ -3,7 +3,7 @@
  * @description Finds uses of encryption algorithms with too small a key size
  * @kind problem
  * @problem.severity warning
- * @security-severity 2.5
+ * @security-severity 1.0
  * @precision high
  * @id cs/encryption-keysize-use-getter
  * @tags security
