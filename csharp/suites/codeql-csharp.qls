@@ -18,6 +18,7 @@
       - cs/webclient-path-injection
       - cs/web/cookie-httponly-not-set
       - cs/web/cookie-secure-not-set
+      - cs/hash-without-salt
       # Backdoor queries
       - cs/backdoor/dangerous-native-functions
       - cs/backdoor/potential-time-bomb
