@@ -1,0 +1,77 @@
+name: Build CodeQL Queries 
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compile Queries
+        run: |
+          codeql query compile --warnings=error ./${{ matrix.language }}/
+
+  # tests:
+  #   runs-on: ubuntu-latest
+  #   needs: [ compile ]
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Test Queries
+  #       run: |
+  #         codeql test run --additional-packs ./ --show-extractor-output ./tests
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: [ tests ]
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        # language: [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
+        language: [ 'javascript', 'python' ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: "advanced-security/codeql-queries"
+          ref: testing
+          token: ${{ github.token }}
+          path: ./tests
+
+      - name: Git Info
+        id: git-info
+        run: |
+          cd ./tests
+          echo ::set-output name=sha::$(git rev-parse HEAD)
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./config/codeql.yml
+          # source-root: ./tests/${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+        # with:
+        #   working-directory: ./tests/${{ matrix.language }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          # checkout_path: ./tests/${{ matrix.language }}
+          ref: refs/heads/testing
+          sha: ${{ steps.git-info.outputs.sha }}
