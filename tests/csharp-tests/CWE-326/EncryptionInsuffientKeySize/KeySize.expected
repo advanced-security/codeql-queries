@@ -1,0 +1,4 @@
+| KeySize.cs:22:20:22:49 | object creation of type RSACryptoServiceProvider | Key size 1024 is to small (min: 2048) |
+| KeySize.cs:23:20:23:53 | object creation of type RSACryptoServiceProvider | Key size 1024 is to small (min: 2048) |
+| KeySize.cs:36:22:36:33 | object creation of type RSACng | Key size 1024 is to small (min: 2048) |
+| KeySize.cs:37:23:37:38 | object creation of type RSACng | Key size 1024 is to small (min: 2048) |

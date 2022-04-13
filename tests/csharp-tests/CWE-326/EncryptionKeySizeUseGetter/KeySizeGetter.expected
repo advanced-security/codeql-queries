@@ -1,0 +1,2 @@
+| KeySizeGetter.cs:13:24:13:27 | 2048 | Cannot use Getter to set key size |
+| KeySizeGetter.cs:17:24:17:27 | 2048 | Cannot use Getter to set key size |
