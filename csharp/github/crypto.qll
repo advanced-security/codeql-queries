@@ -11,6 +11,12 @@ module Crypto {
     abstract DataFlow::ExprNode getIterations();
   }
 
+  class HMacSigningAlgorithm extends DataFlow::ExprNode {
+    abstract string algorithm();
+
+    abstract DataFlow::ExprNode key();
+  }
+
   class AsymmetricAlgorithm extends DataFlow::ExprNode {
     abstract int maxKeySize();
 
@@ -21,6 +27,8 @@ module Crypto {
 
   // Abstraction classes
   abstract class HashingAlgorithms extends HashingAlgorithm { }
+
+  abstract class HMacSigningAlgorithms extends HMacSigningAlgorithm { }
 
   abstract class AsymmetricAlgorithms extends AsymmetricAlgorithm { }
 
@@ -136,6 +144,26 @@ module Crypto {
         or
         result = this.asExpr().(MethodCall).getArgument(0).getValue().toInt()
       )
+    }
+  }
+
+  class HMac extends HMacSigningAlgorithms {
+    HMac() {
+      exists(ObjectCreation object |
+        object
+            .getType()
+            .hasQualifiedName("System.Security.Cryptography",
+              ["HMACMD5", "HMACSHA1", "HMACSHA256", "HMACSHA384", "HMACSHA512", "HMACRIPEMD160"]) and
+        this.asExpr() = object
+      )
+    }
+
+    override string algorithm() {
+      result = this.getType().getName().toUpperCase().replaceAll("HMAC", "")
+    }
+
+    override DataFlow::ExprNode key() {
+      result.asExpr() = this.asExpr().(ObjectCreation).getArgument(0)
     }
   }
 }
