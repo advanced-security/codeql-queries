@@ -11,8 +11,7 @@
  */
 
 import csharp
-private import semmle.code.csharp.dataflow.DataFlow::DataFlow::PathGraph
-private import github.crypto
+import github.crypto
 
 from Crypto::HMacSigningAlgorithms algorithms
 where algorithms.algorithm() = ["MD5", "SHA1"]
