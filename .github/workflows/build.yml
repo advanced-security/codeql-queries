@@ -27,7 +27,7 @@ jobs:
 
       - name: Compile Queries
         run: |
-          codeql query compile --warnings=error ./${{ matrix.language }}/
+          gh codeql query compile --warnings=error ./${{ matrix.language }}/
 
   # tests:
   #   runs-on: ubuntu-latest
