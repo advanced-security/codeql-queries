@@ -17,6 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install CodeQL
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+          gh codeql set-channel nightly
+          gh codeql version
+
       - name: Compile Queries
         run: |
           codeql query compile --warnings=error ./${{ matrix.language }}/
