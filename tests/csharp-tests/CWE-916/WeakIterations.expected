@@ -1,0 +1,6 @@
+edges
+nodes
+| Test.cs:19:62:19:65 | 1000 | semmle.label | 1000 |
+subpaths
+#select
+| Test.cs:19:62:19:65 | 1000 | Test.cs:19:62:19:65 | 1000 | Test.cs:19:62:19:65 | 1000 | Use of $@. | Test.cs:19:62:19:65 | 1000 | hardcoded weak iterations |
