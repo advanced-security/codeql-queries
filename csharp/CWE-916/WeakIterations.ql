@@ -47,7 +47,7 @@ module WeakIterations {
    */
 
   class TaintTrackingConfiguration extends TaintTracking::Configuration {
-    TaintTrackingConfiguration() { this = "WeakInteractions" }
+    TaintTrackingConfiguration() { this = "WeakIteration" }
 
     override predicate isSource(DataFlow::Node source) { source instanceof WeakIterations::Source }
 

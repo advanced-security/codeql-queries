@@ -1,6 +1,10 @@
 edges
+| Test.cs:24:27:24:30 | 1000 : Int32 | Test.cs:25:66:25:76 | access to local variable interations |
 nodes
-| Test.cs:19:62:19:65 | 1000 | semmle.label | 1000 |
+| Test.cs:21:66:21:69 | 1000 | semmle.label | 1000 |
+| Test.cs:24:27:24:30 | 1000 : Int32 | semmle.label | 1000 : Int32 |
+| Test.cs:25:66:25:76 | access to local variable interations | semmle.label | access to local variable interations |
 subpaths
 #select
-| Test.cs:19:62:19:65 | 1000 | Test.cs:19:62:19:65 | 1000 | Test.cs:19:62:19:65 | 1000 | Use of $@. | Test.cs:19:62:19:65 | 1000 | hardcoded weak iterations |
+| Test.cs:21:66:21:69 | 1000 | Test.cs:21:66:21:69 | 1000 | Test.cs:21:66:21:69 | 1000 | Use of $@. | Test.cs:21:66:21:69 | 1000 | hardcoded weak iterations |
+| Test.cs:25:66:25:76 | access to local variable interations | Test.cs:24:27:24:30 | 1000 : Int32 | Test.cs:25:66:25:76 | access to local variable interations | Use of $@. | Test.cs:24:27:24:30 | 1000 | hardcoded weak iterations |
