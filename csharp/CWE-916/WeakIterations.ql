@@ -5,7 +5,7 @@
  * @problem.severity warning
  * @security-severity 4.0
  * @precision medium
- * @id cs/weak-interations
+ * @id cs/weak-hash-algorithms-iterations
  * @tags security
  *       external/cwe/cwe-916
  */
@@ -32,6 +32,17 @@ module WeakIterations {
 
   class Hardcoded extends Source {
     Hardcoded() { this.getExpr().(IntLiteral).getValue().toInt() < 100000 }
+  }
+
+  class DefaultSettings extends Source {
+    // TODO: This needs to be FAR better
+    DefaultSettings() {
+      exists(Crypto::HashingAlgorithms hash |
+        hash.getExpr().(ObjectCreation).getNumberOfArguments() <= 2 and
+        hash.defaultIterations() < 10000 and
+        this.asExpr() = hash.getExpr()
+      )
+    }
   }
 
   /*

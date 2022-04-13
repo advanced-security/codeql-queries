@@ -6,6 +6,8 @@ module Crypto {
 
     abstract DataFlow::ExprNode getSalt();
 
+    abstract int defaultIterations();
+
     abstract DataFlow::ExprNode getIterations();
   }
 
@@ -39,8 +41,16 @@ module Crypto {
       result.asExpr() = this.asExpr().(ObjectCreation).getArgument(1)
     }
 
+    override int defaultIterations() { result = 1000 }
+
     override DataFlow::ExprNode getIterations() {
       result.asExpr() = this.asExpr().(ObjectCreation).getArgument(2)
+      or
+      // TODO: It this the best way? We need a better way of determinding
+      // iterations isn't set.
+      this.getExpr().(ObjectCreation).getNumberOfArguments() <= 2 and
+      this.defaultIterations() < 100000 and
+      result.asExpr() = this.getExpr()
     }
   }
 
