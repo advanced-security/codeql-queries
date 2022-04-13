@@ -34,12 +34,11 @@ jobs:
 
   integration-tests:
     runs-on: ubuntu-latest
-    needs: [ tests ]
+    needs: [ compile ]    # tests
     
     strategy:
       fail-fast: false
       matrix:
-        # language: [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         language: [ 'javascript', 'python' ]
 
     steps:
