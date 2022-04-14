@@ -1,6 +1,6 @@
 /**
- * @name Weak encryption: Insufficient key size
- * @description Finds uses of encryption algorithms with too small a key size
+ * @name Weak encryption: Key size is too large for algorithm
+ * @description Finds uses of encryption algorithms with too large of a key size
  * @kind problem
  * @problem.severity warning
  * @security-severity 1.0

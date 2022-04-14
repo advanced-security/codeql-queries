@@ -1,6 +1,6 @@
 /**
- * @name Weak encryption: Insufficient key size
- * @description Finds uses of encryption algorithms with too small a key size
+ * @name Weak encryption: Key size set using a Getter and failing to set key size
+ * @description Finds uses of encryption algorithms using a Getter and not setting the size of the key
  * @kind problem
  * @problem.severity warning
  * @security-severity 1.0
