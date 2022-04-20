@@ -37,9 +37,20 @@ class CommandLineArgumentsSources extends LocalSources {
         // ...
         // arguments = parser.parse_args()
         // v = arguments.t     # user input
-        // TODO: This doesn't work but needs supported
-        call = API::moduleImport("argparse").getMember("ArgumentParser").getAUse()
+        call =
+          API::moduleImport("argparse")
+              .getMember("ArgumentParser")
+              .getACall()
+              .getAMethodCall("parse_args")
+        or
+        call =
+          API::moduleImport("argparse")
+              .getMember("ArgumentParser")
+              .getACall()
+              .getAMethodCall("parse_args")
+              .getAnAttributeRead()
       ) and
+      call.getScope().inSource() and
       this = call
     )
   }
