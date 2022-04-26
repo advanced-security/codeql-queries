@@ -20,6 +20,7 @@ class STDInputSources extends LocalSources {
         // https://docs.python.org/3/library/fileinput.html
         call = API::moduleImport("fileinput").getMember("input").getACall()
       ) and
+      call.getScope().inSource() and
       this = call
     )
   }
@@ -68,6 +69,7 @@ class EnviromentVariablesSources extends LocalSources {
         // os.environ.get('abc')
         call = API::moduleImport("os").getMember("environ").getAUse()
       ) and
+      call.getScope().inSource() and
       this = call
     )
   }
@@ -80,11 +82,12 @@ class FileReadSource extends LocalSources {
       (
         // https://docs.python.org/3/library/functions.html#open
         // var = open('abc.txt')
-        call = API::builtin("open").getACall()
+        call = API::builtin("open").getACall().getAMethodCall("read")
         or
         // https://docs.python.org/3/library/os.html#os.open
-        call = API::moduleImport("os").getMember("open").getACall()
+        call = API::moduleImport("os").getMember(["open", "read"]).getACall()
       ) and
+      call.getScope().inSource() and
       this = call
     )
   }
