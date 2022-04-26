@@ -54,7 +54,7 @@ class CustomUnsafeDeserializationSinks extends UnsafeDeserialization::Sink {
 class UnsafeDeserializationConfiguration extends TaintTracking::Configuration {
   UnsafeDeserializationConfiguration() { this = "UnsafeDeserializationConfiguration" }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources }
+  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
   override predicate isSink(DataFlow::Node sink) {
     exists(Decoding d |
