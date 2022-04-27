@@ -1,0 +1,8 @@
+name: github-queries-python-tests
+groups: [python, test]
+dependencies:
+  codeql/python-all: "*"
+  github-queries-python: "*"
+
+extractor: python
+tests: .
