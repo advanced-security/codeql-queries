@@ -1,0 +1,8 @@
+name: github-queries-go-tests
+groups: [go, test]
+dependencies:
+  codeql/go-all: "*"
+  github-queries-go: "*"
+
+extractor: go
+tests: .
