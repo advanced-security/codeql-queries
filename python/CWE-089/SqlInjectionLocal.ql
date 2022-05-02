@@ -28,7 +28,7 @@ import github.LocalSources
 class SQLInjectionConfiguration extends TaintTracking::Configuration {
   SQLInjectionConfiguration() { this = "LocalSQLInjectionConfiguration" }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources }
+  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
   override predicate isSink(DataFlow::Node sink) { sink = any(SqlExecution e).getSql() }
 

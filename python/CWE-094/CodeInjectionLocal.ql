@@ -31,7 +31,7 @@ import github.LocalSources
 class CodeInjectionConfiguration extends TaintTracking::Configuration {
   CodeInjectionConfiguration() { this = "CodeInjectionConfiguration" }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources }
+  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
   override predicate isSink(DataFlow::Node sink) { sink = any(CodeExecution e).getCode() }
 

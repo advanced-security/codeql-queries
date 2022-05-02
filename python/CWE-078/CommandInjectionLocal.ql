@@ -28,7 +28,7 @@ import github.LocalSources
 class CommandInjectionConfiguration extends TaintTracking::Configuration {
   CommandInjectionConfiguration() { this = "LocalCommandInjectionConfiguration" }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources }
+  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
   override predicate isSink(DataFlow::Node sink) {
     sink = any(SystemCommandExecution e).getCommand() and
