@@ -1,7 +1,11 @@
-import go
-import semmle.go.dataflow.DataFlow
-import semmle.go.dataflow.TaintTracking
-import semmle.go.Scopes
+private import go
+
+module LocalSources {
+  private import semmle.go.dataflow.DataFlow
+  private import semmle.go.dataflow.TaintTracking
+  private import semmle.go.Scopes
+  
+  abstract class Range extends DataFlow::Node { }
 
 // ========== Sources ==========
 
@@ -24,7 +28,7 @@ abstract class Sources extends DataFlow::Node { }
 
 // ----------------------------------------------------
 
-class OsCmd extends Sources {
+class OsCmd extends LocalSources::Range {
   OsCmd() {
     exists ( ValueEntity read, 
       DataFlow::Package pkg | 
@@ -34,7 +38,7 @@ class OsCmd extends Sources {
   }
 }
 
-class OsExec extends Sources {
+class OsExec extends LocalSources::Range {
   OsExec() {
     exists ( ValueEntity read, 
              DataFlow::Package pkg | 
@@ -44,7 +48,7 @@ class OsExec extends Sources {
   }
 }
 
-class OsArgs extends Sources { 
+class OsArgs extends LocalSources::Range { 
   OsArgs() {
     exists ( ValueEntity read, 
              DataFlow::Package pkg | 
@@ -66,7 +70,7 @@ class OsArgs extends Sources {
 //}
 
   // https://pkg.go.dev/flag
-class Flag extends Sources {
+class Flag extends LocalSources::Range {
     Flag() {
       exists ( ValueEntity read, 
                DataFlow::Package pkg | 
@@ -76,4 +80,5 @@ class Flag extends Sources {
                or this.toString() = "selection of Parse" )
       )
     }
+}
 }
