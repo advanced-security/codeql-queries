@@ -15,8 +15,6 @@
 import javascript
 private import semmle.javascript.security.dataflow.XssThroughDomCustomizations
 private import semmle.javascript.security.dataflow.DomBasedXssCustomizations
-// for JQuery Guards
-private import semmle.javascript.security.dataflow.UnsafeJQueryPluginCustomizations::UnsafeJQueryPlugin as UnsafeJQuery
 private import semmle.javascript.security.dataflow.Xss::Shared as Shared
 import DataFlow::PathGraph
 
@@ -33,12 +31,6 @@ class XssConfiguration extends TaintTracking::Configuration {
   override predicate isSanitizer(DataFlow::Node node) {
     super.isSanitizer(node) or
     node instanceof DomBasedXss::Sanitizer
-  }
-
-  override predicate isSanitizerGuard(TaintTracking::SanitizerGuardNode guard) {
-    guard instanceof UnsafeJQuery::PropertyPresenceSanitizer or
-    guard instanceof UnsafeJQuery::NumberGuard
-    // TODO: additional guards might be needed
   }
 }
 
