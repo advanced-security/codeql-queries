@@ -23,7 +23,7 @@ import github.LocalSources
 class SafeSAXSourceFlowConfig extends TaintTracking2::Configuration {
   SafeSAXSourceFlowConfig() { this = "XmlParsers::SafeSAXSourceFlowConfig" }
 
-  override predicate isSource(DataFlow::Node src) { src.asExpr() instanceof SafeSAXSource }
+  override predicate isSource(DataFlow::Node src) { src.asExpr() instanceof SafeSaxSource }
 
   override predicate isSink(DataFlow::Node sink) {
     sink.asExpr() = any(XmlParserCall parse).getSink()
