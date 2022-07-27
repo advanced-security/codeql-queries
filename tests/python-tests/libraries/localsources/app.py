@@ -31,3 +31,12 @@ with open("/etc/passwd") as f:
 
 f2 = os.open("/etc/passwd", os.O_RDONLY)
 i10 = os.read(f2, 1024)
+
+
+# False Positives
+
+import tempfile
+
+t1 = tempfile.gettempdir()
+t2 = tempfile.mkdtemp()
+
