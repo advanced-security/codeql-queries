@@ -12,3 +12,5 @@
 test.ql
 test-*.ql
 testing/**
+*/*.testproj/*
+*/test-output.txt

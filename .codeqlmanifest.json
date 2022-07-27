@@ -5,7 +5,9 @@
     "codeql-go/*/ql/src/qlpack.yml",
     "codeql-go/*/ql/lib/qlpack.yml",
     "*/qlpack.yml",
-    "*/customizations/qlpack.yml"
+    "*/customizations/qlpack.yml",
+    "go/qlpack.yml",
+    "tests/go-tests/qlpack.yml"
   ],
   "versionPolicies": {
     "default": {
