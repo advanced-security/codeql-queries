@@ -80,20 +80,16 @@ module LocalSources {
   class FileReadSource extends LocalSources::Range {
     FileReadSource() {
       // exists(StrConst literal | this = DataFlow::exprNode(literal))
-      (
-        exists(DataFlow::Node call |
-          (
-            // https://docs.python.org/3/library/functions.html#open
-            // var = open('abc.txt')
-            call = API::builtin("open").getACall().getAMethodCall("read")
-            or
-            // https://docs.python.org/3/library/os.html#os.read
-            call = API::moduleImport("os").getMember(["read"]).getACall()
-          ) and
-          this = call
-        )
-        or
-        this instanceof FileSystemAccess::Range
+      exists(DataFlow::Node call |
+        (
+          // https://docs.python.org/3/library/functions.html#open
+          // var = open('abc.txt')
+          call = API::builtin("open").getACall().getAMethodCall("read")
+          or
+          // https://docs.python.org/3/library/os.html#os.read
+          call = API::moduleImport("os").getMember(["read"]).getACall()
+        ) and
+        this = call
       ) and
       this.getScope().inSource()
     }

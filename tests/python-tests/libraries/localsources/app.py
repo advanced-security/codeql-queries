@@ -39,4 +39,3 @@ import tempfile
 
 t1 = tempfile.gettempdir()
 t2 = tempfile.mkdtemp()
-
