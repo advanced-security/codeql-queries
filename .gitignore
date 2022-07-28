@@ -11,6 +11,6 @@
 # Test files / folders
 test.ql
 test-*.ql
-testing/**
-*/*.testproj/*
+**/testing/**
+**/*.testproj/*
 */test-output.txt
