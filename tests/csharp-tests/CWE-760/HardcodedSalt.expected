@@ -1,0 +1,18 @@
+edges
+| Test.cs:13:16:13:55 | call to method GetBytes : Byte[] | Test.cs:14:49:14:52 | access to local variable salt |
+| Test.cs:13:39:13:54 | "Hardcoded Salt" : String | Test.cs:13:16:13:55 | call to method GetBytes : Byte[] |
+| Test.cs:23:12:23:28 | "Hardcoded Salt2" : String | Test.cs:29:39:29:63 | call to method generateSalt : String |
+| Test.cs:29:16:29:64 | call to method GetBytes : Byte[] | Test.cs:30:49:30:52 | access to local variable salt |
+| Test.cs:29:39:29:63 | call to method generateSalt : String | Test.cs:29:16:29:64 | call to method GetBytes : Byte[] |
+nodes
+| Test.cs:13:16:13:55 | call to method GetBytes : Byte[] | semmle.label | call to method GetBytes : Byte[] |
+| Test.cs:13:39:13:54 | "Hardcoded Salt" : String | semmle.label | "Hardcoded Salt" : String |
+| Test.cs:14:49:14:52 | access to local variable salt | semmle.label | access to local variable salt |
+| Test.cs:23:12:23:28 | "Hardcoded Salt2" : String | semmle.label | "Hardcoded Salt2" : String |
+| Test.cs:29:16:29:64 | call to method GetBytes : Byte[] | semmle.label | call to method GetBytes : Byte[] |
+| Test.cs:29:39:29:63 | call to method generateSalt : String | semmle.label | call to method generateSalt : String |
+| Test.cs:30:49:30:52 | access to local variable salt | semmle.label | access to local variable salt |
+subpaths
+#select
+| Test.cs:14:49:14:52 | access to local variable salt | Test.cs:13:39:13:54 | "Hardcoded Salt" : String | Test.cs:14:49:14:52 | access to local variable salt | Use of $@. | Test.cs:13:39:13:54 | "Hardcoded Salt" | hardcoded salt |
+| Test.cs:30:49:30:52 | access to local variable salt | Test.cs:23:12:23:28 | "Hardcoded Salt2" : String | Test.cs:30:49:30:52 | access to local variable salt | Use of $@. | Test.cs:23:12:23:28 | "Hardcoded Salt2" | hardcoded salt |

@@ -1,0 +1,1 @@
+| KeySizeLarge.cs:12:20:12:53 | object creation of type DSACryptoServiceProvider | Key size 2042 is to large for algorithm (max: 1024) |

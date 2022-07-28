@@ -3,6 +3,11 @@
 
 - description: "GitHub's Field Team CodeQL CSharp extended Suite"
 
+- qlpack: github-queries-csharp
+- exclude:
+    tags contain:
+      - static
+
 - import: codeql-suites/csharp-security-extended.qls
   from: codeql/csharp-queries
 
@@ -13,6 +18,7 @@
       - cs/webclient-path-injection
       - cs/web/cookie-httponly-not-set
       - cs/web/cookie-secure-not-set
+      - cs/hash-without-salt
       # Backdoor queries
       - cs/backdoor/dangerous-native-functions
       - cs/backdoor/potential-time-bomb

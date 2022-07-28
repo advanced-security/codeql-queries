@@ -1,0 +1,8 @@
+name: github-queries-csharp-tests
+groups: [csharp, test]
+dependencies:
+  codeql/csharp-all: "*"
+  github-queries-csharp: "*"
+
+extractor: csharp
+tests: .
