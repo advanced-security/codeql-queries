@@ -62,7 +62,22 @@ class FlaskCredentialSink extends CredentialSink {
   }
 }
 
-// TODO: Django support
+class DjangoCredentialSink extends CredentialSink {
+  DjangoCredentialSink() {
+    // Check Django import is present
+    exists(API::moduleImport("django")) and
+    exists(AssignStmt stmt |
+      // Check is the SECRET_KEY is in the a settings.py file
+      // Removed "settings/develop.py"
+      stmt.getLocation().getFile().getBaseName() = ["settings.py", "settings/production.py"] and
+      (
+        stmt.getATarget().toString() = "SECRET_KEY" and
+        this.asExpr() = stmt.getValue()
+      )
+    )
+  }
+}
+
 // =========================
 // Databases
 // =========================
@@ -75,7 +90,12 @@ class MySqlSink extends CredentialSink {
 
 class AsyncpgSink extends CredentialSink {
   AsyncpgSink() {
-    this = API::moduleImport("asyncpg").getMember("connect").getACall().getArgByName("password")
+    this = API::moduleImport("asyncpg").getMember("connect").getACall().getArgByName("password") or
+    this =
+      API::moduleImport("asyncpg.connection")
+          .getMember("Connection")
+          .getACall()
+          .getArgByName("password")
   }
 }
 
