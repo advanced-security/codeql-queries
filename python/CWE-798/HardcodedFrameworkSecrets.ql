@@ -32,7 +32,9 @@ class HardcodedFrameworkSecrets extends TaintTracking::Configuration {
 
   override predicate isSource(DataFlow::Node source) { source instanceof HardcodedValue }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof CredentialSink }
+  override predicate isSink(DataFlow::Node sink) {
+    sink instanceof CredentialSink and sink.getScope().inSource()
+  }
 }
 
 from HardcodedFrameworkSecrets config, DataFlow::PathNode source, DataFlow::PathNode sink
