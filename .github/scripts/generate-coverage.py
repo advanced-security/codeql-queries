@@ -30,6 +30,7 @@ default_suite_order = [
     "quality",
     "local-variants",
     "super-extended",
+    "extremely-extended"
 ]
 default_suites = {
     "default": {
@@ -54,6 +55,10 @@ default_suites = {
     "super-extended": {
         "name": "Security Extended with Experimental and Custom Queries Suite",
         "path": "{language}/suites/codeql-{language}.qls",
+    },
+    "extremely-extended": {
+        "name": "Extremely Extended with Experimental, Static, and Custom Queries Suite",
+        "path": "{language}/suites/codeql-{language}-all.qls",
     },
 }
 

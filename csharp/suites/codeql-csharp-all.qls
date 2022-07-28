@@ -1,0 +1,36 @@
+#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
+#   for additional ways to exclude queries
+
+- description: "GitHub's Field Team CodeQL CSharp Extremely Extended Suite"
+
+- qlpack: github-queries-csharp
+
+- import: codeql-suites/csharp-security-and-quality.qls
+  from: codeql/csharp-queries
+
+- queries: '.'
+  from: codeql/csharp-queries
+- include:
+    id:
+      - cs/webclient-path-injection
+      - cs/web/cookie-httponly-not-set
+      - cs/web/cookie-secure-not-set
+      # Backdoor queries
+      - cs/backdoor/dangerous-native-functions
+      - cs/backdoor/potential-time-bomb
+      - cs/backdoor/process-name-to-hash-function
+      # Serialization
+      - cs/dataset-serialization/defining-potentially-unsafe-xml-serializer
+      - cs/dataset-serialization/unsafe-type-used-data-contract-serializer
+      - cs/dataset-serialization/xml-deserialization-with-dataset
+      # Solorigate
+      - cs/solorigate/modified-fnv-function-detection
+      - cs/solorigate/number-of-known-commands-in-enum-above-threshold
+      - cs/solorigate/number-of-known-hashes-above-threshold
+      - cs/solorigate/number-of-known-literals-above-threshold
+      - cs/solorigate/number-of-known-method-names-above-threshold
+      - cs/solorigate/swallow-everything-exception
+
+      # Static
+      - cs/unsafe-deserialization
+      - cs/insecure-xml-read

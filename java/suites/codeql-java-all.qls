@@ -1,27 +1,14 @@
 #   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
 #   for additional ways to exclude queries
 
-- description: "GitHub's Field Team Java extended Suite"
+- description: "GitHub's Field Team Java Extremely Extended Suite"
 
 - qlpack: github-queries-java
-- include:
-    id:
-      # Support JSP
-      - java/custom-xss
-      # Sensitive Information
-      - java/sensitive-information-logging
-      - java/hardcoded-password-field
-      # Crypto
-      - java/weak-cryptographic-algorithm
-      - java/weak-encryption
 - exclude:
     query path:
       - /^testing\/.*/
-    tags contain:
-      - static
 
-
-- import: codeql-suites/java-security-extended.qls
+- import: codeql-suites/java-security-and-quality.qls
   from: codeql/java-queries
 
 - queries: '.'
