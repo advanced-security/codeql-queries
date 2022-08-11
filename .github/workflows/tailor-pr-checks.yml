@@ -1,0 +1,35 @@
+name: "Tailor Pull Request Checks"
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tailor-packs/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tailor-packs/**'
+
+jobs:
+  build-test:
+    name: Build and Test CodeQL Packs
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        pack: [ 'java-poc' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build and Test
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+         gh extensions install github/gh-codeql
+         gh extensions install zbazztian/gh-tailor
+         gh codeql set-version "v$(gh tailor actions-cli-version)"
+         cd "tailor-packs/${{ matrix.pack }}"
+         make test
