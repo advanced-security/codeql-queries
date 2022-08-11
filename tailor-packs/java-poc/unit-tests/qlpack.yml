@@ -1,0 +1,8 @@
+dependencies:
+  advanced-security/poc-java-queries: '*'
+extractor: java
+groups:
+- java
+- test
+name: advanced-security/poc-java-queries-tests
+tests: .

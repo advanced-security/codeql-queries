@@ -1,0 +1,10 @@
+{
+    "java": [
+        "spring-projects/spring-data-jpa",
+        "spring-projects/spring-data-commons",
+        "jhy/jsoup",
+        "apache/commons-exec",
+        "asciidoctor/asciidoctorj",
+        "flyway/flyway"
+    ]
+}
