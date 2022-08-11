@@ -1,0 +1,12 @@
+edges
+| Test.java:10:18:10:45 | getParameter(...) : String | Test.java:11:11:11:15 | taint : String |
+| Test.java:11:11:11:15 | taint : String | Test.java:11:11:11:48 | replace(...) : String |
+| Test.java:11:11:11:48 | replace(...) : String | Test.java:12:30:12:41 | ... + ... |
+nodes
+| Test.java:10:18:10:45 | getParameter(...) : String | semmle.label | getParameter(...) : String |
+| Test.java:11:11:11:15 | taint : String | semmle.label | taint : String |
+| Test.java:11:11:11:48 | replace(...) : String | semmle.label | replace(...) : String |
+| Test.java:12:30:12:41 | ... + ... | semmle.label | ... + ... |
+subpaths
+#select
+| Test.java:12:30:12:41 | ... + ... | Test.java:10:18:10:45 | getParameter(...) : String | Test.java:12:30:12:41 | ... + ... | Cross-site scripting vulnerability due to $@. | Test.java:10:18:10:45 | getParameter(...) | user-provided value |
