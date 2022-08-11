@@ -1,0 +1,30 @@
+name: "Periodically Publish Tailor Packs"
+
+on:
+  schedule:
+    - cron: '0 20 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  build-test-publish:
+    name: Build, Test and Publish CodeQL Packs
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        pack: [ 'java-poc' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build, Test and Publish
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+         gh extensions install github/gh-codeql
+         gh extensions install zbazztian/gh-tailor
+         gh codeql set-version "v$(gh tailor actions-cli-version)"
+         cd "tailor-packs/${{ matrix.pack }}"
+         make publish
