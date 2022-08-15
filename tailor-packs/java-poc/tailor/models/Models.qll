@@ -1,0 +1,8 @@
+import ApacheCommonsExecGenerated
+import AsciidoctorAsciidoctorjGenerated
+import FlywayFlywayGenerated
+import JdkManual
+import JhyJsoupGenerated
+import SpringProjectsSpringDataCommonsGenerated
+import SpringProjectsSpringDataJpaGenerated
+import SpringProjectsSpringDataJpaManual

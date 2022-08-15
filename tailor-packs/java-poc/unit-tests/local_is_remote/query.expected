@@ -1,0 +1,10 @@
+edges
+| Test.java:9:18:9:38 | getHostName(...) : String | Test.java:12:25:12:28 | temp |
+nodes
+| Test.java:9:18:9:38 | getHostName(...) : String | semmle.label | getHostName(...) : String |
+| Test.java:12:25:12:28 | temp | semmle.label | temp |
+| Test.java:15:49:15:69 | getenv(...) | semmle.label | getenv(...) |
+subpaths
+#select
+| Test.java:12:16:12:29 | new File(...) | Test.java:9:18:9:38 | getHostName(...) : String | Test.java:12:25:12:28 | temp | $@ flows to here and is used in a path. | Test.java:9:18:9:38 | getHostName(...) | User-provided value |
+| Test.java:15:16:15:70 | getPath(...) | Test.java:15:49:15:69 | getenv(...) | Test.java:15:49:15:69 | getenv(...) | $@ flows to here and is used in a path. | Test.java:15:49:15:69 | getenv(...) | User-provided value |

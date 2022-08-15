@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+gh tailor \
+  set-pack-meta \
+  --name "advanced-security/poc-java-queries" \
+  --version "0.0.0" \
+  --default-suite "codeql-suites/java-code-scanning.qls" \
+  stage
+
+# inject query suites
+cp suites/* stage/codeql-suites/
+
+# bump the XSS query's severity
+gh tailor \
+  set-ql-meta \
+  -m "security-severity" "9.0" \
+  "stage/Security/CWE/CWE-079/XSS.ql"
+
+# inject customizations into selected queries...
+cp -r tailor stage/
+
+find stage/Security -name '*.ql' -type f -print0 \
+  | xargs -0 gh tailor ql-import -m "tailor.Customizations"
