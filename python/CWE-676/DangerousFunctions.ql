@@ -21,7 +21,7 @@ class Telnet extends DangerousFunctions {
   Telnet() {
     exists(DataFlow::Node call |
       // https://docs.python.org/3/library/telnetlib.html
-      call = API::moduleImport("telnetlib").getMember("Telnet").getAUse() and
+      call = API::moduleImport("telnetlib").getMember("Telnet").getAValueReachableFromSource() and
       this = call
     )
   }
@@ -33,9 +33,9 @@ class Ftp extends DangerousFunctions {
     exists(DataFlow::Node call |
       (
         // https://docs.python.org/3/library/ftplib.html
-        call = API::moduleImport("ftplib").getMember("FTP").getAUse()
+        call = API::moduleImport("ftplib").getMember("FTP").getAValueReachableFromSource()
         or
-        call = API::moduleImport("ftplib").getMember("FTP_TLS").getAUse()
+        call = API::moduleImport("ftplib").getMember("FTP_TLS").getAValueReachableFromSource()
       ) and
       this = call
     )

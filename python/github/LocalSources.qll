@@ -34,7 +34,7 @@ module LocalSources {
       exists(DataFlow::Node call |
         (
           // v = sys.args[1]
-          call = API::moduleImport("sys").getMember("argv").getAUse()
+          call = API::moduleImport("sys").getMember("argv").getAValueReachableFromSource()
           or
           // parser = argparse.ArgumentParser(__name__)
           // ...
@@ -68,7 +68,7 @@ module LocalSources {
           or
           // os.environ['abc']
           // os.environ.get('abc')
-          call = API::moduleImport("os").getMember("environ").getAUse()
+          call = API::moduleImport("os").getMember("environ").getAValueReachableFromSource()
         ) and
         call.getScope().inSource() and
         this = call

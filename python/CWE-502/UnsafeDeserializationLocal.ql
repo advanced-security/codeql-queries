@@ -56,15 +56,10 @@ class UnsafeDeserializationConfiguration extends TaintTracking::Configuration {
 
   override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSink(DataFlow::Node sink) {
-    exists(Decoding d |
-      d.mayExecuteInput() and
-      sink = d.getAnInput()
-    )
-  }
+  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeDeserialization::Sink }
 
-  override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) {
-    guard instanceof StringConstCompare
+  override predicate isSanitizer(DataFlow::Node node) {
+    node instanceof UnsafeDeserialization::Sanitizer
   }
 }
 

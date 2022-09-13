@@ -24,6 +24,7 @@ import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
 import DataFlow::PathGraph
 import github.LocalSources
+private import semmle.python.security.dataflow.CodeInjectionCustomizations
 
 /**
  * A taint-tracking configuration for detecting code injection vulnerabilities.
@@ -33,11 +34,9 @@ class CodeInjectionConfiguration extends TaintTracking::Configuration {
 
   override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSink(DataFlow::Node sink) { sink = any(CodeExecution e).getCode() }
+  override predicate isSink(DataFlow::Node sink) { sink instanceof CodeInjection::Sink }
 
-  override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) {
-    guard instanceof StringConstCompare
-  }
+  override predicate isSanitizer(DataFlow::Node node) { node instanceof CodeInjection::Sanitizer }
 }
 
 from CodeInjectionConfiguration config, DataFlow::PathNode source, DataFlow::PathNode sink
