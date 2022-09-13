@@ -20,7 +20,8 @@
 import python
 import semmle.python.Concepts
 import semmle.python.ApiGraphs
+private import semmle.python.security.dataflow.CodeInjectionCustomizations
 
 from DataFlow::Node sink
-where sink = any(CodeExecution e)
+where sink instanceof CodeInjection::Sink
 select sink, "Usage of Code Execution function"

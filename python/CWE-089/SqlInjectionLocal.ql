@@ -21,6 +21,7 @@ import semmle.python.Concepts
 import semmle.python.dataflow.new.BarrierGuards
 import DataFlow::PathGraph
 import github.LocalSources
+private import semmle.python.security.dataflow.SqlInjectionCustomizations
 
 /**
  * A taint-tracking configuration for detecting SQL injection vulnerabilities.
@@ -30,11 +31,9 @@ class SQLInjectionConfiguration extends TaintTracking::Configuration {
 
   override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSink(DataFlow::Node sink) { sink = any(SqlExecution e).getSql() }
+  override predicate isSink(DataFlow::Node sink) { sink instanceof SqlInjection::Sink }
 
-  override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) {
-    guard instanceof StringConstCompare
-  }
+  override predicate isSanitizer(DataFlow::Node node) { node instanceof SqlInjection::Sanitizer }
 }
 
 from SQLInjectionConfiguration config, DataFlow::PathNode source, DataFlow::PathNode sink
