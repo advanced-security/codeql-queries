@@ -29,5 +29,6 @@ where
     digest = calls.getArgByName("digest") or
     digest = calls.getArg(2)
   ) and
-  digest.asExpr() = API::moduleImport("hashlib").getMember(["md5", "sha1"]).getAUse().asExpr()
+  digest.asExpr() =
+    API::moduleImport("hashlib").getMember(["md5", "sha1"]).getAValueReachableFromSource().asExpr()
 select calls.asExpr(), "Weak HMAC Algorithm"
