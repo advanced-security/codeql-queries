@@ -40,12 +40,11 @@ Expr getAnyAssignStmtByKey(string key) { result = getAssignStmtByKey(any(AssignS
 class FlaskCredentialSink extends CredentialSink {
   FlaskCredentialSink() {
     exists(API::Node node |
-      exists(AssignStmt stmt |
+      exists(DataFlow::AttrWrite write |
         // app = flask.Flask(__name__)
         // app.secret_key = VALUE
-        node = Flask::FlaskApp::instance().getMember("secret_key") and
-        stmt = node.getAUse().asExpr().getParentNode() and
-        this = DataFlow::exprNode(stmt.getValue())
+        write.accesses(Flask::FlaskApp::instance().getAValueReachableFromSource(), "secret_key") and
+        this = write.getValue()
       )
       or
       exists(Expr assign, AssignStmt stmt |
@@ -84,7 +83,11 @@ class DjangoCredentialSink extends CredentialSink {
 class MySqlSink extends CredentialSink {
   MySqlSink() {
     this =
-      API::moduleImport("mysql.connector").getMember("connect").getACall().getArgByName("password")
+      API::moduleImport("mysql")
+          .getMember("connector")
+          .getMember("connect")
+          .getACall()
+          .getArgByName("password")
   }
 }
 
@@ -92,7 +95,8 @@ class AsyncpgSink extends CredentialSink {
   AsyncpgSink() {
     this = API::moduleImport("asyncpg").getMember("connect").getACall().getArgByName("password") or
     this =
-      API::moduleImport("asyncpg.connection")
+      API::moduleImport("asyncpg")
+          .getMember("connection")
           .getMember("Connection")
           .getACall()
           .getArgByName("password")
@@ -128,13 +132,15 @@ class AioredisSink extends CredentialSink {
           .getArgByName("password")
     or
     this =
-      API::moduleImport("aioredis.sentinel")
+      API::moduleImport("aioredis")
+          .getMember("sentinel")
           .getMember("create_sentinel")
           .getACall()
           .getArgByName("password")
     or
     this =
-      API::moduleImport("aioredis.sentinel")
+      API::moduleImport("aioredis")
+          .getMember("sentinel")
           .getMember("create_sentinel_pool")
           .getACall()
           .getArgByName("password")
@@ -148,7 +154,12 @@ class RequestsSink extends CredentialSink {
   RequestsSink() {
     // from requests.auth import HTTPBasicAuth
     // auth = HTTPBasicAuth('user', 'mysecretpassword')
-    this = API::moduleImport("requests.auth").getMember("HTTPBasicAuth").getACall().getArg(1)
+    this =
+      API::moduleImport("requests")
+          .getMember("auth")
+          .getMember("HTTPBasicAuth")
+          .getACall()
+          .getArg(1)
   }
 }
 
