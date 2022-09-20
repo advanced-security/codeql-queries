@@ -18,9 +18,9 @@ import semmle.code.java.dataflow.TaintTracking2
 import DataFlow::PathGraph
 import semmle.code.java.security.HardcodedCredentials
 // Internal
-import github.Base64
+import github.Encoding
 
-class HardcodedPasswordBase64 extends DataFlow::Configuration {
+class HardcodedPasswordBase64 extends TaintTracking::Configuration {
   HardcodedPasswordBase64() { this = "HardcodedPasswordBase64" }
 
   override predicate isSource(DataFlow::Node source) {
@@ -30,7 +30,7 @@ class HardcodedPasswordBase64 extends DataFlow::Configuration {
 
   override predicate isSink(DataFlow::Node sink) { sink instanceof Base64::Decoding }
 
-  override predicate isAdditionalFlowStep(DataFlow::Node node1, DataFlow::Node node2) {
+  override predicate isAdditionalTaintStep(DataFlow::Node node1, DataFlow::Node node2) {
     // String.getBytes()
     node1.asExpr().getType() instanceof TypeString and
     exists(MethodAccess ma | ma.getMethod().hasName(["getBytes", "toCharArray"]) |
