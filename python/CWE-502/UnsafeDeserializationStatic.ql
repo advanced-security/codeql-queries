@@ -18,6 +18,6 @@ import semmle.python.Concepts
 import semmle.python.ApiGraphs
 private import semmle.python.security.dataflow.UnsafeDeserializationCustomizations
 
-from DataFlow::Node sink, Decoding d
-where sink instanceof UnsafeDeserialization::Sink
+from DataFlow::Node sink
+where sink instanceof UnsafeDeserialization::Sink and sink.getScope().inSource()
 select sink, "Usage of Deserializing function"
