@@ -16,7 +16,7 @@ module Base64 {
             .hasQualifiedName([
                 "java.util", "cn.hutool.core.codec", "org.apache.shiro.codec",
                 "apache.commons.codec.binary", "org.springframework.util"
-              ], ["Base64$Encoder", "Base64$Decoder", "Base64", "Base64Utils"],
+              ], ["Base64$Encoder", "Base64", "Base64Utils"],
               [
                 "encode", "encodeToString", "encodeBase64", "encodeBase64Chunked",
                 "encodeBase64String", "encodeBase64URLSafe", "encodeBase64URLSafeString"
@@ -34,8 +34,7 @@ module Base64 {
             .hasQualifiedName([
                 "java.util", "cn.hutool.core.codec", "org.apache.shiro.codec",
                 "apache.commons.codec.binary", "org.springframework.util"
-              ], ["Base64$Encoder", "Base64$Decoder", "Base64", "Base64Utils"],
-              ["decode", "decodeBase64"])
+              ], ["Base64$Decoder", "Base64", "Base64Utils"], ["decode", "decodeBase64"])
       |
         this.asExpr() = ma.getArgument(0)
       )
