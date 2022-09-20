@@ -1,0 +1,8 @@
+name: github-queries-java-tests
+groups: [java, test]
+dependencies:
+  codeql/java-all: "*"
+  github-queries-java: "*"
+
+extractor: java
+tests: .

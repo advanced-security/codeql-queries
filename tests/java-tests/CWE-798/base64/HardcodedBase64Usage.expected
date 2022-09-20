@@ -1,0 +1,26 @@
+edges
+| HardcodedPasswordBase64.java:4:26:4:28 | KEY : String | HardcodedPasswordBase64.java:9:58:9:66 | MyApp.KEY |
+| HardcodedPasswordBase64.java:4:26:4:28 | KEY : String | HardcodedPasswordBase64.java:31:22:31:30 | MyApp.KEY : String |
+| HardcodedPasswordBase64.java:4:32:4:49 | "VGVzdFBhc3N3b3Jk" : String | HardcodedPasswordBase64.java:4:26:4:28 | KEY : String |
+| HardcodedPasswordBase64.java:5:26:5:29 | KEY2 : byte[] | HardcodedPasswordBase64.java:16:58:16:67 | MyApp.KEY2 |
+| HardcodedPasswordBase64.java:5:26:5:29 | KEY2 : byte[] | HardcodedPasswordBase64.java:23:22:23:31 | MyApp.KEY2 : byte[] |
+| HardcodedPasswordBase64.java:5:33:6:17 | new byte[] : byte[] | HardcodedPasswordBase64.java:5:26:5:29 | KEY2 : byte[] |
+| HardcodedPasswordBase64.java:23:22:23:31 | MyApp.KEY2 : byte[] | HardcodedPasswordBase64.java:24:58:24:60 | key |
+| HardcodedPasswordBase64.java:31:22:31:30 | MyApp.KEY : String | HardcodedPasswordBase64.java:32:58:32:60 | key |
+nodes
+| HardcodedPasswordBase64.java:4:26:4:28 | KEY : String | semmle.label | KEY : String |
+| HardcodedPasswordBase64.java:4:32:4:49 | "VGVzdFBhc3N3b3Jk" : String | semmle.label | "VGVzdFBhc3N3b3Jk" : String |
+| HardcodedPasswordBase64.java:5:26:5:29 | KEY2 : byte[] | semmle.label | KEY2 : byte[] |
+| HardcodedPasswordBase64.java:5:33:6:17 | new byte[] : byte[] | semmle.label | new byte[] : byte[] |
+| HardcodedPasswordBase64.java:9:58:9:66 | MyApp.KEY | semmle.label | MyApp.KEY |
+| HardcodedPasswordBase64.java:16:58:16:67 | MyApp.KEY2 | semmle.label | MyApp.KEY2 |
+| HardcodedPasswordBase64.java:23:22:23:31 | MyApp.KEY2 : byte[] | semmle.label | MyApp.KEY2 : byte[] |
+| HardcodedPasswordBase64.java:24:58:24:60 | key | semmle.label | key |
+| HardcodedPasswordBase64.java:31:22:31:30 | MyApp.KEY : String | semmle.label | MyApp.KEY : String |
+| HardcodedPasswordBase64.java:32:58:32:60 | key | semmle.label | key |
+subpaths
+#select
+| HardcodedPasswordBase64.java:9:58:9:66 | MyApp.KEY | HardcodedPasswordBase64.java:4:32:4:49 | "VGVzdFBhc3N3b3Jk" : String | HardcodedPasswordBase64.java:9:58:9:66 | MyApp.KEY | Sensative data is being logged $@. | HardcodedPasswordBase64.java:4:32:4:49 | "VGVzdFBhc3N3b3Jk" | user-provided value |
+| HardcodedPasswordBase64.java:16:58:16:67 | MyApp.KEY2 | HardcodedPasswordBase64.java:5:33:6:17 | new byte[] : byte[] | HardcodedPasswordBase64.java:16:58:16:67 | MyApp.KEY2 | Sensative data is being logged $@. | HardcodedPasswordBase64.java:5:33:6:17 | new byte[] | user-provided value |
+| HardcodedPasswordBase64.java:24:58:24:60 | key | HardcodedPasswordBase64.java:5:33:6:17 | new byte[] : byte[] | HardcodedPasswordBase64.java:24:58:24:60 | key | Sensative data is being logged $@. | HardcodedPasswordBase64.java:5:33:6:17 | new byte[] | user-provided value |
+| HardcodedPasswordBase64.java:32:58:32:60 | key | HardcodedPasswordBase64.java:4:32:4:49 | "VGVzdFBhc3N3b3Jk" : String | HardcodedPasswordBase64.java:32:58:32:60 | key | Sensative data is being logged $@. | HardcodedPasswordBase64.java:4:32:4:49 | "VGVzdFBhc3N3b3Jk" | user-provided value |
