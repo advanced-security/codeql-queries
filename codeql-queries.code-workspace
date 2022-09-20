@@ -29,12 +29,12 @@
             "path": "ruby"
         },
         {
-            "name": "CodeQL - Query Languages",
-            "path": "codeql"
+            "name": "Tests",
+            "path": "tests"
         },
         {
-            "name": "CodeQL - GoLang Query Language",
-            "path": "codeql-go"
+            "name": "CodeQL - Query Languages",
+            "path": "codeql"
         }
     ],
     "settings": {
@@ -43,6 +43,7 @@
         "codeQL.runningQueries.memory": 8192,
         "codeQL.runningQueries.numberOfThreads": 4,
         "codeQL.runningQueries.debug": true,
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true
     }
 }
