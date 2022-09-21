@@ -1,13 +1,5 @@
 {
   "name": "advanced-security/codeql-queries",
-  "image": "ghcr.io/nickliffen/csenv:main",
-  "runArgs": [
-    "--init",
-    "--privileged"
-  ],
-  "mounts": [
-    "source=dind-var-lib-docker,target=/var/lib/docker,type=volume"
-  ],
   "extensions": [
     "github.vscode-codeql",
     "github.copilot",
