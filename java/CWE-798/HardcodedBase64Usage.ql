@@ -29,22 +29,6 @@ class HardcodedPasswordBase64 extends TaintTracking::Configuration {
   }
 
   override predicate isSink(DataFlow::Node sink) { sink instanceof Base64::Decoding }
-
-  override predicate isAdditionalTaintStep(DataFlow::Node node1, DataFlow::Node node2) {
-    // String.getBytes()
-    node1.asExpr().getType() instanceof TypeString and
-    exists(MethodAccess ma | ma.getMethod().hasName(["getBytes", "toCharArray"]) |
-      node2.asExpr() = ma and
-      ma.getQualifier() = node1.asExpr()
-    )
-    or
-    // byte[].toString()
-    node1.asExpr().getType() instanceof Array and
-    exists(MethodAccess ma | ma.getMethod().hasName(["toString"]) |
-      node2.asExpr() = ma and
-      ma.getQualifier() = node1.asExpr()
-    )
-  }
 }
 
 // ========== Query ==========

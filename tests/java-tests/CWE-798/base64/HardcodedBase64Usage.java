@@ -20,7 +20,7 @@ class MyApp {
     }
 
     public String getDecoderConvertString() {
-        String key = MyApp.KEY2.toString();
+        String key = new String(MyApp.KEY2);
         byte[] decodedBytes = Base64.getDecoder().decode(key);
 
         String decodedString = new String(decodedBytes);
