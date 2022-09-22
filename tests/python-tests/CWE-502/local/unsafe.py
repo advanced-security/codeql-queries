@@ -7,7 +7,7 @@ i = input()
 pickle.loads(i)
 
 # > Local Environment Variables
-e = pickle.dumps(os.environ.get('LOCAL_DATA'))
+e = os.environ.get('LOCAL_DATA')
 
 pickle.loads(e)
 
