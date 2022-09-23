@@ -44,7 +44,7 @@ class FlaskCredentialSink extends CredentialSink {
         // app = flask.Flask(__name__)
         // app.secret_key = VALUE
         node = Flask::FlaskApp::instance().getMember("secret_key") and
-        stmt = node.getAUse().asExpr().getParentNode() and
+        stmt = node.getAValueReachableFromSource().asExpr().getParentNode() and
         this = DataFlow::exprNode(stmt.getValue())
       )
       or

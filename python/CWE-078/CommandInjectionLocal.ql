@@ -23,20 +23,20 @@ import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
 import DataFlow::PathGraph
 import github.LocalSources
+private import semmle.python.security.dataflow.CommandInjectionCustomizations
 
-// ========== Configuration ==========
+/**
+ * This configuration is used to find local command injection vulnerabilities.
+ */
 class CommandInjectionConfiguration extends TaintTracking::Configuration {
   CommandInjectionConfiguration() { this = "LocalCommandInjectionConfiguration" }
 
   override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSink(DataFlow::Node sink) {
-    sink = any(SystemCommandExecution e).getCommand() and
-    not sink.getScope().getEnclosingModule().getName() in ["os", "subprocess", "platform", "popen2"]
-  }
+  override predicate isSink(DataFlow::Node sink) { sink instanceof CommandInjection::Sink }
 
-  override predicate isSanitizerGuard(DataFlow::BarrierGuard guard) {
-    guard instanceof StringConstCompare
+  override predicate isSanitizer(DataFlow::Node node) {
+    node instanceof CommandInjection::Sanitizer
   }
 }
 

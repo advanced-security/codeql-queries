@@ -20,9 +20,8 @@ import python
 import semmle.python.Concepts
 import semmle.python.ApiGraphs
 import semmle.python.dataflow.new.BarrierGuards
+private import semmle.python.security.dataflow.CommandInjectionCustomizations
 
 from DataFlow::Node sink
-where
-  sink = any(SystemCommandExecution e) and
-  not sink.getScope().getEnclosingModule().getName() in ["os", "subprocess", "platform", "popen2"]
+where sink instanceof CommandInjection::Sink
 select sink, "Usage of command line"
