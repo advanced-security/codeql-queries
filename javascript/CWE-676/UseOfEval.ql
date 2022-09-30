@@ -2,7 +2,7 @@
  * @name Using JS Eval
  * @description Usage of eval in JavaScript / TypeScript can be dangerous
  * @kind problem
- * @problem.severity notes
+ * @problem.severity recommendation
  * @security-severity 2.0
  * @id js/using-eval
  * @tags maintainability
