@@ -3,8 +3,8 @@
  * @description Mass assignment is a vulnerability that allows an attacker to
  *             modify multiple attributes of a model at once.
  * @kind path-problem
- * @problem.severity error
- * @security-severity 8.0
+ * @problem.severity warning
+ * @security-severity 2.0
  * @precision high
  * @sub-severity high
  * @id py/mass-assignment
@@ -20,13 +20,14 @@ import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
 import DataFlow::PathGraph
-// GitHub Field lib
+// New libs
 import github.MassAssignment
+import github.LocalSources
 
 class MassAssignmentConfig extends TaintTracking::Configuration {
   MassAssignmentConfig() { this = "Mass Assignment Config" }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource::Range }
+  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
   override predicate isSink(DataFlow::Node sink) { sink instanceof MassAssignment::Sinks }
 

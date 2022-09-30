@@ -8,6 +8,10 @@ class Users(object):
     username: str
     password: str
 
+    def set(self, key: str, vaule: str):
+        # codeql: py/mass-assignment
+        self.__setattr__(key, vaule)
+
 
 @app.route("/test1")
 def test1():
@@ -20,6 +24,9 @@ def test1():
     
     # codeql: py/mass-assignment
     user.__setattr__(request.args.get("k"), request.args.get("v"))
+    
+    # Issue in the `set()` function
+    user.set(request.args.get("k"), request.args.get("v"))
 
     # false-positive: variable isn't user controlled
     setattr(user, "uid", request.args.get("uid"))
