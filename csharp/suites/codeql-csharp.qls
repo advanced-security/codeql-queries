@@ -10,17 +10,23 @@
   from: codeql/csharp-queries
 - include:
     id:
+      # Web
       - cs/webclient-path-injection
       - cs/web/cookie-httponly-not-set
       - cs/web/cookie-secure-not-set
+      # Json
+      - cs/json-webtoken-handler/security-validations-disabled
+      
       # Backdoor queries
       - cs/backdoor/dangerous-native-functions
       - cs/backdoor/potential-time-bomb
       - cs/backdoor/process-name-to-hash-function
+
       # Serialization
       - cs/dataset-serialization/defining-potentially-unsafe-xml-serializer
       - cs/dataset-serialization/unsafe-type-used-data-contract-serializer
       - cs/dataset-serialization/xml-deserialization-with-dataset
+
       # Solorigate
       - cs/solorigate/modified-fnv-function-detection
       - cs/solorigate/number-of-known-commands-in-enum-above-threshold
