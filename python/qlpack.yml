@@ -1,3 +1,4 @@
 name: github-queries-python
 version: 0.1.0
-libraryPathDependencies: codeql-python
+dependencies:
+  codeql/python-queries: "*"
