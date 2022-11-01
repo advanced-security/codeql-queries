@@ -1,4 +1,4 @@
-name: Build CodeQL Queries 
+java/hardcoded-base64name: Build CodeQL Queries 
 
 on:
   pull_request:
