@@ -26,10 +26,12 @@ jobs:
           gh extension install github/gh-codeql
           # gh codeql set-channel nightly
           gh codeql version
+          # Install the CodeQL Pack
+          gh codeql pack download "codeql/${{ matrix.language }}-queries"
 
       - name: Compile Queries
         run: |
-          gh codeql query compile --warnings=error --search-path=./codeql:./codeql-${{ matrix.language }} ./${{ matrix.language }}/
+          gh codeql query compile --warnings=error --search-path=./codeql ./${{ matrix.language }}/
           
       - name: Test Queries
         run: |
