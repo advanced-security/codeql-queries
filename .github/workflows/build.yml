@@ -21,9 +21,9 @@ jobs:
 
       - name: Debug Checkout
         run: |
-        ls ./codeql
-        find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/python-queries" {} \;
-        find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/suite-helpers" {} \;
+          ls ./codeql
+          find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/python-queries" {} \;
+          find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/suite-helpers" {} \;
 
       - name: Install CodeQL
         env:
