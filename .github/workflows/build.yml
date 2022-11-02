@@ -22,8 +22,8 @@ jobs:
       - name: Debug Checkout
         run: |
           ls ./codeql
-          find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/python-queries" {} \;
-          find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/suite-helpers" {} \;
+          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/python-queries" {} \;
+          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/suite-helpers" {} \;
 
       - name: Install CodeQL
         env:
