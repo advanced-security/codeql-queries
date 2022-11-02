@@ -21,8 +21,11 @@ jobs:
 
       - name: Debug Checkout
         run: |
-          ls ./codeql
-          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/python-queries" {} \;
+          echo "codeql/${{ matrix.language }}-queries:"
+          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/${{ matrix.language }}-queries" {} \;
+          echo "codeql/${{ matrix.language }}-all:"
+          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/${{ matrix.language }}-all" {} \;
+          echo "codeql/suite-helpers:"
           find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/suite-helpers" {} \;
 
       - name: Install CodeQL
