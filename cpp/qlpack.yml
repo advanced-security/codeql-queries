@@ -1,3 +1,4 @@
 name: github-queries-cpp
 version: 0.0.0
-libraryPathDependencies: codeql-cpp
+dependencies:
+  codeql/cpp-queries: "*"

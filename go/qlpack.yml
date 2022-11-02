@@ -1,3 +1,4 @@
 name: github-queries-go
 version: 0.1.0
-libraryPathDependencies: codeql-go
+dependencies:
+  codeql/go-queries: "*"
