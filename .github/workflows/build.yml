@@ -19,6 +19,12 @@ jobs:
         with:
           submodules: true
 
+      - name: Debug Checkout
+        run: |
+        ls ./codeql
+        find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/python-queries" {} \;
+        find ./codeql -type f -name "*.ql" -exec grep -L "name: codeql/suite-helpers" {} \;
+
       - name: Install CodeQL
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -31,7 +37,7 @@ jobs:
 
       - name: Compile Queries
         run: |
-          gh codeql query compile --warnings=error --search-path=./codeql ./${{ matrix.language }}/
+          gh codeql query compile --warnings=error --search-path=./codeql --additional-packs=$HOME/.codeql/:$HOME/.local/share/gh/extensions/gh-codeql/dist/release ./${{ matrix.language }}/
           
       - name: Test Queries
         run: |
