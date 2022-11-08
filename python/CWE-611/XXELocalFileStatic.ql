@@ -15,7 +15,6 @@
 
 private import python
 private import semmle.python.dataflow.new.DataFlow
-private import semmle.python.dataflow.new.TaintTracking
 private import XXELocalLib
 
 from DataFlow::Node source, DataFlow::Node sink
