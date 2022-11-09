@@ -72,34 +72,34 @@ class LocalUserInput extends DataFlow::Node {
   }
 }
 
-class UnsafeStringXxeSink extends DataFlow::ExprNode {
-  UnsafeStringXxeSink() {
+class UnsafeStringXmlSink extends DataFlow::ExprNode {
+  UnsafeStringXmlSink() {
     exists(XmlParseStringCall parse |
       parse.getSink() = this
     )
   }
 }
 
-class UnsafeFileXxeSink extends DataFlow::ExprNode {
-  UnsafeFileXxeSink() {
+class UnsafeFileXmlSink extends DataFlow::ExprNode {
+  UnsafeFileXmlSink() {
     exists(XmlParseFileCall parse |
       parse.getSink() = this
     )
   }
 }
 
-class XxeStringConfig extends TaintTracking::Configuration {
-  XxeStringConfig() { this = "XXELocal::XxeStringConfig" }
+class XmlStringConfig extends TaintTracking::Configuration {
+  XmlStringConfig() { this = "XMLLocal::XmlStringConfig" }
 
   override predicate isSource(DataFlow::Node src) { src instanceof LocalUserInput }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeStringXxeSink }
+  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeStringXmlSink }
 }
 
-class XxeFileConfig extends TaintTracking::Configuration {
-  XxeFileConfig() { this = "XXELocal::XxeFileConfig" }
+class XmlFileConfig extends TaintTracking::Configuration {
+  XmlFileConfig() { this = "XMLLocal::XmlFileConfig" }
 
   override predicate isSource(DataFlow::Node src) { src instanceof LocalUserInput }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeFileXxeSink }
+  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeFileXmlSink }
 }
