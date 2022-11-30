@@ -7,6 +7,7 @@
  * @precision low
  * @tags format-string
  *       python
+ *       security
  *       external/cwe/cwe-134
  *       external/cwe/cwe-133
  */
