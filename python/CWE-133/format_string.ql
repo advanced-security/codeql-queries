@@ -19,4 +19,4 @@ private import format_string
 
 from DataFlow::PathNode userdata, DataFlow::PathNode format_string, FormatStringTaintConfiguration format_string_config
 where format_string_config.hasFlowPath(userdata, format_string)
-select format_string.getNode(), userdata, format_string, "Untrusted data used as format string: $@.", userdata.getNode(), userdata.toString()
+select format_string.getNode(), userdata, format_string, "$@ used as format string: $@.", userdata.getNode(), "Untrusted data", format_string, format_string.getNode().asExpr().toString()
