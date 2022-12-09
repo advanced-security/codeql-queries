@@ -11,6 +11,7 @@
  * @tags security
  *       external/cwe/cwe-089
  *       external/owasp/owasp-a1
+ *       audit
  *       heuristic
  */
 
@@ -21,7 +22,6 @@ import semmle.python.Concepts
 import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
 import DataFlow::PathGraph
-import github.LocalSources
 private import semmle.python.security.dataflow.SqlInjectionCustomizations
 
 class DatabaseExtentions extends DataFlow::Node {
