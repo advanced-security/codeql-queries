@@ -21,6 +21,7 @@ private import semmle.python.dataflow.new.internal.DataFlowDispatchPointsTo
 private import semmle.python.dataflow.new.RemoteFlowSources
 private import semmle.python.dataflow.new.TaintTracking
 private import semmle.python.Concepts
+private import semmle.python.types.Builtins
 private import semmle.python.dataflow.new.BarrierGuards
 private import DataFlow::PathGraph
 private import semmle.python.security.dataflow.SqlInjectionCustomizations
@@ -29,6 +30,8 @@ private import github.LocalSources
 class UnknownExternalInput extends DataFlow::Node {
   UnknownExternalInput() {
     parameterInUnknownExternalFunction(_, this)
+    or
+    callToUnknownExternalFunction(this)
   }
 }
 
@@ -41,6 +44,25 @@ predicate parameterInUnknownExternalFunction(DataFlowCallable function, LocalSou
     and not node instanceof LocalSources::Range
     // and it isn't a method on a Class
     and not function.getScope().getScope() instanceof ClassScope
+}
+
+predicate callToUnknownExternalFunction(DataFlow::Node node) {
+  exists(CallNode callnode|
+    callnode = node.asCfgNode() and
+    callnode.getScope().inSource()
+    // the target function isn't defined in the source, and it isn't a builtin
+    and not exists(CallableValue function|
+      callnode = function.getACall()
+      and
+      (
+        function.getScope().inSource()
+        or
+        function.isBuiltin()
+      )
+    )
+  )
+  and not node instanceof RemoteFlowSource
+  and not node instanceof LocalSources::Range
 }
 
 /**
