@@ -3,10 +3,9 @@
  * @description Building a SQL query from user-controlled sources is vulnerable to insertion of
  *              malicious SQL code by the user.
  * @kind path-problem
- * @problem.severity warning
- * @security-severity 4.0
- * @sub-severity low
- * @precision low
+ * @problem.severity error
+ * @security-severity 8.8
+ * @precision high
  * @id py/sql-injection
  * @tags security
  *       external/cwe/cwe-089
