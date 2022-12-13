@@ -4,7 +4,6 @@
  * @kind problem
  * @problem.severity error
  * @security-severity 3.0
- * @precision high
  * @id js/reflected-xss
  * @tags security
  *       heuristic
@@ -14,7 +13,7 @@
 
 import javascript
 private import semmle.javascript.security.dataflow.DomBasedXssCustomizations
-import DataFlow::PathGraph
 
-from DomBasedXss::DangerouslySetInnerHtmlSink sink
-select sink.asExpr(), "React's dangerouslySetInnerHTML is being used."
+from DataFlow::Node sink
+where sink instanceof DomBasedXss::DangerouslySetInnerHtmlSink
+select sink, "React's dangerouslySetInnerHTML is being used."
