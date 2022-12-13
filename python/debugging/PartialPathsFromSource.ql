@@ -24,7 +24,7 @@ import github.LocalSources
 // Bring in the CommandInjection config
 private import semmle.python.security.dataflow.CommandInjectionCustomizations
 
-// Parcial Graph
+// Partial Graph
 class RemoteFlows extends TaintTracking::Configuration {
   RemoteFlows() { this = "Partial Paths from Source" }
 
