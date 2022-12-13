@@ -1,6 +1,10 @@
 /**
  * @name Partial Path Query from Sink
  * @kind path-problem
+ * @problem.severity warning
+ * @security-severity 1.0
+ * @sub-severity low
+ * @precision low
  * @id py/debugging/partial-path-from-sink
  * @tags debugging
  */

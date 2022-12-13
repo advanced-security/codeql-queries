@@ -1,12 +1,11 @@
 /**
  * @name Partial Path Query from Source
- * @description Partial Path Query from Source
  * @kind path-problem
- * @problem.severity error
- * @security-severity 10.0
- * @precision high
- * @sub-severity high
- * @id py/debugging/partial-sql-injection
+ * @problem.severity warning
+ * @security-severity 1.0
+ * @sub-severity low
+ * @precision low
+ * @id py/debugging/partial-path-from-source
  * @tags debugging
  */
 
