@@ -30,7 +30,7 @@ class ManualSinks extends DataFlow::Node {
   ManualSinks() { this = API::moduleImport("any").getMember("any").getACall() }
 }
 
-// Parcial Graph
+// Partial Graph
 class RemoteFlows extends TaintTracking::Configuration {
   RemoteFlows() { this = "Partial Paths from Sinks" }
 
