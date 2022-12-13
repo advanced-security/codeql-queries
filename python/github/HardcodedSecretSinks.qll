@@ -40,11 +40,12 @@ Expr getAnyAssignStmtByKey(string key) { result = getAssignStmtByKey(any(AssignS
 class FlaskCredentialSink extends CredentialSink {
   FlaskCredentialSink() {
     exists(API::Node node |
-      exists(DataFlow::AttrWrite write |
+      exists(AssignStmt stmt |
         // app = flask.Flask(__name__)
         // app.secret_key = VALUE
-        write.accesses(Flask::FlaskApp::instance().getAValueReachableFromSource(), "secret_key") and
-        this = write.getValue()
+        node = Flask::FlaskApp::instance().getMember("secret_key") and
+        stmt = node.getAValueReachableFromSource().asExpr().getParentNode() and
+        this = DataFlow::exprNode(stmt.getValue())
       )
       or
       exists(Expr assign, AssignStmt stmt |
