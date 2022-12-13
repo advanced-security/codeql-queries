@@ -1,6 +1,6 @@
 /**
- * @name Partial Path Query
- * @description Partial Path Query
+ * @name Partial Path Query from Source
+ * @description Partial Path Query from Source
  * @kind path-problem
  * @problem.severity error
  * @security-severity 10.0
