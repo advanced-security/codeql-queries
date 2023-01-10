@@ -1,0 +1,49 @@
+# Use with caution ⚠️ experimental queries are not assured for performance or false positives
+
+# Use in a CodeQL workflow
+# e.g. use from where it is or copy to `./.github/codeql/java-experimental-security.qls`
+# then alter the workflow to look like:
+#
+#    # Initializes the CodeQL tools for scanning.
+#    - name: Initialize CodeQL
+#      uses: github/codeql-action/init@v2
+#      with:
+#        languages: [cpp]
+#        queries: security-extended,advanced-security/codeql-queries/cpp/suites/cpp-security-experimental.qls
+#        # or
+#        queries: security-extended,./.github/codeql/cpp-experimental-security.qls
+
+- description: "C/C++ experimental security queries"
+- qlpack: codeql/cpp-queries
+
+- queries: '.'
+  from: codeql/cpp-queries
+
+- include:
+    kind:
+    - problem
+    - path-problem
+    - alert
+    - path-alert
+    tags contain:
+    - security
+    query path:
+      - /experimental\/.*/
+
+- include:
+    kind:
+    - diagnostic
+- include:
+    kind:
+    - metric
+    tags contain:
+    - summary
+
+- exclude:
+    deprecated: //
+- exclude:
+    query path:
+      - /Diagnostics/.*/
+- exclude:
+    tags contain:
+      - model-generator
