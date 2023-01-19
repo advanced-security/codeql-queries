@@ -7,8 +7,10 @@
 - exclude:
     query path:
       - /^testing\/.*/
+      - /^debugging\/.*/
     tags contain:
       - static
+      - debugging
 
 - import: codeql-suites/python-security-extended.qls
   from: codeql/python-queries
