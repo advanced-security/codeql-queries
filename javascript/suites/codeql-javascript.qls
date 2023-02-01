@@ -2,26 +2,29 @@
 - description: "GitHub's Field Team JavaScript/TypeScript extended Suite"
 
 - qlpack: github-queries-javascript
-- exclude:
-    query path:
-      - /^testing\/.*/
-    tags contain:
-      - static
 
 - import: codeql-suites/javascript-security-extended.qls
   from: codeql/javascript-queries
 
+# Remove debugging, and audit queries
+- exclude:
+    tags contain:
+      - debugging
+      - audit
+
+# Include Experimental queries
 - queries: '.'
   from: codeql/javascript-queries
 - include:
-    id:
-      # Cookies
-      - js/insecure-cookie
-      - js/cookie-httponly-not-set
-      # Actions
-      - js/actions/injection
-      - js/actions/pull-request-target
-      # Misc
-      - js/jwt-missing-verification
-      - javascript/ldap-injection
-      - js/missing-postmessageorigin-verification
+    query path:
+      - /experimental\/.*/
+
+- exclude:
+    deprecated: //
+- exclude:
+    query path:
+      - Metrics/Summaries/FrameworkCoverage.ql
+      - /Diagnostics/Internal/.*/
+- exclude:
+    tags contain:
+      - model-generator
