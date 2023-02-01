@@ -15,4 +15,4 @@ private import semmle.javascript.security.dataflow.UnsafeDeserializationCustomiz
 
 from DataFlow::Node sink
 where sink instanceof UnsafeDeserialization::Sink
-select sink, "Command Injection sink"
+select sink, "Unsafe Deserialization sink"
