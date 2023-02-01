@@ -46,7 +46,7 @@ jobs:
         run: |
           for suite in ./${{ matrix.language }}/suites/*.qls ; do
             echo " >> $suite"
-            codeql resolve queries \
+            gh codeql resolve queries \
               --search-path=./codeql \
               --additional-packs=./codeql \
               $suite
