@@ -7,13 +7,11 @@
  * @security-severity 2.5
  * @sub-severity low
  * @precision very-low
- * @id py/command-line-injection-static
+ * @id py/audit/command-line-injection
  * @tags security
  *       external/cwe/cwe-078
  *       external/cwe/cwe-088
- *       external/owasp/owasp-a1
- *       experimental
- *       static
+ *       audit
  */
 
 import python
