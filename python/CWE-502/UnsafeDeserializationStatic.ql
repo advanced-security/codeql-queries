@@ -6,10 +6,11 @@
  * @security-severity 2.5
  * @sub-severity low
  * @precision very-low
- * @id py/audit/unsafe-deserialization
+ * @id py/unsafe-deserialization-static
  * @tags security
  *       external/cwe/cwe-502
- *       audit
+ *       experimental
+ *       static
  */
 
 import python
