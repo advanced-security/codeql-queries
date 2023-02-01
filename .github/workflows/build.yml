@@ -19,23 +19,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Debug Checkout
-        run: |
-          echo "codeql/${{ matrix.language }}-queries:"
-          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/${{ matrix.language }}-queries" {} \;
-          echo "codeql/${{ matrix.language }}-all:"
-          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/${{ matrix.language }}-all" {} \;
-          echo "codeql/suite-helpers:"
-          find ./codeql -type f -name "qlpack.yml" -exec grep -l "name: codeql/suite-helpers" {} \;
-
       - name: Install CodeQL
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           gh extension install github/gh-codeql
-          # gh codeql set-channel nightly
-          gh codeql version
-          # Install the CodeQL Pack
           gh codeql pack download "codeql/${{ matrix.language }}-queries"
 
       - name: Compile Queries
