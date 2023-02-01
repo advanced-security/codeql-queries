@@ -1,4 +1,10 @@
 {
+  "audit": [
+    "python/CWE-078/CommandInjectionAudit.ql",
+    "python/CWE-089/SqlInjectionHeuristic.ql",
+    "python/CWE-094/CodeInjectionAudit.ql",
+    "python/CWE-502/UnsafeDeserializationAudit.ql"
+  ],
   "default": [
     "codeql/python/ql/src/Expressions/UseofInput.ql",
     "codeql/python/ql/src/Security/CVE-2018-1281/BindToAllInterfaces.ql",
