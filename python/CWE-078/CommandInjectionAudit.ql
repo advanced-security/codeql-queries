@@ -21,5 +21,5 @@ import semmle.python.dataflow.new.BarrierGuards
 private import semmle.python.security.dataflow.CommandInjectionCustomizations
 
 from DataFlow::Node sink
-where sink instanceof CommandInjection::Sink
+where sink instanceof CommandInjection::Sink and sink.getScope().inSource()
 select sink, "Usage of command line"
