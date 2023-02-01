@@ -1,0 +1,33 @@
+{
+  "default": [
+    "codeql/swift/ql/src/queries/Security/CWE-079/UnsafeWebViewFetch.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-135/StringLengthConflation.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-311/CleartextTransmission.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-321/HardcodedEncryptionKey.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-328/WeakSensitiveDataHashing.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-757/InsecureTLS.ql",
+    "codeql/swift/ql/src/queries/Security/ECB-Encryption/ECBEncryption.ql"
+  ],
+  "extended": [
+    "codeql/swift/ql/src/queries/Security/CWE-079/UnsafeWebViewFetch.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-135/StringLengthConflation.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-311/CleartextTransmission.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-321/HardcodedEncryptionKey.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-328/WeakSensitiveDataHashing.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-757/InsecureTLS.ql",
+    "codeql/swift/ql/src/queries/Security/ECB-Encryption/ECBEncryption.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-311/CleartextStorageDatabase.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-312/CleartextStoragePreferences.ql"
+  ],
+  "quality": [
+    "codeql/swift/ql/src/queries/Security/CWE-079/UnsafeWebViewFetch.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-135/StringLengthConflation.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-311/CleartextTransmission.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-321/HardcodedEncryptionKey.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-328/WeakSensitiveDataHashing.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-757/InsecureTLS.ql",
+    "codeql/swift/ql/src/queries/Security/ECB-Encryption/ECBEncryption.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-311/CleartextStorageDatabase.ql",
+    "codeql/swift/ql/src/queries/Security/CWE-312/CleartextStoragePreferences.ql"
+  ]
+}

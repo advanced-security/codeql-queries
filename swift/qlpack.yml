@@ -1,0 +1,4 @@
+name: github-queries-swift
+version: 0.1.0
+dependencies:
+  codeql/swift-queries: "*"
