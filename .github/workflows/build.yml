@@ -41,7 +41,17 @@ jobs:
       - name: Compile Queries
         run: |
           gh codeql query compile --warnings=error --search-path=./codeql --additional-packs=./codeql/ ./${{ matrix.language }}/
-          
+
+      - name: Compile / Check Suites
+        run: |
+          for suite in ./${{ matrix.language }}/suites/*.qls ; do
+            echo " >> $suite"
+            codeql resolve queries \
+              --search-path=./codeql \
+              --additional-packs=./codeql \
+              $suite
+          done
+
       - name: Test Queries
         run: |
           if [ -d ./tests/${{ matrix.language }}-tests/ ]; then
