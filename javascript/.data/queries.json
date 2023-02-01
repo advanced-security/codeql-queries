@@ -1,4 +1,11 @@
 {
+  "audit": [
+    "javascript/CWE-078/CommandInjectionAudit.ql",
+    "javascript/CWE-079/XSSAudit.ql",
+    "javascript/CWE-502/UnsafeDeserializationAudit.ql",
+    "javascript/CWE-611/XXEAudit.ql",
+    "javascript/CWE-676/UseOfEval.ql"
+  ],
   "default": [
     "codeql/javascript/ql/src/AngularJS/DisablingSce.ql",
     "codeql/javascript/ql/src/AngularJS/DoubleCompilation.ql",
@@ -401,8 +408,6 @@
   "super-extended": [
     "javascript/CVE-2022-23631/SuperJson.ql",
     "javascript/CWE-079/XSSReact.ql",
-    "javascript/CWE-079/XSSReactHeuristic.ql",
-    "javascript/CWE-676/UseOfEval.ql",
     "codeql/javascript/ql/src/AngularJS/DisablingSce.ql",
     "codeql/javascript/ql/src/AngularJS/DoubleCompilation.ql",
     "codeql/javascript/ql/src/AngularJS/InsecureUrlWhitelist.ql",
@@ -507,6 +512,11 @@
     "codeql/javascript/ql/src/Diagnostics/SuccessfullyExtractedFiles.ql",
     "codeql/javascript/ql/src/Summary/LinesOfCode.ql",
     "codeql/javascript/ql/src/Summary/LinesOfUserCode.ql",
-    "codeql/javascript/ql/src/experimental/Security/CWE-094/UntrustedCheckout.ql"
+    "codeql/javascript/ql/src/experimental/Security/CWE-094/UntrustedCheckout.ql",
+    "codeql/javascript/ql/src/experimental/Security/CWE-918/SSRF.ql",
+    "codeql/javascript/ql/src/experimental/StandardLibrary/MultipleArgumentsToSetConstructor.ql",
+    "codeql/javascript/ql/src/experimental/Summaries/ExtractFlowStepSummaries.ql",
+    "codeql/javascript/ql/src/experimental/Summaries/ExtractSinkSummaries.ql",
+    "codeql/javascript/ql/src/experimental/Summaries/ExtractSourceSummaries.ql"
   ]
 }
