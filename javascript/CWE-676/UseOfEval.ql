@@ -4,10 +4,10 @@
  * @kind problem
  * @problem.severity recommendation
  * @security-severity 2.0
- * @id js/using-eval
+ * @id js/audit/using-eval
  * @tags maintainability
  *       external/cwe/cwe-676
- *       static
+ *       audit
  */
 
 import javascript
