@@ -6,9 +6,9 @@
  * @security-severity 3.0
  * @id js/reflected-xss
  * @tags security
- *       heuristic
  *       external/cwe/cwe-079
  *       external/cwe/cwe-116
+ *       audit
  */
 
 import javascript
