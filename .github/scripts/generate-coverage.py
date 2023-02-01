@@ -19,6 +19,8 @@ codeql_folder = "codeql"
 codeql_binaries = [
     # in PATH
     "codeql",
+    # GitHub CLI
+    "gh codeql",
     # Codespaces
     "/root/.vscode-remote/data/User/globalStorage/github.vscode-codeql/distribution1/codeql/codeql",
 ]
@@ -86,7 +88,7 @@ def findCodeQL():
             return path
         except Exception as err:
             continue
-    return
+    raise Exception("Unable to find CodeQL location...")
 
 
 def getFormattedString(input: str, **data: dict):
@@ -219,14 +221,9 @@ def buildQueries(language: str, codeql_binary: str):
             query_suite_config = json.load(handle).get("byLanguage", {}).get(language)
 
         suites[suite] = []
-        # DATA[arguments.language][suite] = query_suite_config
 
         for query_path, _ in query_suite_config.items():
             query_path = query_path.replace(here + "/", "")
-
-            # if not query_path.startswith(codeql_folder):
-            #     #  Non-standard CodeQL Query
-            #     print(f"Query :: " + query_path)
 
             suites[suite].append(query_path)
 
@@ -245,11 +242,13 @@ if __name__ == "__main__":
     languages = []
     codeql_binary = findCodeQL()
 
-    if not arguments.language:
+    if not arguments.language or arguments.language == "all":
         languages = language_display.keys()
         all_languages = True
-    else:
+    elif arguments.language in language_display.keys():
         languages = [arguments.language]
+    else:
+        raise Exception(f"Unknown language: {arguments.language}")
 
     print(f"Language(s) :: {languages}")
 
