@@ -21,11 +21,11 @@
 <!-- AUTOMATION-SUITES -->
 | Name | Queries Count | Description | Path |
 | :--- | :---- | :--- | :--- |
-| `default` | 66 | Default Query Suite | `codeql/java/ql/src/codeql-suites/code-scanning` |
-| `extended` | 96 | Security Extended Suite | `codeql/java/ql/src/codeql-suites/security-extended` |
-| `quality` | 216 | Security and Quality Extended Suite | `codeql/java/ql/src/codeql-suites/security-and-quality` |
-| `local-variants` | 108 | Security Extended with local variants enabled | `advanced-security/codeql-queries/java/suites/codeql-java-local.qls@main` |
-| `super-extended` | 132 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/java/suites/codeql-java.qls@main` |
+| `default` | 70 | Default Query Suite | `codeql/java/ql/src/codeql-suites/code-scanning` |
+| `extended` | 107 | Security Extended Suite | `codeql/java/ql/src/codeql-suites/security-extended` |
+| `quality` | 227 | Security and Quality Extended Suite | `codeql/java/ql/src/codeql-suites/security-and-quality` |
+| `local-variants` | 119 | Security Extended with local variants enabled | `advanced-security/codeql-queries/java/suites/codeql-java-local.qls@main` |
+| `super-extended` | 142 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/java/suites/codeql-java.qls@main` |
 
 
 <!-- AUTOMATION-SUITES -->
