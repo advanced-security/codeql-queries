@@ -6,12 +6,20 @@
         {
             "label": "Generate Coverage Reports",
             "type": "shell",
-            "command": "python ./.github/scripts/generate-coverage.py --disable-cache",
+            "command": "python3 ./.github/scripts/generate-coverage.py -l ${input:language} --disable-cache",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         }
+    ],
+    "inputs": [
+        {
+            "id": "language",
+            "description": "Language",
+            "default": "all",
+            "type": "promptString"
+        },
     ]
 }
