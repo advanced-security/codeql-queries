@@ -4,11 +4,13 @@
 <!-- AUTOMATION-SUITES -->
 | Name | Queries Count | Description | Path |
 | :--- | :---- | :--- | :--- |
-| `default` | 87 | Default Query Suite | `codeql/javascript/ql/src/codeql-suites/code-scanning` |
-| `extended` | 104 | Security Extended Suite | `codeql/javascript/ql/src/codeql-suites/security-extended` |
-| `quality` | 202 | Security and Quality Extended Suite | `codeql/javascript/ql/src/codeql-suites/security-and-quality` |
-| `super-extended` | 112 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main` |
+| `default` | 88 | Default Query Suite | `codeql/javascript/ql/src/codeql-suites/code-scanning` |
+| `extended` | 105 | Security Extended Suite | `codeql/javascript/ql/src/codeql-suites/security-extended` |
+| `quality` | 203 | Security and Quality Extended Suite | `codeql/javascript/ql/src/codeql-suites/security-and-quality` |
+| `super-extended` | 128 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main` |
 | `audit` | 5 | Security Audit Query Suite | `advanced-security/codeql-queries/javascript/suites/codeql-javascript-audit.qls@main` |
+
+
 <!-- AUTOMATION-SUITES -->
 
 ## Queries
