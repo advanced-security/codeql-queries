@@ -6,12 +6,11 @@
  * @problem.severity error
  * @security-severity 8.8
  * @precision high
- * @id py/sql-injection
+ * @id py/audit/sql-injection
  * @tags security
  *       external/cwe/cwe-089
- *       external/owasp/owasp-a1
- *       audit
  *       heuristic
+ *       audit
  */
 
 import python

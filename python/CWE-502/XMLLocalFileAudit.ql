@@ -6,12 +6,13 @@
  * @problem.severity error
  * @security-severity 6.0
  * @precision high
- * @id python/xxe-local-file-static
+ * @id python/audit/xxe-local-file
  * @tags security
  *       external/cwe/cwe-611
  *       external/cwe/cwe-776
  *       external/cwe/cwe-827
  *       external/cwe/cwe-502
+ *       audit
  */
 
 private import python
