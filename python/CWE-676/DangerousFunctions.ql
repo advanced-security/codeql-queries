@@ -9,6 +9,7 @@
  * @precision low
  * @tags security
  *       external/cwe/cwe-676
+ *       audit
  */
 
 import python
