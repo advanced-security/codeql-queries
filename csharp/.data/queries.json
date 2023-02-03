@@ -377,14 +377,24 @@
     "codeql/csharp/ql/src/Telemetry/SupportedExternalTaint.ql",
     "codeql/csharp/ql/src/Telemetry/UnsupportedExternalAPIs.ql",
     "codeql/csharp/ql/src/experimental/CWE-099/TaintedWebClient.ql",
+    "codeql/csharp/ql/src/experimental/CWE-918/RequestForgery.ql",
     "codeql/csharp/ql/src/experimental/Security Features/CWE-1004/CookieWithoutHttpOnly.ql",
+    "codeql/csharp/ql/src/experimental/Security Features/CWE-327/Azure/UnsafeUsageOfClientSideEncryptionVersion.ql",
     "codeql/csharp/ql/src/experimental/Security Features/CWE-614/CookieWithoutSecure.ql",
+    "codeql/csharp/ql/src/experimental/Security Features/CWE-759/HashWithoutSalt.ql",
+    "codeql/csharp/ql/src/experimental/Security Features/JsonWebTokenHandler/delegated-security-validations-always-return-true.ql",
     "codeql/csharp/ql/src/experimental/Security Features/JsonWebTokenHandler/security-validation-disabled.ql",
+    "codeql/csharp/ql/src/experimental/Security Features/Serialization/DefiningDatasetRelatedType.ql",
     "codeql/csharp/ql/src/experimental/Security Features/Serialization/DefiningPotentiallyUnsafeXmlSerializer.ql",
     "codeql/csharp/ql/src/experimental/Security Features/Serialization/UnsafeTypeUsedDataContractSerializer.ql",
     "codeql/csharp/ql/src/experimental/Security Features/Serialization/XmlDeserializationWithDataSet.ql",
     "codeql/csharp/ql/src/experimental/Security Features/backdoor/DangerousNativeFunctionCall.ql",
     "codeql/csharp/ql/src/experimental/Security Features/backdoor/PotentialTimeBomb.ql",
-    "codeql/csharp/ql/src/experimental/Security Features/backdoor/ProcessNameToHashTaintFlow.ql"
+    "codeql/csharp/ql/src/experimental/Security Features/backdoor/ProcessNameToHashTaintFlow.ql",
+    "codeql/csharp/ql/src/Bad Practices/LeftoverDebugCode.ql",
+    "codeql/csharp/ql/src/Security Features/CWE-020/UntrustedDataToExternalAPI.ql",
+    "codeql/csharp/ql/src/Security Features/CWE-502/UnsafeDeserialization.ql",
+    "codeql/csharp/ql/src/Security Features/CWE-611/UseXmlSecureResolver.ql",
+    "codeql/csharp/ql/src/Security Features/CWE-838/InappropriateEncoding.ql"
   ]
 }
