@@ -1,4 +1,10 @@
 {
+  "audit": [
+    "csharp/CWE-078/CommandInjectionAudit.ql",
+    "csharp/CWE-094/CodeInjectionAudit.ql",
+    "csharp/CWE-502/UnsafeDeserializationAudit.ql",
+    "csharp/CWE-611/UnsafeXMLResolverAudit.ql"
+  ],
   "default": [
     "codeql/csharp/ql/src/Security Features/CWE-011/ASPNetDebug.ql",
     "codeql/csharp/ql/src/Security Features/CWE-022/TaintedPath.ql",
@@ -49,7 +55,6 @@
     "codeql/csharp/ql/src/Diagnostics/ExtractorMessage.ql",
     "codeql/csharp/ql/src/Metrics/Summaries/LinesOfCode.ql",
     "codeql/csharp/ql/src/Telemetry/ExternalLibraryUsage.ql",
-    "codeql/csharp/ql/src/Telemetry/SupportedExternalApis.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSinks.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSources.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalTaint.ql",
@@ -122,7 +127,6 @@
     "codeql/csharp/ql/src/Diagnostics/ExtractorMessage.ql",
     "codeql/csharp/ql/src/Metrics/Summaries/LinesOfCode.ql",
     "codeql/csharp/ql/src/Telemetry/ExternalLibraryUsage.ql",
-    "codeql/csharp/ql/src/Telemetry/SupportedExternalApis.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSinks.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSources.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalTaint.ql",
@@ -296,7 +300,6 @@
     "codeql/csharp/ql/src/Diagnostics/ExtractorMessage.ql",
     "codeql/csharp/ql/src/Metrics/Summaries/LinesOfCode.ql",
     "codeql/csharp/ql/src/Telemetry/ExternalLibraryUsage.ql",
-    "codeql/csharp/ql/src/Telemetry/SupportedExternalApis.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSinks.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSources.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalTaint.ql",
@@ -369,7 +372,6 @@
     "codeql/csharp/ql/src/Diagnostics/ExtractorMessage.ql",
     "codeql/csharp/ql/src/Metrics/Summaries/LinesOfCode.ql",
     "codeql/csharp/ql/src/Telemetry/ExternalLibraryUsage.ql",
-    "codeql/csharp/ql/src/Telemetry/SupportedExternalApis.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSinks.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalSources.ql",
     "codeql/csharp/ql/src/Telemetry/SupportedExternalTaint.ql",

@@ -1,6 +1,9 @@
 name: "GitHub Field CodeQL Audit Configuration"
 
 queries:
+  # CSharp queries
+  - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp-audit.qls@main
+
   # JavaScript/TypeScript queries
   - uses: advanced-security/codeql-queries/javascript/suites/codeql-javascript-audit.qls@main
 
