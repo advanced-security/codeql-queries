@@ -7,6 +7,18 @@
 - import: codeql-suites/python-security-extended.qls
   from: codeql/python-queries
 
+# Include Experimental queries
+- queries: '.'
+  from: codeql/python-queries
+
+# Include lows
+- include:
+    kind:
+    - problem
+    - path-problem
+    precision:
+    - low
+
 # Remove debugging, and audit queries
 - exclude:
     tags contain:
@@ -17,9 +29,6 @@
     query path:
       - /testing\/.*/
 
-# Include Experimental queries
-- queries: '.'
-  from: codeql/python-queries
 - include:
     query path:
       - /experimental\/.*/

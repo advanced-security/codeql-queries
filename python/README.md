@@ -8,7 +8,7 @@
 | `extended` | 45 | Security Extended Suite | `codeql/python/ql/src/codeql-suites/security-extended` |
 | `quality` | 167 | Security and Quality Extended Suite | `codeql/python/ql/src/codeql-suites/security-and-quality` |
 | `local-variants` | 49 | Security Extended with local variants enabled | `advanced-security/codeql-queries/python/suites/codeql-python-local.qls@main` |
-| `super-extended` | 80 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/python/suites/codeql-python.qls@main` |
+| `super-extended` | 86 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/python/suites/codeql-python.qls@main` |
 | `audit` | 6 | Security Audit Query Suite | `advanced-security/codeql-queries/python/suites/codeql-python-audit.qls@main` |
 
 
