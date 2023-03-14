@@ -3,3 +3,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions-third-party-mirror/checkout@v3
+
+    - run: |
+        ./build.sh
