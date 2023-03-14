@@ -34,11 +34,11 @@ action's repository and not a repository fork.
 		<p>
 			In this example, the Actions workflow uses an unpinned version. 
 		</p>
-		<sample src="examples/unpinned-action.yaml" />
+		<sample src="./examples/.github/workflows/unpinned-action.yml" />
 		<p>
 			The Action is pinned in the example below.
 		</p>
-		<sample src="examples/pinned-action.yaml" />
+		<sample src="./examples/.github/workflows/pinned-action.yml" />
 	</example>
 
 	<references>
