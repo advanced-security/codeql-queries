@@ -22,7 +22,11 @@ private predicate isPinnedCommit(string version) {
 
 bindingset[repo]
 private predicate isTrustedOrg(string repo) {
-    repo.matches(["actions/%", "github/%", "advanced-security/%"])
+    exists(string org|
+        org in ["actions", "github", "advanced-security"]
+        |
+        repo.matches(org + "/%")
+    )
 }
 
 from Actions::Step step, Actions::Uses uses, string repo, string version, Actions::Workflow workflow, string name
