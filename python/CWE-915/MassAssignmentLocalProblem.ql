@@ -10,6 +10,7 @@
  * @id py/mass-assignment-problem
  * @tags security
  *       external/cwe/cwe-2915
+ *       testing
  */
 
 import python
