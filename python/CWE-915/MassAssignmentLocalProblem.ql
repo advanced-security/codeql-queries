@@ -19,4 +19,4 @@ import github.MassAssignment
 
 from MassAssignment::MassAssignmentLocalConfig config, DataFlow::Node source, DataFlow::Node sink
 where config.hasFlow(source, sink)
-select sink, source, sink, "Use of $@.", source, "mass assignment"
+select sink, "Use of $@.", source, "mass assignment"
