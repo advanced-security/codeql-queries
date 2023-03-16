@@ -1,16 +1,16 @@
 # CodeQL Queries
 
-config/* @geekmasher
-cpp/* @geekmasher
-csharp/* @geekmasher
-java/* @geekmasher
-javascript/* @geekmasher
-python/* @geekmasher
-ruby/* @geekmasher
+config/* @geekmasher @aegilops
+cpp/* @aegilops
+csharp/* @geekmasher @aegilops @felickz
+java/* @geekmasher @aegilops
+javascript/* @geekmasher @aegilops
+python/* @geekmasher @aegilops
+ruby/* @geekmasher @aegilops
 
 # CI / Scripts
-.github/workflows/* @geekmasher
-.github/scripts/* @geekmasher
+.github/workflows/* @geekmasher @aegilops @nickliffen
+.github/scripts/* @geekmasher @aegilops @nickliffen
 
-# Misc
+# Misc for Owner
 * @geekmasher

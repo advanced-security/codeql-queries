@@ -1,0 +1,15 @@
+# This is the field security specialist audit pack
+
+- description: "CSharp Audit Pack"
+
+# Field query pack with some audit queries
+- qlpack: github-queries-csharp
+
+- include:
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    tags contain:
+    - audit
