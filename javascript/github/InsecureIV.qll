@@ -1,14 +1,6 @@
-/**
- * @name Insecure or static IV used in cryptographic function
- * @kind path-problem
- * @problem.severity error
- * @id javascript/insecure-iv
- */
-
-import javascript
 import semmle.javascript.dataflow.TaintTracking
 
-import DataFlow::PathGraph
+import github.CommandLine
 
 class StaticIVConfiguration extends TaintTracking::Configuration {
     StaticIVConfiguration() { this = "StaticIVConfiguration" }
@@ -31,12 +23,6 @@ class RandomIVConfiguration extends TaintTracking::Configuration {
 
     override predicate isSink(DataFlow::Node sink) {
         isCreateIV(sink)
-    }
-}
-
-class CommandLineArgument extends DataFlow::Node {
-    CommandLineArgument() {
-        this = DataFlow::globalVarRef("process").getAPropertyRead("argv").getAPropertyReference()
     }
 }
 
@@ -114,7 +100,3 @@ predicate isCreateIV(DataFlow::Node node) {
         DataFlow::moduleMember("crypto", name).getACall().getArgument(2) = node
     )
 }
-
-from InsecureIVConfiguration insecurecfg, DataFlow::PathNode source, DataFlow::PathNode sink
-where insecurecfg.hasFlowPath(source, sink)
-select sink, source, sink, "Insecure IV used for cryptographic function. Use a secure random source for IVs."
