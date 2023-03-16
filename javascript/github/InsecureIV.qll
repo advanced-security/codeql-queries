@@ -27,7 +27,7 @@ class RandomIVConfiguration extends TaintTracking::Configuration {
 }
 
 class InsecureIVConfiguration extends TaintTracking::Configuration {
-    InsecureIVConfiguration() { this = "RandomIVConfiguration" }
+    InsecureIVConfiguration() { this = "InsecureIVConfiguration" }
 
     override predicate isSource(DataFlow::Node source) {
         exists(Literal literal|literal.flow() = source)
@@ -43,12 +43,15 @@ class InsecureIVConfiguration extends TaintTracking::Configuration {
         source instanceof CommandLineArgument
         or
         // an external function that is not a known source of randomness
-        source instanceof ExternalCallWithOutput
-        and not isSecureRandom(source)
+        (
+            source instanceof ExternalCallWithOutput
+            and not source instanceof CreateIVArgument
+            and not source instanceof SecureRandomSource
+        )
     }
 
     override predicate isSink(DataFlow::Node sink) {
-        isCreateIV(sink)
+        sink instanceof CreateIVArgument
     }
 }
 
@@ -59,11 +62,16 @@ class ExternalCallWithOutput extends DataFlow::Node {
         not exists(MethodCallExpr method_call, ThisExpr this_expr| method_call = call and method_call.getReceiver() = this_expr )
         and
         (
-            (this = call.flow() and not exists(call.getAnArgument().flow().getAPredecessor()))
+            (this = call.flow())
             or
-            (this = call.getAnArgument().flow() and not this.asExpr() instanceof Literal
-            and not exists(call.getAnArgument().flow().getAPredecessor()))
+            (this = call.getAnArgument().flow() and not this.asExpr() instanceof Literal)
         )
+    }
+}
+
+class SecureRandomSource extends DataFlow::Node {
+    SecureRandomSource() {
+        isSecureRandom(this)
     }
 }
 
@@ -92,6 +100,12 @@ predicate isSecureRandom(DataFlow::Node node) {
         name in ["secureRandom", "randomArray", "randomUint8Array", "randomBuffer"] and
         DataFlow::moduleMember("secure-random", name).getACall() = node
     )
+}
+
+class CreateIVArgument extends DataFlow::Node {
+    CreateIVArgument() {
+        isCreateIV(this)
+    }
 }
 
 predicate isCreateIV(DataFlow::Node node) {
