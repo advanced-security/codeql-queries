@@ -1,5 +1,5 @@
 /**
- * @name Usage of Command Injection sink
+ * @name Audit: Usage of Command Injection sink
  * @description Using externally controlled strings in a command line may allow a malicious
  *              user to change the meaning of the command.
  * @kind problem

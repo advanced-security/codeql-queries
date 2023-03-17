@@ -2,14 +2,9 @@
 
 - description: "GitHub's Field Team Python Extended Suite"
 
-- qlpack: github-queries-python
-
-- import: codeql-suites/python-security-extended.qls
-  from: codeql/python-queries
-
-# Include Experimental queries
+# GitHub's Field Team Python Suite
 - queries: '.'
-  from: codeql/python-queries
+  from: advanced-security/codeql-python
 
 # Include lows
 - include:
@@ -28,16 +23,3 @@
 - exclude:
     query path:
       - /testing\/.*/
-
-- include:
-    query path:
-      - /experimental\/.*/
-- exclude:
-    deprecated: //
-- exclude:
-    query path:
-      - Metrics/Summaries/FrameworkCoverage.ql
-      - /Diagnostics/Internal/.*/
-- exclude:
-    tags contain:
-      - model-generator

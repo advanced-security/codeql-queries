@@ -1,0 +1,31 @@
+nodes
+| examples/secure_iv.js:11:7:11:44 | randomIV |
+| examples/secure_iv.js:11:18:11:44 | crypto. ... eysize) |
+| examples/secure_iv.js:11:18:11:44 | crypto. ... eysize) |
+| examples/secure_iv.js:14:54:14:61 | randomIV |
+| examples/secure_iv.js:14:54:14:61 | randomIV |
+| examples/static_iv.js:11:7:11:34 | fixedIV |
+| examples/static_iv.js:11:7:11:34 | fixedIV |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" |
+| examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:14:54:14:60 | fixedIV |
+edges
+| examples/secure_iv.js:11:7:11:44 | randomIV | examples/secure_iv.js:14:54:14:61 | randomIV |
+| examples/secure_iv.js:11:7:11:44 | randomIV | examples/secure_iv.js:14:54:14:61 | randomIV |
+| examples/secure_iv.js:11:18:11:44 | crypto. ... eysize) | examples/secure_iv.js:11:7:11:44 | randomIV |
+| examples/secure_iv.js:11:18:11:44 | crypto. ... eysize) | examples/secure_iv.js:11:7:11:44 | randomIV |
+| examples/static_iv.js:11:7:11:34 | fixedIV | examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:11:7:11:34 | fixedIV | examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:11:7:11:34 | fixedIV | examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:11:7:11:34 | fixedIV | examples/static_iv.js:14:54:14:60 | fixedIV |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" | examples/static_iv.js:11:7:11:34 | fixedIV |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" | examples/static_iv.js:11:7:11:34 | fixedIV |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" | examples/static_iv.js:11:7:11:34 | fixedIV |
+| examples/static_iv.js:11:17:11:34 | "0123456789abcdef" | examples/static_iv.js:11:7:11:34 | fixedIV |
+#select
+| examples/static_iv.js:14:54:14:60 | fixedIV | examples/static_iv.js:11:17:11:34 | "0123456789abcdef" | examples/static_iv.js:14:54:14:60 | fixedIV | Insecure Initialization Vector (IV) used for cryptographic function. With a few exceptions, it is best to use a secure random source for IVs. |

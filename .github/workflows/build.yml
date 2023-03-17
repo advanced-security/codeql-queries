@@ -19,7 +19,16 @@ jobs:
         with:
           submodules: true
 
+      - uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        id: changes
+        with:
+          filters: |
+            src:
+              - '${{ matrix.language }}/**'
+              - 'tests/${{ matrix.language }}-tests/**'
+
       - name: Install CodeQL
+        if: steps.changes.outputs.src == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -27,21 +36,22 @@ jobs:
           gh codeql pack download "codeql/${{ matrix.language }}-queries"
 
       - name: Compile Queries
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh codeql query compile --warnings=error --search-path=./codeql --additional-packs=./codeql/ ./${{ matrix.language }}/
-
-      - name: Compile / Check Suites
-        run: |
-          for suite in ./${{ matrix.language }}/suites/*.qls ; do
-            echo " >> $suite"
-            gh codeql resolve queries \
-              --search-path=./codeql \
-              --additional-packs=./codeql \
-              $suite
-          done
+          ./.github/scripts/pr-compile.sh ${{ github.event.number }} ${{ matrix.language }}
 
       - name: Test Queries
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if [ -d ./tests/${{ matrix.language }}-tests/ ]; then
-          gh codeql test run --additional-packs=./ --additional-packs=./codeql ./tests/${{ matrix.language }}-tests/
-          fi
+          ./.github/scripts/pr-tests.sh ${{ github.event.number }} ${{ matrix.language }}
+
+      - name: Compile / Check Suites & Packs
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
