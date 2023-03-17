@@ -43,13 +43,7 @@ jobs:
       - name: Compile / Check Suites
         if: steps.changes.outputs.src == 'true'
         run: |
-          for suite in ./${{ matrix.language }}/suites/*.qls ; do
-            echo " >> $suite"
-            gh codeql resolve queries \
-              --search-path=./codeql \
-              --additional-packs=./codeql \
-              $suite
-          done
+          ./.github/scripts/pr-suites.sh ${{ github.event.number }} ${{ matrix.language }}
 
       - name: Test Queries
         if: steps.changes.outputs.src == 'true'
