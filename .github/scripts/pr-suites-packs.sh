@@ -18,7 +18,10 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
             "$file"
 
     # qlpack file and lock file
-    elif [[ "$file" == $LANGUAGE/qlpack.yml ]] || [[ "$file" == $LANGUAGE/codeql-pack.lock.yml ]] && [[ "$PACK_COMPILED" == false ]]; then
+    elif [[ "$file" == $LANGUAGE/qlpack.yml ]] || [[ "$file" == $LANGUAGE/codeql-pack.lock.yml ]]; then
+        if [[ "$PACK_COMPILED" == true ]]; then
+            continue
+        fi 
         echo "[+] Compiling Pack: $LANGUAGE"
         # install deps
         gh codeql pack install "$LANGUAGE"
