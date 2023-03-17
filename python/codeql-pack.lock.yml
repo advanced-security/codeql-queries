@@ -1,0 +1,10 @@
+---
+dependencies:
+  codeql/python-all:
+    version: 0.8.0
+  codeql/regex:
+    version: 0.0.7
+  codeql/tutorial:
+    version: 0.0.4
+compiled: false
+lockVersion: 1.0.0

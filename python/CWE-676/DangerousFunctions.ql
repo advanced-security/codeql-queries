@@ -1,14 +1,15 @@
 /**
- * @name Dangerous Functions
+ * @name Audit: Usage of Dangerous Functions
  * @description Dangerous Functions
  * @kind problem
- * @id py/dangerous-functions
+ * @id py/audit/dangerous-functions
  * @problem.severity warning
  * @security-severity 2.5
  * @sub-severity low
  * @precision low
  * @tags security
  *       external/cwe/cwe-676
+ *       audit
  */
 
 import python

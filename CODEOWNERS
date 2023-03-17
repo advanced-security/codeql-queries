@@ -2,7 +2,7 @@
 
 config/* @geekmasher @aegilops
 cpp/* @aegilops
-csharp/* @geekmasher @aegilops
+csharp/* @geekmasher @aegilops @felickz
 java/* @geekmasher @aegilops
 javascript/* @geekmasher @aegilops
 python/* @geekmasher @aegilops
@@ -12,5 +12,5 @@ ruby/* @geekmasher @aegilops
 .github/workflows/* @geekmasher @aegilops @nickliffen
 .github/scripts/* @geekmasher @aegilops @nickliffen
 
-# Misc
-* @geekmasher @aegilops @nickliffen
+# Misc for Owner
+* @geekmasher

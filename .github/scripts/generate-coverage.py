@@ -16,13 +16,24 @@ arguments = parser.parse_args()
 here = os.getcwd()
 codeql_folder = "codeql"
 
+codeql_binaries = [
+    # in PATH
+    "codeql",
+    # GitHub CLI
+    "gh codeql",
+    # Codespaces
+    "/root/.vscode-remote/data/User/globalStorage/github.vscode-codeql/distribution1/codeql/codeql",
+]
+
 language_display = {
     "cpp": "C / CPP",
     "csharp": "CSharp",
-    "java": "Java",
+    "java": "Java / Kotlin",
     "javascript": "JavaScript / TypeScript",
     "python": "Python",
+    "go": "GoLang",
     "ruby": "Ruby",
+    "swift": "Swift",
 }
 default_suite_order = [
     "default",
@@ -30,21 +41,23 @@ default_suite_order = [
     "quality",
     "local-variants",
     "super-extended",
+    "audit",
 ]
 default_suites = {
     "default": {
         "name": "Default Query Suite",
-        "path": "{language}-code-scanning.qls",
+        # "path": "{language}-code-scanning.qls",
+        "path": "codeql/{language}/ql/src/codeql-suites/{language}-code-scanning.qls",
         "type": "builtin",
     },
     "extended": {
         "name": "Security Extended Suite",
-        "path": "{language}-security-extended.qls",
+        "path": "codeql/{language}/ql/src/codeql-suites/{language}-security-extended.qls",
         "type": "builtin",
     },
     "quality": {
         "name": "Security and Quality Extended Suite",
-        "path": "{language}-security-and-quality.qls",
+        "path": "codeql/{language}/ql/src/codeql-suites/{language}-security-and-quality.qls",
         "type": "builtin",
     },
     "local-variants": {
@@ -55,7 +68,27 @@ default_suites = {
         "name": "Security Extended with Experimental and Custom Queries Suite",
         "path": "{language}/suites/codeql-{language}.qls",
     },
+    "audit": {
+        "name": "Security Audit Query Suite",
+        "path": "{language}/suites/codeql-{language}-audit.qls",
+    },
 }
+
+
+def findCodeQL():
+    for path in codeql_binaries:
+        try:
+            with open(os.devnull, 'w') as null:
+                subprocess.run(
+                    [path, "--version"],
+                    check=True,
+                    stdout=null,
+                    stderr=null
+                )
+            return path
+        except Exception as err:
+            continue
+    raise Exception("Unable to find CodeQL location...")
 
 
 def getFormattedString(input: str, **data: dict):
@@ -154,7 +187,7 @@ def createMarkdown(
         print("Failed to insert data: {}".format(err))
 
 
-def buildQueries(language: str):
+def buildQueries(language: str, codeql_binary: str):
     suites = {}
     for suite, suite_data in default_suites.items():
         suite_path = getFormattedString(suite_data.get("path"), language=language)
@@ -167,13 +200,14 @@ def buildQueries(language: str):
                 continue
 
         command = [
-            "codeql",
+            codeql_binary,
             "resolve",
             "queries",
             suite_path,
             "--format=bylanguage",
-            "--additional-packs",
-            ".",
+            # "--additional-packs", ".",
+            "--search-path=./codeql",
+            "--additional-packs=./codeql/",
         ]
 
         print(f"Processing :: '{suite}'")
@@ -187,14 +221,9 @@ def buildQueries(language: str):
             query_suite_config = json.load(handle).get("byLanguage", {}).get(language)
 
         suites[suite] = []
-        # DATA[arguments.language][suite] = query_suite_config
 
         for query_path, _ in query_suite_config.items():
             query_path = query_path.replace(here + "/", "")
-
-            # if not query_path.startswith(codeql_folder):
-            #     #  Non-standard CodeQL Query
-            #     print(f"Query :: " + query_path)
 
             suites[suite].append(query_path)
 
@@ -211,20 +240,28 @@ if __name__ == "__main__":
 
     all_languages = False
     languages = []
-    if not arguments.language:
-        languages = ["cpp", "csharp", "java", "javascript", "python", "ruby"]
+    codeql_binary = findCodeQL()
+
+    if not arguments.language or arguments.language == "all":
+        languages = language_display.keys()
         all_languages = True
-    else:
+    elif arguments.language in language_display.keys():
         languages = [arguments.language]
+    else:
+        raise Exception(f"Unknown language: {arguments.language}")
 
     print(f"Language(s) :: {languages}")
 
     for language in languages:
-        output_queries = os.path.join(language, "queries.json")
+        output_dir = os.path.join(language, ".data")
+        output_queries = os.path.join(output_dir, "queries.json")
         DATA[language] = {}
+        
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
         if not os.path.exists(output_queries) or arguments.disable_cache:
-            DATA[language] = buildQueries(language)
+            DATA[language] = buildQueries(language, codeql_binary)
         else:
             print(f"Reading queries from cache :: {output_queries}")
             with open(output_queries, "r") as handle:

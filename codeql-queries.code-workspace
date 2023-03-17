@@ -13,7 +13,7 @@
             "path": "go"
         },
         {
-            "name": "Queries - Java",
+            "name": "Queries - Java/Kotlin",
             "path": "java"
         },
         {
@@ -29,8 +29,16 @@
             "path": "ruby"
         },
         {
+            "name": "Queries - Swift",
+            "path": "swift"
+        },
+        {
             "name": "Tests",
             "path": "tests"
+        },
+        {
+            "name": "Config",
+            "path": "config"
         },
         {
             "name": "CodeQL - Query Languages",
@@ -45,5 +53,31 @@
         "codeQL.runningQueries.debug": true,
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true
-    }
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Generate Coverage Reports",
+                "type": "shell",
+                "command": "python3 ./.github/scripts/generate-coverage.py -l ${input:language} --disable-cache",
+                "problemMatcher": [],
+                "options": {
+                    "cwd": ".."
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
+            }
+        ],
+        "inputs": [
+            {
+                "id": "language",
+                "description": "Language",
+                "default": "all",
+                "type": "promptString"
+            }
+        ]
+    },
 }

@@ -1,12 +1,12 @@
 import python
-import semmle.python.dataflow.new.DataFlow
-import semmle.python.dataflow.new.TaintTracking
-import semmle.python.Concepts
-import semmle.python.dataflow.new.RemoteFlowSources
-import semmle.python.dataflow.new.BarrierGuards
-import semmle.python.ApiGraphs
-import DataFlow::PathGraph
-import semmle.python.frameworks.Flask
+private import semmle.python.dataflow.new.DataFlow
+private import semmle.python.dataflow.new.TaintTracking
+private import semmle.python.Concepts
+private import semmle.python.dataflow.new.RemoteFlowSources
+private import semmle.python.dataflow.new.BarrierGuards
+private import semmle.python.ApiGraphs
+private import DataFlow::PathGraph
+private import semmle.python.frameworks.Flask
 
 abstract class CredentialSink extends DataFlow::Node { }
 

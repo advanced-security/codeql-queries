@@ -13,27 +13,10 @@
  */
 
 import python
-import semmle.python.dataflow.new.DataFlow
-import semmle.python.dataflow.new.TaintTracking
-import semmle.python.Concepts
-import semmle.python.dataflow.new.RemoteFlowSources
-import semmle.python.dataflow.new.BarrierGuards
-import semmle.python.ApiGraphs
 import DataFlow::PathGraph
-// New libs
+// GitHub Field lib
 import github.MassAssignment
-import github.LocalSources
 
-class MassAssignmentConfig extends TaintTracking::Configuration {
-  MassAssignmentConfig() { this = "Mass Assignment Config" }
-
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
-
-  override predicate isSink(DataFlow::Node sink) { sink instanceof MassAssignment::Sinks }
-
-  override predicate isSanitizer(DataFlow::Node node) { node instanceof MassAssignment::Sanitizer }
-}
-
-from MassAssignmentConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+from MassAssignment::MassAssignmentLocalConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
 where config.hasFlowPath(source, sink)
 select sink.getNode(), source, sink, "Use of $@.", source.getNode(), "mass assignment"
