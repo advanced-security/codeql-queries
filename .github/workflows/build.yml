@@ -48,4 +48,4 @@ jobs:
       - name: Compile / Check Suites & Packs
         if: steps.changes.outputs.src == 'true'
         run: |
-          ./.github/scripts/pr-pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
+          ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
