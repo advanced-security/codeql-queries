@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 PR_NUMBER=${1}
 LANGUAGE=${2}
