@@ -5,6 +5,7 @@ import semmle.python.Concepts
 import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
+import github.LocalSources
 
 module MassAssignment {
   abstract class Sources extends DataFlow::Node { }
@@ -30,4 +31,25 @@ module MassAssignment {
       this.getScope().inSource()
     }
   }
+
+  class MassAssignmentLocalConfig extends TaintTracking::Configuration {
+    MassAssignmentLocalConfig() { this = "Mass Assignment Config" }
+  
+    override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
+  
+    override predicate isSink(DataFlow::Node sink) { sink instanceof MassAssignment::Sinks }
+  
+    override predicate isSanitizer(DataFlow::Node node) { node instanceof MassAssignment::Sanitizer }
+  }
+  
+  class MassAssignmentConfig extends TaintTracking::Configuration {
+    MassAssignmentConfig() { this = "Mass Assignment Config" }
+  
+    override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource::Range }
+  
+    override predicate isSink(DataFlow::Node sink) { sink instanceof MassAssignment::Sinks }
+  
+    override predicate isSanitizer(DataFlow::Node node) { node instanceof MassAssignment::Sanitizer }
+  }
+  
 }

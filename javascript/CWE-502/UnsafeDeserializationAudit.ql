@@ -1,5 +1,5 @@
 /**
- * @name Unsafe Deserialization sink used
+ * @name Audit: Usage of Unsafe Deserialize sink
  * @description A Unsafe Deserialization sink is being used in your application, this can lead to remote code execution if user controled input comes into the sink
  * @kind problem
  * @problem.severity error

@@ -1,5 +1,5 @@
 /**
- * @name Code injection
+ * @name Audit: Usage of Code Injection sink
  * @description Interpreting unsanitized user input as code allows a malicious user to perform arbitrary
  *              code execution.
  * @kind problem
