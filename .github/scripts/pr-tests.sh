@@ -10,6 +10,9 @@ if [[ ! -d ./tests/${LANGUAGE}-tests ]]; then
 fi
 
 for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
+    if [[ ! -f $file ]]; then
+        continue
+    fi
     # if a change in the test folder is detected (only for the current language)
     if [[ $file == tests/$LANGUAGE-tests/** ]]; then
         echo "[+] Test $file changed"

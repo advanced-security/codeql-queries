@@ -7,6 +7,9 @@ LANGUAGE=${2}
 LIBRARY_SCANNED=false
 
 for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
+    if [[ ! -f $file ]]; then
+        continue
+    fi
     # if the file is a query file .ql or .qll
     if [[ $file == $LANGUAGE/**.ql ]]; then
         echo "[+] Compiling $file (in $LANGUAGE)"
