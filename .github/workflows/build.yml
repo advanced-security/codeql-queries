@@ -37,10 +37,7 @@ jobs:
       - name: Compile Queries
         if: steps.changes.outputs.src == 'true'
         run: |
-          gh codeql query compile \
-            --warnings=error \
-            --search-path=./codeql --additional-packs=./codeql \
-            ./${{ matrix.language }}/
+          ./.github/scripts/pr-compile.sh ${{ github.event.number }} ${{ matrix.language }}
 
       - name: Compile / Check Suites
         if: steps.changes.outputs.src == 'true'
