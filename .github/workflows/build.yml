@@ -40,12 +40,12 @@ jobs:
         run: |
           ./.github/scripts/pr-compile.sh ${{ github.event.number }} ${{ matrix.language }}
 
-      - name: Compile / Check Suites
-        if: steps.changes.outputs.src == 'true'
-        run: |
-          ./.github/scripts/pr-suites.sh ${{ github.event.number }} ${{ matrix.language }}
-
       - name: Test Queries
         if: steps.changes.outputs.src == 'true'
         run: |
           ./.github/scripts/pr-tests.sh ${{ github.event.number }} ${{ matrix.language }}
+
+      - name: Compile / Check Suites & Packs
+        if: steps.changes.outputs.src == 'true'
+        run: |
+          ./.github/scripts/pr-pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
