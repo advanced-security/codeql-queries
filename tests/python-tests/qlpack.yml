@@ -1,8 +1,8 @@
-name: github-queries-python-tests
+name: advanced-security/codeql-python-tests
 groups: [python, test]
 dependencies:
   codeql/python-all: "*"
-  github-queries-python: "*"
+  advanced-security/codeql-python: "*"
 
 extractor: python
 tests: .
