@@ -1,5 +1,5 @@
 /**
- * @name XML is read insecurely
+ * @name Audit: Insecure XML Parser
  * @description XML may include dangerous external references, which should
  *              be restricted using a secure resolver or disabling DTD processing.
  * @kind problem

@@ -1,5 +1,5 @@
 /**
- * @name Usage of Unsafe Deserialize sink
+ * @name Audit: Usage of Unsafe Deserialize sink
  * @description Calling an unsafe deserializer with data controlled by an attacker
  *              can lead to denial of service and other security problems.
  * @kind problem
