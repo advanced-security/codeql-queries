@@ -1,5 +1,5 @@
 /**
- * @name Using JS Eval
+ * @name Audit: Using JS Eval
  * @description Usage of eval in JavaScript / TypeScript can be dangerous
  * @kind problem
  * @problem.severity recommendation

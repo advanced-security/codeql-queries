@@ -1,5 +1,5 @@
 /**
- * @name XML External Entity sink used
+ * @name Audit: XML External Entity sink used
  * @description A XML External Entity (XXE) sink is being used in your application
  * @kind problem
  * @problem.severity error

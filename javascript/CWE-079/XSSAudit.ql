@@ -1,5 +1,5 @@
 /**
- * @name Possible Reflected Cross-Site Scripting
+ * @name Audit: Possible Reflected Cross-Site Scripting
  * @description Insecure dangerouslySetInnerHTML() function can lead to reflected XSS.
  * @kind problem
  * @problem.severity error
@@ -15,5 +15,5 @@ import javascript
 private import semmle.javascript.security.dataflow.DomBasedXssCustomizations
 
 from DataFlow::Node sink
-where sink instanceof DomBasedXss::DangerouslySetInnerHtmlSink 
+where sink instanceof DomBasedXss::DangerouslySetInnerHtmlSink
 select sink, "React's dangerouslySetInnerHTML is being used."
