@@ -1,5 +1,5 @@
 /**
- * @name Command Injection Sink used
+ * @name Audit: Usage of Command Injection sink
  * @description A Command Injection sink is being used in your application, this can lead to remote code execution if user controled input comes into the sink
  * @kind problem
  * @problem.severity error
