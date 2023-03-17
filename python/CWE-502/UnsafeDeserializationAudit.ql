@@ -1,5 +1,5 @@
 /**
- * @name Deserializing untrusted input
+ * @name Audit: Usage of Deserializing function
  * @description Deserializing user-controlled data may allow attackers to execute arbitrary code.
  * @kind problem
  * @problem.severity warning
