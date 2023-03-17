@@ -37,15 +37,21 @@ jobs:
 
       - name: Compile Queries
         if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           ./.github/scripts/pr-compile.sh ${{ github.event.number }} ${{ matrix.language }}
 
       - name: Test Queries
         if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           ./.github/scripts/pr-tests.sh ${{ github.event.number }} ${{ matrix.language }}
 
       - name: Compile / Check Suites & Packs
         if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
