@@ -16,6 +16,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
             --warnings=error \
             --search-path=./codeql --additional-packs=./codeql \
             ./$file
+
     # if github folder is modified
     elif [[ $file == $LANGUAGE/github/* ]] && [[ $LIBRARY_SCANNED == false ]]; then
         echo "[+] Libray changed, compiling all queries in $LANGUAGE"
@@ -26,5 +27,8 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
             ./$LANGUAGE/
         # set LIBRARY_SCANNED to true to prevent recompiling
         LIBRARY_SCANNED=true
+
     fi
 done
+
+echo "[+] Complete"
