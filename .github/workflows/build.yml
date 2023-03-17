@@ -25,6 +25,7 @@ jobs:
           filters: |
             src:
               - '${{ matrix.language }}/**'
+              - 'tests/${{ matrix.language }}-tests/**'
 
       - name: Install CodeQL
         if: steps.changes.outputs.src == 'true'

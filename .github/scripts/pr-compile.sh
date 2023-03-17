@@ -8,7 +8,7 @@ LIBRARY_SCANNED=false
 
 for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
     # if the file is a query file .ql or .qll
-    if [[ $file == *.ql ]]; then
+    if [[ $file == $LANGUAGE/**.ql ]]; then
         echo "[+] Compiling $file (in $LANGUAGE)"
         # compile the query
         gh codeql query compile  \
