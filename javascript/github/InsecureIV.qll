@@ -98,3 +98,16 @@ predicate isCreateIV(DataFlow::Node node) {
         DataFlow::moduleMember("crypto", name).getACall().getArgument(2) = node
     )
 }
+
+predicate knownCryptTest(DataFlow::Node sink) {
+    sink.getFile().getRelativePath().matches(
+        [
+            "%/des.js/test/%",
+            "test/common/tls.js",
+            "test/%/test-crypto-%.js",
+            "%/browserify-aes/populateFixtures.js",
+            "%/evp_bytestokey%/test.js",
+            "%/sshpk/lib/formats/ssh-private.js"
+        ]
+    )
+}
