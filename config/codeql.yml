@@ -3,6 +3,8 @@ name: "GitHub Field CodeQL Configuration"
 disable-default-queries: true
 
 queries:
+  - uses: security-extended
+
   # C/CPP queries
   - uses: advanced-security/codeql-queries/cpp/suites/codeql-cpp.qls@main
 
@@ -16,10 +18,10 @@ queries:
   - uses: advanced-security/codeql-queries/java/suites/codeql-java.qls@main
 
   # JavaScript/TypeScript queries
-  - uses: advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main
+  - uses: advanced-security/codeql-queries:suites/codeql-javascript.qls@main
 
   # Python queries
-  - uses: advanced-security/codeql-queries/python/suites/codeql-python.qls@main
+  - uses: advanced-security/codeql-queries:suites/codeql-python.qls@main
 
   # Ruby queries
   - uses: advanced-security/codeql-queries/ruby/suites/codeql-ruby.qls@main
