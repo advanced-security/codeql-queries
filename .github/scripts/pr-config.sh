@@ -16,13 +16,12 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
         if [[ -d "$codeql_db" ]]; then
             rm -rf "$codeql_db"
         fi
-        
+
         gh codeql database init \
-            --source-root=python/CWE-078/examples \
+            --source-root=. \
             --language=python \
             --codescanning-config=$file \
             "$codeql_db"
-
 
     fi
 done
