@@ -7,7 +7,7 @@ on:
 
 jobs:
   release-main:
-    name: ""Create CodeQL Pack Release"
+    name: "Create CodeQL Pack Release"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
