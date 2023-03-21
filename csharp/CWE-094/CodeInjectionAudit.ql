@@ -1,5 +1,5 @@
 /**
- * @name Use of Code Injection sink
+ * @name Audit: Use of Code Injection sink
  * @description Treating externally controlled strings as code can allow an attacker to execute
  *              malicious code.
  * @kind problem

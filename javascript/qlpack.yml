@@ -1,4 +1,7 @@
-name: github-queries-javascript
-version: 0.0.0
+---
+library: false
+name: advanced-security/codeql-javascript
+version: 0.1.0
 dependencies:
-  codeql/javascript-queries: "*"
+  codeql/javascript-queries: "0.5.0"
+defaultSuiteFile: suites/codeql-javascript.qls
