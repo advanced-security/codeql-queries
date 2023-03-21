@@ -79,4 +79,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} "config"
+          ./.github/scripts/pr-config.sh "${{ github.event.number }}"
