@@ -42,7 +42,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
             --source-root=. \
             --language=$LANGUAGE \
             --codescanning-config=$file \
-            "$codeql_db"    
+            "$codeql_db"
 
     fi
 done
