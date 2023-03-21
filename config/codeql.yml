@@ -1,10 +1,14 @@
 name: "GitHub Field CodeQL Configuration"
 
 packs:
+  # Java/Kotlin queries
+  - advanced-security/codeql-java:suites/codeql-java.qls
   # JavaScript/TypeScript queries
   - advanced-security/codeql-javascript:suites/codeql-javascript.qls
   # Python queries
   - advanced-security/codeql-python:suites/codeql-python.qls
+  # Go queries
+  - advanced-security/codeql-go:suites/codeql-go.qls
 
 queries:
   # C/CPP queries
@@ -12,12 +16,6 @@ queries:
 
   # CSharp queries
   - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
-
-  # Go queries
-  - uses: advanced-security/codeql-queries/go/suites/codeql-go.qls@main
-
-  # Java queries
-  - uses: advanced-security/codeql-queries/java/suites/codeql-java.qls@main
 
   # Ruby queries
   - uses: advanced-security/codeql-queries/ruby/suites/codeql-ruby.qls@main
