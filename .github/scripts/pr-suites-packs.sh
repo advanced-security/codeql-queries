@@ -9,6 +9,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
     if [[ ! -f "$file" ]]; then
         continue
     fi
+
     # suite folder 
     if [[ "$file" == $LANGUAGE/suites/**.qls ]]; then
         echo "[+] Compiling Suite: $file"
@@ -29,6 +30,19 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
         gh codeql pack create "$LANGUAGE"
 
         PACK_COMPILED=true
+
+    # if config file
+    elif [[ "$file" == config/** ]]; then
+        codeql_db="/tmp/codeql-database-$LANGUAGE"
+        if [[ -d "$codeql_db" ]]; then
+            rm -rf "$codeql_db"
+        fi
+        echo "[+] Compiling Config: $file"
+        gh codeql database init \
+            --source-root=. \
+            --language=$LANGUAGE \
+            --codescanning-config=$file \
+            "$codeql_db"    
 
     fi
 done
