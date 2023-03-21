@@ -3,7 +3,8 @@
 - description: "CSharp Audit Pack"
 
 # Field query pack with some audit queries
-- qlpack: github-queries-csharp
+- queries: '.'
+  from: advanced-security/codeql-csharp
 
 - include:
     kind:
@@ -13,3 +14,10 @@
     - diagnostic
     tags contain:
     - audit
+
+# External API query
+- queries: '.'
+  from: codeql/csharp-queries
+- include:
+    id:
+      - cs/untrusted-data-to-external-api
