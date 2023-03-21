@@ -9,10 +9,14 @@ jobs:
   release-main:
     name: "Create CodeQL Pack Release"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'java', 'go', 'python', 'javascript' ]
+        language: [ 'csharp', 'python' ]
 
     steps:
       - uses: actions/checkout@v3
