@@ -1,35 +1,20 @@
-#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
-#   for additional ways to exclude queries
+# https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
 
-- description: "GitHub's Field Team CodeQL CSharp extended Suite"
+- description: "GitHub's Field Team CSharp Extended Suite"
 
-- qlpack: github-queries-csharp
-
-- import: codeql-suites/csharp-security-extended.qls
-  from: codeql/csharp-queries
-
+# GitHub's Field Team CSharp Suite
 - queries: '.'
-  from: codeql/csharp-queries
+  from: advanced-security/codeql-csharp
 
-# Include Experimental queries
-- include:
-    query path:
-      - /experimental\/.*/
-
-# Include lows
 - include:
     kind:
     - problem
     - path-problem
-    tags contain:
-    - security
     precision:
+    - very-high
+    - high
+    - medium
     - low
-# 
-- include:
-    tags contain:
-    - experimental
-    - solorigate
 
 # Remove debugging, and audit queries
 - exclude:
@@ -40,10 +25,3 @@
 - exclude:
     query path:
       - /testing\/.*/
-- exclude:
-    deprecated: //
-- exclude:
-    query path:
-      - Metrics/Summaries/FrameworkCoverage.ql
-      - /Diagnostics/Internal/.*/
-      - /ir\/.*/

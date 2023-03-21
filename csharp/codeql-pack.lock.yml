@@ -1,0 +1,16 @@
+---
+lockVersion: 1.0.0
+dependencies:
+  codeql/csharp-all:
+    version: 0.5.0
+  codeql/csharp-queries:
+    version: 0.5.0
+  codeql/ssa:
+    version: 0.0.8
+  codeql/suite-helpers:
+    version: 0.4.0
+  codeql/tutorial:
+    version: 0.0.1
+  codeql/util:
+    version: 0.0.1
+compiled: false
