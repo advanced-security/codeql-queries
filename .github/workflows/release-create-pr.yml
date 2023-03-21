@@ -1,0 +1,48 @@
+name: "Create Pull Request for new CodeQL Pack Release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Bump type (major, minor, patch)'
+        required: true
+        default: 'patch'
+
+jobs:
+  release-create-pr:
+    name: "Create Pull Request for new CodeQL Pack Release"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java', 'go', 'python', 'javascript' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CodeQL
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+
+      - name: "Update CodeQL Packs"
+        id: codeqlupdate
+        run: |
+          ./.github/scripts/update-pack.sh -l=${{ matrix.language }} -b=${{ github.event.inputs.bump }}
+          
+          gh codeql pack install "$LANGUAGE"
+          gh codeql pack create "$LANGUAGE"
+
+          echo "{version}={$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')}" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@38e0b6e68b4c852a5500a94740f0e535e0d7ba54
+        with:
+          title: "[Bot] New CodeQL Field Pack Release - ${{ matrix.language }}@${{ steps.codeqlupdate.outputs.version }}"
+          body: |
+            This PR was created automatically because of a CodeQL release version.
+          commit-message: |
+            feat(update): advanced-security/codeql-${{ matrix.language }}@${{ steps.codeqlupdate.outputs.version }}"
+          branch: codeql-release/${{ matrix.language }}@${{ steps.codeqlupdate.outputs.version }}"
+          delete-branch: true

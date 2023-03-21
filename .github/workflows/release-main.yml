@@ -1,0 +1,38 @@
+name: "Create CodeQL Pack Release"
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  release-main:
+    name: ""Create CodeQL Pack Release"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java', 'go', 'python', 'javascript' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@8e1ba3bf1619726336414f1014e37f17fbadf1db
+        with:
+          application_id: ${{ secrets.ADVANCED_SECURITY_APP_ID }}
+          application_private_key: ${{ secrets.ADVANCED_SECURITY_APP_KEY }}
+
+      - name: "Check and Publish CodeQL Packs"
+        env:
+          GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
+        run: |
+          PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
+          CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
+
+          if [ "$PUBLISHED_VERSION" != "$CURRENT_VERSION" ]; then
+            gh extension install github/gh-codeql
+            gh codeql pack install "${{ matrix.language }}"
+            gh codeql pack publish "${{ matrix.language }}"
+          fi
