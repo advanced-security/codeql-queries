@@ -14,3 +14,10 @@
     - diagnostic
     tags contain:
     - audit
+
+# External API query
+- queries: '.'
+  from: codeql/csharp-queries
+- include:
+    id:
+      - cs/untrusted-data-to-external-api
