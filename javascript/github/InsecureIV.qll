@@ -2,27 +2,15 @@ import semmle.javascript.dataflow.TaintTracking
 
 import github.CommandLine
 
-class StaticIVConfiguration extends TaintTracking::Configuration {
-    StaticIVConfiguration() { this = "StaticIVConfiguration" }
-
-    override predicate isSource(DataFlow::Node source) {
-        exists(Literal literal|literal.flow() = source)
-    }
-
-    override predicate isSink(DataFlow::Node sink) {
-        isCreateIV(sink)
-    }
-}
-
-class RandomIVConfiguration extends TaintTracking::Configuration {
-    RandomIVConfiguration() { this = "RandomIVConfiguration" }
+class RandomTaintsSourceConfiguration extends TaintTracking::Configuration {
+    RandomTaintsSourceConfiguration() { this = "RandomTaintsSourceConfiguration" }
 
     override predicate isSource(DataFlow::Node source) {
         isSecureRandom(source)
     }
 
     override predicate isSink(DataFlow::Node sink) {
-        isCreateIV(sink)
+        not isSecureRandom(sink)
     }
 }
 
@@ -61,11 +49,7 @@ class ExternalCallWithOutput extends DataFlow::Node {
     ExternalCallWithOutput() {
         not exists(MethodCallExpr method_call, ThisExpr this_expr| method_call = call and method_call.getReceiver() = this_expr )
         and
-        (
-            (this = call.flow())
-            or
-            (this = call.getAnArgument().flow() and not this.asExpr() instanceof Literal)
-        )
+        this = call.flow()
     }
 }
 
@@ -110,7 +94,20 @@ class CreateIVArgument extends DataFlow::Node {
 
 predicate isCreateIV(DataFlow::Node node) {
     exists(string name|
-        name in ["createDecipheriv", "createCipheriv"] and
+        name = "createCipheriv" and
         DataFlow::moduleMember("crypto", name).getACall().getArgument(2) = node
+    )
+}
+
+predicate knownCryptTest(DataFlow::Node sink) {
+    sink.getFile().getRelativePath().matches(
+        [
+            "%/des.js/test/%",
+            "test/common/tls.js",
+            "test/%/test-crypto-%.js",
+            "%/browserify-aes/populateFixtures.js",
+            "%/evp_bytestokey%/test.js",
+            "%/sshpk/lib/formats/ssh-private.js"
+        ]
     )
 }

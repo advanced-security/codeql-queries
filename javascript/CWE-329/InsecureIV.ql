@@ -20,4 +20,6 @@ import github.InsecureIV
 
 from InsecureIVConfiguration insecurecfg, DataFlow::PathNode source, DataFlow::PathNode sink
 where insecurecfg.hasFlowPath(source, sink)
+and not exists(DataFlow::Node randomSource, RandomTaintsSourceConfiguration randomConfig | randomSource instanceof SecureRandomSource | randomConfig.hasFlow(randomSource, source.getNode()))
+and not knownCryptTest(sink.getNode())
 select sink, source, sink, "Insecure Initialization Vector (IV) used for cryptographic function. With a few exceptions, it is best to use a secure random source for IVs."
