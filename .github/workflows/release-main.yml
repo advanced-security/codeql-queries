@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'python' ]
+        language: [ 'csharp', 'javascript', 'python' ]
 
     steps:
       - uses: actions/checkout@v3
