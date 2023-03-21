@@ -9,10 +9,14 @@ jobs:
   release-main:
     name: "Create CodeQL Pack Release"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'python', 'javascript' ]
+        language: [ 'csharp', 'python' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,8 +29,6 @@ jobs:
           application_private_key: ${{ secrets.ADVANCED_SECURITY_APP_KEY }}
 
       - name: "Check and Publish CodeQL Packs"
-        env:
-          GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
