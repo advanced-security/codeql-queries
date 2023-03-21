@@ -56,3 +56,27 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
+
+  config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Install CodeQL
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+          LANGS="cpp,csharp,go,java,javascript,python,ruby"
+          for lang in $(echo $LANGS | sed "s/,/ /g"); do
+              gh codeql pack download "codeql/$lang-queries"
+          done
+
+      - name: Compile / Check Suites & Packs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./.github/scripts/pr-config.sh "${{ github.event.number }}"

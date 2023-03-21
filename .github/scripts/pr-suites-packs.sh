@@ -9,6 +9,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
     if [[ ! -f "$file" ]]; then
         continue
     fi
+
     # suite folder 
     if [[ "$file" == $LANGUAGE/suites/**.qls ]]; then
         echo "[+] Compiling Suite: $file"
