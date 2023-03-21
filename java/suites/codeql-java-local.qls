@@ -6,7 +6,8 @@
 - import: codeql-suites/java-security-extended.qls
   from: codeql/java-queries
 
-- qlpack: github-queries-java
+- queries: '.'
+  from: advanced-security/codeql-java
 - include:
     id:
       - java/xxe-local
