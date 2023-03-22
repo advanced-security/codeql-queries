@@ -6,12 +6,16 @@
 - queries: '.'
   from: advanced-security/codeql-javascript
 
-# Include lows
 - include:
     kind:
     - problem
     - path-problem
+    - metric
+    - diagnostic
     precision:
+    - very-high
+    - high
+    - medium
     - low
 
 # Remove debugging, and audit queries
