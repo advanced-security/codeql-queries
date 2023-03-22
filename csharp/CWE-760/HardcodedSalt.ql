@@ -22,8 +22,6 @@ module HardcodedSalt {
 
   abstract class Sink extends DataFlow::ExprNode { }
 
-  abstract class Sanitizer extends DataFlow::ExprNode { }
-
   class Hardcoded extends Source {
     Hardcoded() { this instanceof HardcodedValues }
   }
@@ -42,8 +40,6 @@ module HardcodedSalt {
       not any(ReturnedByMockObject mock).getAMemberInitializationValue() = sink.asExpr() and
       not any(ReturnedByMockObject mock).getAnArgument() = sink.asExpr()
     }
-
-    override predicate isSanitizer(DataFlow::Node node) { node instanceof Sanitizer }
   }
 }
 
