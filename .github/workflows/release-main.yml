@@ -30,7 +30,8 @@ jobs:
 
       - name: "Check and Publish CodeQL Packs"
         env:
-          GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+          # GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
