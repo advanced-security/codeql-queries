@@ -21,17 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get Token
-        id: get_workflow_token
-        uses: peter-murray/workflow-application-token-action@8e1ba3bf1619726336414f1014e37f17fbadf1db #v2.1.0
-        with:
-          application_id: ${{ secrets.ADVANCED_SECURITY_APP_ID }}
-          application_private_key: ${{ secrets.ADVANCED_SECURITY_APP_KEY }}
-
       - name: "Check and Publish CodeQL Packs"
         env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
-          # GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.OCTODEMOBOT_PACKAGES_ACCESS_TOKEN }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
