@@ -1,0 +1,9 @@
+---
+library: true
+name: advanced-security/codeql-java-extensions
+version: 0.0.1
+extensionTargets:
+  codeql/java-all: ^0.5.0
+  codeql/java-queries: ^0.5.0
+dataExtensions:
+  - models/*.yml
