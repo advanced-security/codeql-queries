@@ -13,6 +13,7 @@ packs:
 
   # Java/Kotlin queries
   - advanced-security/codeql-java
+  - advanced-security/codeql-java-extensions
 
   # JavaScript/TypeScript queries
   - advanced-security/codeql-javascript
