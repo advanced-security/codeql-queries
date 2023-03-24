@@ -21,7 +21,7 @@ jobs:
           repository: ${{ github.event.inputs.repository }}
           language: ${{ github.event.inputs.language }}
           output: ./extensions
-          token: ${{ secrets.CODEQL_SUMMARY_GENERATOR_TOKEN }}
+          # token: ${{ secrets.CODEQL_SUMMARY_GENERATOR_TOKEN }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
