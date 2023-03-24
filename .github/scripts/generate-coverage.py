@@ -171,7 +171,7 @@ def createMarkdown(
         start_location = file_data.index(placeholder) + len(placeholder)
         end_location = file_data.index(placeholder, start_location)
 
-        print("Inserting data between: {} <-> {}".format(start_location, end_location))
+        print("Inserting '{}' data between: {} <-> {}".format(placeholder, start_location, end_location))
 
         new_data = (
             file_data[:start_location]
