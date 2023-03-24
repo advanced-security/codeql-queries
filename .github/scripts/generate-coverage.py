@@ -38,6 +38,7 @@ language_display = {
 default_suite_order = [
     "default",
     "extended",
+    "experimental",
     "quality",
     "local-variants",
     "super-extended",
@@ -53,6 +54,11 @@ default_suites = {
     "extended": {
         "name": "Security Extended Suite",
         "path": "codeql/{language}/ql/src/codeql-suites/{language}-security-extended.qls",
+        "type": "builtin",
+    },
+        "experimental": {
+        "name": "Security Experimental Suite",
+        "path": "codeql/{language}/ql/src/codeql-suites/{language}-security-experimental.qls",
         "type": "builtin",
     },
     "quality": {
