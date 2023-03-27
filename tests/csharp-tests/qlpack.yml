@@ -1,0 +1,8 @@
+name: advanced-security/codeql-csharp-tests
+groups: [csharp, test]
+dependencies:
+  codeql/csharp-all: "*"
+  advanced-security/codeql-csharp: "*"
+
+extractor: csharp
+tests: .

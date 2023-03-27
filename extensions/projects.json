@@ -1,0 +1,6 @@
+{
+    "java": [
+        "ESAPI/esapi-java-legacy",
+        "eclipse-vertx/vert.x"
+    ]
+}
