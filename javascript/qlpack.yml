@@ -1,7 +1,7 @@
 ---
 library: false
 name: advanced-security/codeql-javascript
-version: 0.1.0
+version: 0.2.0
 dependencies:
   codeql/javascript-queries: "0.5.0"
 defaultSuiteFile: suites/codeql-javascript.qls
