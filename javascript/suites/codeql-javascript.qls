@@ -2,30 +2,28 @@
 
 - description: "GitHub's Field Team JavaScript/TypeScript extended Suite"
 
-- qlpack: github-queries-javascript
+# GitHub's Field Team Python Suite
+- queries: '.'
+  from: advanced-security/codeql-javascript
 
-- import: codeql-suites/javascript-security-extended.qls
-  from: codeql/javascript-queries
+- include:
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    precision:
+    - very-high
+    - high
+    - medium
+    - low
 
 # Remove debugging, and audit queries
 - exclude:
     tags contain:
       - debugging
       - audit
-
-# Include Experimental queries
-- queries: '.'
-  from: codeql/javascript-queries
-- include:
-    query path:
-      - /experimental\/.*/
-
-- exclude:
-    deprecated: //
+# Remove local testing folders
 - exclude:
     query path:
-      - Metrics/Summaries/FrameworkCoverage.ql
-      - /Diagnostics/Internal/.*/
-- exclude:
-    tags contain:
-      - model-generator
+      - /testing\/.*/
