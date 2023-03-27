@@ -33,6 +33,10 @@
             "path": "swift"
         },
         {
+            "name": "Extensions",
+            "path": "extensions"
+        },
+        {
             "name": "Tests",
             "path": "tests"
         },
