@@ -42,6 +42,7 @@ class InsecureUser3(db.Model, UserMixin):
 
 
 class SecureUser(db.Model, UserMixin):
+    """Secure because it is hashed in the init method."""
     __tablename__ = 'secure_users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -58,6 +59,34 @@ class SecureUser2(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80))
+
+
+class SecureUser3(db.Model, UserMixin):
+    """Secure because it is hashed in the init method with a wrapper function."""
+    __tablename__ = 'secure_users_3'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(80))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = hash_wrapper(password)
+
+
+class SecureUser4(db.Model):
+    """
+    Secure because it is hashed in the init method.
+    
+    Doesn't use UserMixin, uses a plain model with a positional keyword.
+    """
+    __tablename__ = 'secure_users_4'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    passwd = db.Column(db.String(80))
+
+    def __init__(self, username, passwd=None):
+        self.username = username
+        self.passwd = generate_password_hash(passwd)
 
 
 @app.route("/register-insecure")
@@ -100,3 +129,20 @@ def reg5():
     #password_hash = b64encode(password)
 
     user = InsecureUser3(username, password_hash)
+
+def hash_wrapper(password):
+    return generate_password_hash(password)
+
+@app.route("/register-secure-3")
+def reg6():
+    username = request.json['username']
+    password = request.json['password']
+
+    user = SecureUser3(username, password)
+
+@app.route("/register-secure-4")
+def reg7():
+    username = request.json['username']
+    password = request.json['password']
+
+    user = SecureUser4(username, password=password)

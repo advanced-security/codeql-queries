@@ -3,6 +3,7 @@ private import semmle.python.dataflow.new.DataFlow
 private import semmle.python.dataflow.new.TaintTracking
 private import semmle.python.ApiGraphs
 private import semmle.python.dataflow.new.RemoteFlowSources
+private import semmle.python.pointsto.CallGraph
 
 
 class
@@ -184,7 +185,17 @@ PasswordArg extends DataFlow::Node {
 
     PasswordArg() {
         exists(Call init |
-            init.getArg(1) = this.asExpr()
+            (
+                init.getPositionalArg(1) = this.asExpr()
+                or
+                exists(int i, string name|
+                    init.getArg(i) = this.asExpr()
+                    and init.getANamedArgumentName() = user.getPasswordVariable()
+                    and init.getNamedArg(i).(KeyValuePair).getKey().toString() = name
+                    and name = user.getPasswordVariable()
+                )
+            )
+            // it's an init of User
             and user.getName() = init.getFunc().(Name).getId()
         )
     }
@@ -195,26 +206,49 @@ PasswordArg extends DataFlow::Node {
     }
 }
 
+abstract class HashSanitizer extends DataFlow::Node {
+    HashSanitizer() {
+        this = this
+    }
+}
+
 class
-HashSanitizer extends DataFlow::Node {
+HashSanitizerConcrete extends HashSanitizer {
     Call hash;
     API::Node member;
 
-    HashSanitizer() {
+    HashSanitizerConcrete() {
         (
-            API::moduleImport("flask_security").getMember("hash_password") = member
-            or
-            API::moduleImport("flask_security").getMember("utils").getMember("hash_password") = member
-            or
-            API::moduleImport("werkzeug").getMember("security").getMember("generate_password_hash") = member
-            or
-            API::moduleImport("werkzeug").getMember("generate_password_hash") = member
-            or
-            API::moduleImport("flask_bcrypt").getMember("Bcrypt").getMember("generate_password_hash") = member
-            or
-            API::moduleImport("flask_argon2").getMember("Argon2").getMember("generate_password_hash") = member
+            (
+                API::moduleImport("flask_security").getMember("hash_password") = member
+                or
+                API::moduleImport("flask_security").getMember("utils").getMember("hash_password") = member
+                or
+                API::moduleImport("werkzeug").getMember("security").getMember("generate_password_hash") = member
+                or
+                API::moduleImport("werkzeug").getMember("generate_password_hash") = member
+                or
+                API::moduleImport("flask_bcrypt").getMember("Bcrypt").getMember("generate_password_hash") = member
+                or
+                API::moduleImport("flask_argon2").getMember("Argon2").getMember("generate_password_hash") = member
+            )
+            and member.getACall().asExpr() = hash
+            and hash.getArg(0) = this.asExpr()
         )
-        and member.getACall().asExpr() = hash
-        and hash.getArg(0) = this.asExpr()
+    }
+}
+
+// keeping it very simple. If we run into FPs or FNs we can make it more complex
+// for unknown reasons the hashCall.getCall() predicate is empty for method calls,
+// so this fails to identify wrapper methods
+class HashSanitizerWrapperFunction extends HashSanitizer {
+    FunctionInvocation hashCall;
+    HashSanitizerConcrete wrappedHash;
+    Function hashWrapper;
+
+    HashSanitizerWrapperFunction() {
+        hashWrapper.contains(wrappedHash.asExpr())
+        and hashCall.getFunction().getFunction() = hashWrapper
+        and hashCall.getCall().getArg(0) = this.asExpr().getAFlowNode()
     }
 }
