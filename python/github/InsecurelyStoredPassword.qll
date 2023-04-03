@@ -99,7 +99,7 @@ User extends ClassDef {
     predicate
     isSecure() {
         this.hasSecureInit()
-        or this.usedSecurely()
+        or (not this.hasSecureInit() and this.usedSecurely())
     }
 }
 
@@ -118,6 +118,18 @@ InsecureTaintTrackingConfiguration extends TaintTracking::Configuration {
     predicate
     isSink(DataFlow::Node sink) {
         sink instanceof PasswordArg
+    }
+
+    override
+    predicate
+    isAdditionalTaintStep(DataFlow::Node a, DataFlow::Node b) {
+        // from a dict key to the dict, if the key is "password"
+        exists(Dict dict, KeyValuePair pair |
+            dict.getAnItem() = pair
+            and pair.getKey().toString().regexpMatch("^(?:password|pass|pwd|passwd)$")
+            and a.asExpr() = pair.getValue()
+            and b.asExpr() = dict
+        )
     }
 
     override
@@ -182,22 +194,42 @@ SelfPasswordAttribute extends DataFlow::Node {
 class
 PasswordArg extends DataFlow::Node {
     User user;
+    Call init;
 
     PasswordArg() {
-        exists(Call init |
+        // it's an init of User
+        init.getFunc().(Name).getId() = user.getName()
+        and
+        (
+            // positional arg 1
             (
                 init.getPositionalArg(1) = this.asExpr()
-                or
-                exists(int i, string name|
-                    init.getArg(i) = this.asExpr()
-                    and init.getANamedArgumentName() = user.getPasswordVariable()
-                    and init.getNamedArg(i).(KeyValuePair).getKey().toString() = name
+            )
+            or
+            // named arg "password"
+            exists(int i, string name|
+                init.getArg(i) = this.asExpr()
+                and init.getANamedArgumentName() = name
+                and init.getNamedArg(i).(KeyValuePair).getKey().toString() = name
+                and name = user.getPasswordVariable()
+            )
+            or
+            // **kwargs
+            (
+                init.getKwargs() = this.asExpr()
+                and not exists(init.getPositionalArg(1))
+                and not exists(string name|
+                    init.getANamedArgumentName() = name
+                    and init.getANamedArg().(KeyValuePair).getKey().toString() = name
                     and name = user.getPasswordVariable()
                 )
             )
-            // it's an init of User
-            and user.getName() = init.getFunc().(Name).getId()
         )
+    }
+
+    Call
+    getInit() {
+        result = init
     }
 
     User
@@ -252,3 +284,4 @@ class HashSanitizerWrapperFunction extends HashSanitizer {
         and hashCall.getCall().getArg(0) = this.asExpr().getAFlowNode()
     }
 }
+
