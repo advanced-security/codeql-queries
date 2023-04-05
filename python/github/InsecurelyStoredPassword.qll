@@ -200,17 +200,28 @@ class HashSanitizerConcrete extends HashSanitizer {
   }
 }
 
-// keeping it very simple. If we run into FPs or FNs we can make it more complex
-// for unknown reasons the hashCall.getCall() predicate is empty for method calls,
-// so this fails to identify wrapper methods
-class HashSanitizerWrapperFunction extends HashSanitizer {
-  FunctionInvocation hashCall;
-  HashSanitizerConcrete wrappedHash;
-  Function hashWrapper;
+private import semmle.python.dataflow.new.internal.DataFlowDispatch as DataFlowDispatch
 
+/** Holds if the `call` is a call to the function `target`. */
+private predicate resolveCall(CallNode call, Function target) {
+    // TODO: This should be exposed better from the standard library API
+    DataFlowDispatch::resolveCall(call, target, _)
+}
+
+/**
+ * From real world cases, we see that if the password is hashed in a wrapper function,
+ * the data-flow library fails to break the flow. To handle that, we assume that first
+ * argument to any function that performs strong password hashing in its' body, can also
+ * be considered a sanitizer.
+ *
+ * We are keeping it very simple. If we run into FPs or FNs we can make it more complex.
+ */
+class HashSanitizerWrapperFunction extends HashSanitizer {
   HashSanitizerWrapperFunction() {
-    hashWrapper.contains(wrappedHash.asExpr()) and
-    hashCall.getFunction().getFunction() = hashWrapper and
-    hashCall.getCall().getArg(0) = this.asExpr().getAFlowNode()
+    exists(CallNode hashCall, Function hashWrapper |
+        hashWrapper.contains(any(HashSanitizerConcrete hsc).asExpr()) and
+        resolveCall(hashCall, hashWrapper) and
+        this.asCfgNode() = hashCall.getArg(0)
+    )
   }
 }
