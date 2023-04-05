@@ -178,27 +178,23 @@ abstract class HashSanitizer extends DataFlow::Node {
 }
 
 class HashSanitizerConcrete extends HashSanitizer {
-  Call hash;
-  API::Node member;
-
   HashSanitizerConcrete() {
-    (
-      (
-        API::moduleImport("flask_security").getMember("hash_password") = member
-        or
-        API::moduleImport("flask_security").getMember("utils").getMember("hash_password") = member
-        or
-        API::moduleImport("werkzeug").getMember("security").getMember("generate_password_hash") =
-          member
-        or
-        API::moduleImport("werkzeug").getMember("generate_password_hash") = member
-        or
-        API::moduleImport("flask_bcrypt").getMember("Bcrypt").getMember("generate_password_hash") =
-          member
-        or
-        API::moduleImport("flask_argon2").getMember("Argon2").getMember("generate_password_hash") =
-          member
-      ) and
+    exists(Call hash, API::Node member |
+      API::moduleImport("flask_security").getMember("hash_password") = member
+      or
+      API::moduleImport("flask_security").getMember("utils").getMember("hash_password") = member
+      or
+      API::moduleImport("werkzeug").getMember("security").getMember("generate_password_hash") =
+        member
+      or
+      API::moduleImport("werkzeug").getMember("generate_password_hash") = member
+      or
+      API::moduleImport("flask_bcrypt").getMember("Bcrypt").getMember("generate_password_hash") =
+        member
+      or
+      API::moduleImport("flask_argon2").getMember("Argon2").getMember("generate_password_hash") =
+        member
+    |
       member.getACall().asExpr() = hash and
       hash.getArg(0) = this.asExpr()
     )
