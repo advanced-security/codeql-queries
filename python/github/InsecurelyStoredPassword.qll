@@ -179,7 +179,7 @@ abstract class HashSanitizer extends DataFlow::Node {
 
 class HashSanitizerConcrete extends HashSanitizer {
   HashSanitizerConcrete() {
-    exists(Call hash, API::Node member |
+    exists(API::Node member |
       API::moduleImport("flask_security").getMember("hash_password") = member
       or
       API::moduleImport("flask_security").getMember("utils").getMember("hash_password") = member
@@ -195,8 +195,7 @@ class HashSanitizerConcrete extends HashSanitizer {
       API::moduleImport("flask_argon2").getMember("Argon2").getMember("generate_password_hash") =
         member
     |
-      member.getACall().asExpr() = hash and
-      hash.getArg(0) = this.asExpr()
+      this = member.getACall().getParameter(0, ["password", "pass", "pwd", "passwd"]).asSink()
     )
   }
 }
