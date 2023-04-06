@@ -15,9 +15,9 @@ import DataFlow::PathGraph
 import github.CommandInjectionRuntimeExec
 
 
-from DataFlow::PathNode source, DataFlow::PathNode sink, ExecTaintConfiguration2 conf, MethodAccess call, int index, DataFlow::Node sourceCmd, DataFlow::Node sinkCmd, ExecTaintConfiguration confCmd
+from DataFlow::PathNode source, DataFlow::PathNode sink, ExecTaintConfiguration2 conf, MethodAccess call, DataFlow::Node sourceCmd, DataFlow::Node sinkCmd, ExecTaintConfiguration confCmd
 where call.getMethod() instanceof RuntimeExecMethod
-// this is a command-accepting call to exec, e.g. exec("/bin/sh", ...)
+// this is a command-accepting call to exec, e.g. rt.exec(new String[]{"/bin/sh", ...})
 and (
     confCmd.hasFlow(sourceCmd, sinkCmd)
     and sinkCmd.asExpr() = call.getArgument(0)
@@ -25,7 +25,7 @@ and (
 // it is tainted by untrusted user input
 and (
     conf.hasFlow(source.getNode(), sink.getNode())
-    and sink.getNode().asExpr() = call.getArgument(index)
+    and sink.getNode().asExpr() = call.getArgument(0)
 )
 select sink, source, sink, "Call to dangerous java.lang.Runtime.exec() with command '$@' with arg from untrusted input '$@'",
     sourceCmd, sourceCmd.toString(),

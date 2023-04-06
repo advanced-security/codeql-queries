@@ -22,6 +22,7 @@ class ExecTaintConfiguration extends TaintTracking::Configuration {
         exists(RuntimeExecMethod method, MethodAccess call |
             call.getMethod() = method
             and sink.asExpr() = call.getArgument(0)
+            and sink.asExpr().getType() instanceof Array
         )
     }
 
@@ -57,6 +58,7 @@ class ExecTaintConfiguration2 extends TaintTracking::Configuration {
         exists(RuntimeExecMethod method, MethodAccess call, int index |
             call.getMethod() = method
             and sink.asExpr() = call.getArgument(index)
+            and sink.asExpr().getType() instanceof Array
         )
     }
 
