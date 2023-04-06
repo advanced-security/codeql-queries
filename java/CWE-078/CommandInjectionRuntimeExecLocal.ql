@@ -5,8 +5,9 @@
  * @problem.severity error
  * @security-severity 6.1
  * @precision high
- * @id java/command-line-injection-extra
+ * @id java/command-line-injection-extra-local
  * @tags security
+ *       local
  *       external/cwe/cwe-078
  */
 
@@ -14,7 +15,7 @@
 import DataFlow::PathGraph
 import github.CommandInjectionRuntimeExec
 
-class RemoteSource extends Source { RemoteSource() { this instanceof RemoteFlowSource } }
+class LocalSource extends Source { LocalSource() { this instanceof LocalUserInput } }
 
 from DataFlow::PathNode source, DataFlow::PathNode sink, ExecTaintConfiguration2 conf, MethodAccess call, DataFlow::Node sourceCmd, DataFlow::Node sinkCmd, ExecTaintConfiguration confCmd
 where call.getMethod() instanceof RuntimeExecMethod

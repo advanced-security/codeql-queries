@@ -15,6 +15,7 @@
 
 import github.CommandInjectionRuntimeExec
 
+class DataSource extends Source { DataSource() { this instanceof RemoteFlowSource or this instanceof LocalUserInput } }
 
 from DataFlow::Node source, DataFlow::Node sink, ExecTaintConfiguration2 conf, MethodAccess call, int index, DataFlow::Node sourceCmd, DataFlow::Node sinkCmd, ExecTaintConfiguration confCmd
 where call.getMethod() instanceof RuntimeExecMethod

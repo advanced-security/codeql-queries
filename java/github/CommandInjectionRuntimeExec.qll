@@ -2,7 +2,7 @@ import java
 import semmle.code.java.frameworks.javaee.ejb.EJBRestrictions
 import semmle.code.java.dataflow.DataFlow
 private import semmle.code.java.dataflow.TaintTracking
-private import semmle.code.java.dataflow.FlowSources
+import semmle.code.java.dataflow.FlowSources
 
 
 // a static string of an unsafe executable tainting arg 0 of Runtime.exec()
@@ -40,6 +40,12 @@ class ExecTaintConfiguration extends TaintTracking::Configuration {
     }
 }
 
+abstract class Source extends DataFlow::Node {
+    Source() {
+        this = this
+    }
+}
+
 
 // taint flow from user data to args of the command
 class ExecTaintConfiguration2 extends TaintTracking::Configuration {
@@ -48,8 +54,7 @@ class ExecTaintConfiguration2 extends TaintTracking::Configuration {
     override
     predicate
     isSource(DataFlow::Node source) {
-        source instanceof RemoteFlowSource
-        or source instanceof LocalUserInput
+        source instanceof Source
     }
 
     override
