@@ -3,7 +3,7 @@
   "qhelp.dtd">
 <qhelp>
 <overview>
-<p>Code that passes remote user input to an arugment of a call of <code>Runtime.exec</code> that
+<p>Code that passes local user input to an arugment of a call of <code>Runtime.exec</code> that
 executes a scripting executable will allow the user to execute malicious code.</p>
 
 </overview>
@@ -39,7 +39,7 @@ OWASP:
 
 
 
-<!--  LocalWords:  CWE untrusted unsanitized Runtime
+<!--  LocalWords:  CWE untrusted unsanitized local Runtime
  -->
 
 </references>

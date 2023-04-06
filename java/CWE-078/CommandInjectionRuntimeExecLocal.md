@@ -1,5 +1,5 @@
 # Command Injection into Runtime.exec() with dangerous command
-Code that passes remote user input to an arugment of a call of `Runtime.exec` that executes a scripting executable will allow the user to execute malicious code.
+Code that passes local user input to an arugment of a call of `Runtime.exec` that executes a scripting executable will allow the user to execute malicious code.
 
 
 ## Recommendation
