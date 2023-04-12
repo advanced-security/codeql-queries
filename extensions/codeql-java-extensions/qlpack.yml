@@ -1,7 +1,7 @@
 ---
 library: true
 name: advanced-security/codeql-java-extensions
-version: 0.1.0
+version: 0.2.0
 extensionTargets:
   codeql/java-all: ^0.5.0
   codeql/java-queries: ^0.5.0
