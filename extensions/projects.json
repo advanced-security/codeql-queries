@@ -1,6 +1,20 @@
 {
     "java": [
         "ESAPI/esapi-java-legacy",
-        "eclipse-vertx/vert.x"
-    ]
+        "JetBrains/kotlin",
+        "apache/dubbo",
+        "apache/hadoop",
+        "apache/iceberg",
+        "eclipse-vertx/vert.x",
+        "google/gson",
+        "google/guava",
+        "mockito/mockito",
+        "mybatis/mybatis-3",
+        "netty/netty",
+        "pgjdbc/pgjdbc",
+        "projectlombok/lombok",
+        "square/okhttp",
+        "zxing/zxing"
+    ],
+    "javascript": []
 }
