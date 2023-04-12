@@ -8,6 +8,8 @@ javascript/* @geekmasher @aegilops
 python/* @geekmasher @aegilops
 ruby/* @geekmasher @aegilops
 
+extensions/* @geekmasher @aegilops
+
 # CI / Scripts
 .github/workflows/* @geekmasher @aegilops @nickliffen
 .github/scripts/* @geekmasher @aegilops @nickliffen
