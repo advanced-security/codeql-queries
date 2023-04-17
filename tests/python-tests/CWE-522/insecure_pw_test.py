@@ -61,6 +61,10 @@ class SecureUser2(db.Model, UserMixin):
     password = db.Column(db.String(80))
 
 
+class Wat:
+    def hash_wrapper(self, password):
+        return generate_password_hash(password)
+
 class SecureUser3(db.Model, UserMixin):
     """Secure because it is hashed in the init method with a wrapper function."""
     __tablename__ = 'secure_users_3'
@@ -70,13 +74,14 @@ class SecureUser3(db.Model, UserMixin):
 
     def __init__(self, username, password):
         self.username = username
-        self.password = hash_wrapper(password)
+        wat = Wat()
+        self.password = wat.hash_wrapper(password)
 
 
 class SecureUser4(db.Model):
     """
     Secure because it is hashed in the init method.
-    
+
     Doesn't use UserMixin, uses a plain model with a positional keyword.
     """
     __tablename__ = 'secure_users_4'
@@ -129,9 +134,6 @@ def reg5():
     #password_hash = b64encode(password)
 
     user = InsecureUser3(username, password_hash)
-
-def hash_wrapper(password):
-    return generate_password_hash(password)
 
 @app.route("/register-secure-3")
 def reg6():
