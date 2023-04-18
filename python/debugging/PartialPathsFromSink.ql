@@ -15,19 +15,10 @@ import semmle.python.dataflow.new.TaintTracking
 import semmle.python.Concepts
 import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
-import semmle.python.dataflow.new.DataFlow::DataFlow::PartialPathGraph
 import semmle.python.ApiGraphs
 // Helpers
 import github.Helpers
-// Import Sinks
-private import semmle.python.security.dataflow.CommandInjectionCustomizations
-private import semmle.python.security.dataflow.CodeInjectionCustomizations
-private import semmle.python.security.dataflow.ServerSideRequestForgeryCustomizations
-private import semmle.python.security.dataflow.SqlInjectionCustomizations
-private import semmle.python.security.dataflow.UnsafeDeserializationCustomizations
-// Fields Sinks
-private import github.HardcodedSecretSinks
-private import github.MassAssignment
+import github.LocalSources
 
 // Manual Sinks
 class ManualSinks extends DataFlow::Node {
@@ -35,27 +26,32 @@ class ManualSinks extends DataFlow::Node {
 }
 
 // Partial Graph
-class RemoteFlows extends TaintTracking::Configuration {
-  RemoteFlows() { this = "Partial Paths from Sinks" }
+module RemoteFlowsConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { none() }
 
-  override predicate isSink(DataFlow::Node sink) {
-    sink instanceof CommandInjection::Sink or
-    sink instanceof CodeInjection::Sink or
-    sink instanceof ServerSideRequestForgery::Sink or
-    sink instanceof SqlInjection::Sink or
-    sink instanceof UnsafeDeserialization::Sink or
-    // Fields Query Addtional Sinks
-    sink instanceof CredentialSink or
-    sink instanceof MassAssignment::Sinks or
-    // Add Manual Sinks
+  predicate isSink(DataFlow::Node sink) {
+    // Dangerous Sinks
+    dangerousSinks(sink)
+    or
+    // Manual Sinks
     sink instanceof ManualSinks
   }
-
-  override int explorationLimit() { result = 10 }
 }
 
-from RemoteFlows config, DataFlow::PartialPathNode source, DataFlow::PartialPathNode sink
-where config.hasPartialFlowRev(source, sink, _)
-// and findByLocation(source, "relative/source/path.py", 10)
-// and findByLocation(sink, "relative/sink/path.py", 10)
+int explorationLimit() { result = 10 }
+
+module RemoteFlows = DataFlow::Global<RemoteFlowsConfig>;
+
+module RemoteFlowsPartial = RemoteFlows::FlowExploration<explorationLimit/0>;
+
+import RemoteFlowsPartial::PartialPathGraph
+
+from RemoteFlowsPartial::PartialPathNode source, RemoteFlowsPartial::PartialPathNode sink
+where RemoteFlowsPartial::partialFlowRev(source, sink, _)
+/// Filter by location
+// and findByLocation(source.getNode(), "app.py", 20)
+//
+/// Filter by Function Parameters
+// and functionParameters(source.getNode())
+//
 select sink.getNode(), source, sink, "Partial Graph $@.", source.getNode(), "user-provided value"

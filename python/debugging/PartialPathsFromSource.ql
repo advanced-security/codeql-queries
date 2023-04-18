@@ -19,17 +19,16 @@ import semmle.python.ApiGraphs
 // Helpers
 import github.Helpers
 import github.LocalSources
-// Bring in the CommandInjection config
-private import semmle.python.security.dataflow.CommandInjectionCustomizations
 
 // Partial Graph
 module RemoteFlowsConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) {
-    source instanceof CommandInjection::Source or source instanceof LocalSources::Range
+    source instanceof RemoteFlowSource
+    or
+    source instanceof LocalSources::Range
   }
 
-  // We need to provide `isSink`
-  predicate isSink(DataFlow::Node sink) { sink instanceof CommandInjection::Sink }
+  predicate isSink(DataFlow::Node sink) { none() }
 }
 
 int explorationLimit() { result = 10 }
@@ -42,6 +41,10 @@ import RemoteFlowsPartial::PartialPathGraph
 
 from RemoteFlowsPartial::PartialPathNode source, RemoteFlowsPartial::PartialPathNode sink
 where RemoteFlowsPartial::partialFlow(source, sink, _)
-// and findByLocation(source, "relative/source/path.py", 10)
-// and findByLocation(sink, "relative/sink/path.py", 10)
+/// Filter by location
+// and findByLocation(sink.getNode(), "app.py", 20)
+//
+/// Filter by Function Parameters
+// and functionParameters(sink.getNode())
+//
 select sink.getNode(), source, sink, "Partial Graph $@.", source.getNode(), "user-provided value"
