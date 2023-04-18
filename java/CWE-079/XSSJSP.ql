@@ -1,11 +1,11 @@
 /**
- * @name Customized Cross-site scripting
- * @description Like the default query, but with custom taint steps
+ * @name Cross-Site Scripting (XSS) in JSP
+ * @description Cross-Site Scripting (XSS) in JSP
  * @kind path-problem
  * @problem.severity error
  * @security-severity 6.1
  * @precision high
- * @id java/custom-xss
+ * @id java/xss-jsp
  * @tags security
  *       external/cwe/cwe-079
  */
