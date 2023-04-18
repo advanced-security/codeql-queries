@@ -28,7 +28,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
 
         CWE=$(dirname $file | cut -d'/' -f2)
         TEST_DIR=./tests/${LANGUAGE}-tests/${CWE}
-        
+
         if [[ -d "$TEST_DIR" ]]; then
             echo "[+] Running tests for $file -> $TEST_DIR"
             gh codeql test run \
@@ -37,6 +37,14 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
 
         else
             echo "[!] No tests found at $TEST_DIR"
+            comment="No tests were found for \`$file\`. We recommend to add tests for queries. See [CONTRIBUTING](https://github.com/advanced-security/codeql-queries/blob/main/CONTRIBUTING.md) for more information."
+
+            if [[ ! $(gh pr view $PR_NUMBER --json comments --jq '.comments.[].body' | grep "$comment") ]]; then
+                echo "[+] Commenting on PR"
+                gh pr comment "$PR_NUMBER" \
+                    --body "$comment"
+
+            fi
         fi
     # if language github folder is modified
     elif [[ "$file" == $LANGUAGE/github/** ]]; then
