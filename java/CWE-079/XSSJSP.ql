@@ -1,17 +1,18 @@
 /**
- * @name Customized Cross-site scripting
- * @description Like the default query, but with custom taint steps
+ * @name Cross-Site Scripting (XSS) in JSP
+ * @description Cross-Site Scripting (XSS) in JSP
  * @kind path-problem
  * @problem.severity error
  * @security-severity 6.1
  * @precision high
- * @id java/custom-xss
+ * @id java/xss-jsp
  * @tags security
  *       external/cwe/cwe-079
  */
 
 import java
 import semmle.code.java.dataflow.FlowSources
+import semmle.code.java.dataflow.TaintTracking2
 import semmle.code.java.security.XSS
 import DataFlow::PathGraph
 import JSPLocations
@@ -82,5 +83,5 @@ class RedirectToJsp extends ReturnStmt {
 
 from DataFlow::PathNode source, DataFlow::PathNode sink, XSSConfig conf, JSPExpr jspe
 where conf.hasFlowPath(source, sink) and jspe.isClosest(sink.getNode().asExpr())
-select jspe, source, sink, "Cross-site scripting vulnerability due to $@.",
-  source.getNode(), "user-provided value"
+select jspe, source, sink, "Cross-site scripting vulnerability due to $@.", source.getNode(),
+  "user-provided value"
