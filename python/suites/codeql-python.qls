@@ -12,6 +12,9 @@
     - problem
     - path-problem
     precision:
+    - very-high
+    - high
+    - medium
     - low
 
 # Remove debugging, and audit queries
