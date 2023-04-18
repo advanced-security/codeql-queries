@@ -15,7 +15,7 @@ import semmle.python.dataflow.new.TaintTracking
 import semmle.python.Concepts
 import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
-import DataFlow::PartialPathGraph
+import semmle.python.dataflow.new.DataFlow::DataFlow::PartialPathGraph
 import semmle.python.ApiGraphs
 // Helpers
 import github.Helpers
