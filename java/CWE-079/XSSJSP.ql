@@ -12,6 +12,7 @@
 
 import java
 import semmle.code.java.dataflow.FlowSources
+import semmle.code.java.dataflow.TaintTracking2
 import semmle.code.java.security.XSS
 import DataFlow::PathGraph
 import JSPLocations
@@ -82,5 +83,5 @@ class RedirectToJsp extends ReturnStmt {
 
 from DataFlow::PathNode source, DataFlow::PathNode sink, XSSConfig conf, JSPExpr jspe
 where conf.hasFlowPath(source, sink) and jspe.isClosest(sink.getNode().asExpr())
-select jspe, source, sink, "Cross-site scripting vulnerability due to $@.",
-  source.getNode(), "user-provided value"
+select jspe, source, sink, "Cross-site scripting vulnerability due to $@.", source.getNode(),
+  "user-provided value"
