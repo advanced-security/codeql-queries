@@ -1,0 +1,8 @@
+---
+library: true
+name: advanced-security/codeql-csharp-extensions
+version: 0.1.0
+extensionTargets:
+  codeql/csharp-queries: 0.5.5
+dataExtensions:
+  - models/*.yml
