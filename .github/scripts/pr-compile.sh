@@ -7,6 +7,15 @@ LANGUAGE=${2}
 LIBRARY_SCANNED=false
 
 for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
+    # if codeql submodule changed
+    if [[ "$file" == codeql ]]; then
+        echo "[+] CodeQL submodule changed, compiling all queries in $LANGUAGE"
+        gh codeql query compile \
+            --threads=0 --check-only \
+            --search-path=./codeql --additional-packs=./codeql \
+            "./$LANGUAGE/"
+    fi
+
     if [[ ! -f "$file" ]]; then
         continue
     fi

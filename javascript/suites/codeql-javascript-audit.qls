@@ -3,7 +3,7 @@
 - description: "JavaScript/TypeScript Audit Pack"
 
 # Field query pack with some audit queries
-- qlpack: github-queries-javascript
+- qlpack: advanced-security/codeql-javascript
 
 - include:
     kind:
@@ -13,3 +13,10 @@
     - diagnostic
     tags contain:
     - audit
+
+# External API queries
+- queries: '.'
+  from: codeql/javascript-queries
+- include:
+    id:
+      - js/untrusted-data-to-external-api

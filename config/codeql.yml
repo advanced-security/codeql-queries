@@ -1,25 +1,32 @@
 name: "GitHub Field CodeQL Configuration"
 
+# https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/customizing-code-scanning#disabling-the-default-queries
 disable-default-queries: true
+
+packs:
+  # > C# queries
+  - advanced-security/codeql-csharp
+  - codeql/csharp-queries:codeql-suites/csharp-security-extended.qls
+  # https://github.com/github/codeql/tree/main/csharp/ql/campaigns/Solorigate
+  # https://github.com/orgs/codeql/packages/container/package/csharp-solorigate-queries
+  - codeql/csharp-solorigate-queries
+
+  # Java/Kotlin queries
+  - advanced-security/codeql-java
+  - advanced-security/codeql-java-extensions
+
+  # JavaScript/TypeScript queries
+  - advanced-security/codeql-javascript
+
+  # Python queries
+  - advanced-security/codeql-python
+
+  # Go queries
+  - advanced-security/codeql-go
 
 queries:
   # C/CPP queries
   - uses: advanced-security/codeql-queries/cpp/suites/codeql-cpp.qls@main
-
-  # CSharp queries
-  - uses: advanced-security/codeql-queries/csharp/suites/codeql-csharp.qls@main
-
-  # Go queries
-  - uses: advanced-security/codeql-queries/go/suites/codeql-go.qls@main
-
-  # Java queries
-  - uses: advanced-security/codeql-queries/java/suites/codeql-java.qls@main
-
-  # JavaScript/TypeScript queries
-  - uses: advanced-security/codeql-queries/javascript/suites/codeql-javascript.qls@main
-
-  # Python queries
-  - uses: advanced-security/codeql-queries/python/suites/codeql-python.qls@main
 
   # Ruby queries
   - uses: advanced-security/codeql-queries/ruby/suites/codeql-ruby.qls@main

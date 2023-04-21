@@ -26,6 +26,7 @@ jobs:
             src:
               - '${{ matrix.language }}/**'
               - 'tests/${{ matrix.language }}-tests/**'
+              - 'codeql'
 
       - name: Install CodeQL
         if: steps.changes.outputs.src == 'true'
@@ -55,3 +56,56 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
+
+  extensions:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp', 'java', 'javascript' ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'extensions/codeql-${{ matrix.language }}-extensions/**'
+
+      - name: Install CodeQL
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+          gh codeql pack install "extensions/codeql-${{ matrix.language }}-extensions"
+          gh codeql pack create "extensions/codeql-${{ matrix.language }}-extensions"
+
+  config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Install CodeQL
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+          LANGS="cpp,csharp,go,java,javascript,python,ruby"
+          for lang in $(echo $LANGS | sed "s/,/ /g"); do
+              gh codeql pack download "codeql/$lang-queries"
+          done
+
+      - name: Compile / Check Suites & Packs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./.github/scripts/pr-config.sh "${{ github.event.number }}"
