@@ -1,0 +1,26 @@
+extensions:
+  - addsTo:
+      pack: codeql/java-queries
+      extensible: sinkModel
+    data:
+      - ["org.apache.pulsar.client.api.url", "URL", true, "openConnection", "()", "", "Argument[-1]", "open-url", "generated"]
+      - ["org.apache.pulsar.client.impl.auth.oauth2.protocol", "MetadataResolver", true, "resolve", "()", "", "Argument[-1]", "open-url", "generated"]
+      - ["org.apache.pulsar.functions.instance", "JavaInstanceMain", true, "loadJar", "(ClassLoader,File[])", "", "Argument[1]", "open-url", "generated"]
+      - ["org.apache.pulsar.functions.utils.functioncache", "FunctionClassLoaders", true, "create", "(URL[],ClassLoader)", "", "Argument[0]", "open-url", "generated"]
+      - ["org.apache.pulsar.io.file.utils", "GZipFiles", true, "isGzip", "(File)", "", "Argument[0]", "read-file", "generated"]
+      - ["org.apache.pulsar.io.file.utils", "ZipFiles", true, "isZip", "(File)", "", "Argument[0]", "read-file", "generated"]
+      - ["org.apache.pulsar.io.flume.node", "AbstractConfigurationProvider", true, "getFlumeConfiguration", "()", "", "Argument[-1]", "read-file", "generated"]
+
+  - addsTo:
+      pack: codeql/java-queries
+      extensible: sourceModel
+    data:
+      - ["org.apache.pulsar.broker.authentication", "AuthenticationDataSource", true, "getHttpHeader", "(String)", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.broker.authentication", "AuthenticationProviderToken", true, "getToken", "(AuthenticationDataSource)", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.broker.authentication", "AuthenticationService", true, "authenticateHttpRequest", "(HttpServletRequest)", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.broker.authentication", "AuthenticationService", true, "authenticateHttpRequest", "(HttpServletRequest,AuthenticationDataSource)", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.broker.web", "PulsarWebResource", true, "originalPrincipal", "()", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.client.impl.auth.oauth2.protocol", "MetadataResolver", true, "resolve", "()", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.websocket.admin", "WebSocketWebResource", true, "clientAppId", "()", "", "ReturnValue", "remote", "generated"]
+      - ["org.apache.pulsar.websocket", "ConsumerHandler", true, "extractSubscription", "(HttpServletRequest)", "", "ReturnValue", "remote", "generated"]
+
