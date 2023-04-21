@@ -6,13 +6,15 @@
 | Name | Severity | Path |
 | :--- | :------- | :--- |
 | `Resolving XML external entity in user-controlled data` | Unknown / 6.0 | `java/CWE-611/XXELocal.ql` |
+| `RCE in Log4j CVE-2021-44228` | High / 9.9 | `java/CWE-094/CVE-2021-44228.ql` |
+| `Base64 Encoding of Sensitive Information` | High / 8.0 | `java/CWE-326/Base64Encryption.ql` |
 | `Uncontrolled data used in path expression` | Unknown / 7.5 | `java/CWE-021/TaintedPath.ql` |
+| `Cross-site scripting` | Unknown / 6.1 | `java/examples/XSSCustomSanitizer.ql` |
+| `Hard-coded password field` | Unknown / 9.8 | `java/CWE-798/HardcodedPasswordsInProperties.ql` |
+| `Sensitive information exposure through logging` | Unknown / 8.0 | `java/CWE-532/SensitiveInformation.ql` |
+| `Use of Cryptographically Weak Pseudo-Random Number Generator` | Medium / 6.0 | `java/CWE-338/WeakPRNG.ql` |
 | `Customized Cross-site scripting` | Unknown / 6.1 | `java/CWE-079/XSSJSP.ql` |
 | `Customized Cross-site scripting` | Unknown / 6.1 | `java/CWE-079/XSSJSPLenient.ql` |
-| `Base64 Encoding of Sensitive Information` | High / 8.0 | `java/CWE-326/Base64Encryption.ql` |
-| `Use of Cryptographically Weak Pseudo-Random Number Generator` | Medium / 6.0 | `java/CWE-338/WeakPRNG.ql` |
-| `Sensitive information exposure through logging` | Unknown / 8.0 | `java/CWE-532/SensitiveInformation.ql` |
-| `Hard-coded password field` | Unknown / 9.8 | `java/CWE-798/HardcodedPasswordsInProperties.ql` |
 
 
 <!-- AUTOMATION-QUERIES -->
@@ -25,7 +27,8 @@
 | `extended` | 107 | Security Extended Suite | `codeql/java/ql/src/codeql-suites/security-extended` |
 | `quality` | 227 | Security and Quality Extended Suite | `codeql/java/ql/src/codeql-suites/security-and-quality` |
 | `local-variants` | 119 | Security Extended with local variants enabled | `advanced-security/codeql-queries/java/suites/codeql-java-local.qls@main` |
-| `super-extended` | 142 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/java/suites/codeql-java.qls@main` |
+| `super-extended` | 10 | Security Extended with Experimental and Custom Queries Suite | `advanced-security/codeql-queries/java/suites/codeql-java.qls@main` |
+| `audit` | 1 | Security Audit Query Suite | `advanced-security/codeql-queries/java/suites/codeql-java-audit.qls@main` |
 
 
 <!-- AUTOMATION-SUITES -->
