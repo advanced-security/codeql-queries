@@ -22,5 +22,5 @@ where column.hasDefault()
 and column.assignedToVariable() = varname
 and column.getDbId() = dbname
 and varname in ["password", "secret", "key", "token", "pwd"]
-select column, "Default value in security-senstive database '" + dbname + "' $@ assigned to variable '" + varname + "'",
+select column, "Default value in security-sensitive database '" + dbname + "' $@ assigned to variable '" + varname + "'",
     column, "column"
