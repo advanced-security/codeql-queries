@@ -1,17 +1,19 @@
 /**
- * @name Customized Cross-site scripting
- * @description Like the default query, but with custom taint steps
+ * @name Cross-Site Scripting (XSS) in JSP
+ * @description Cross-Site Scripting (XSS) in JSP
  * @kind path-problem
  * @problem.severity error
  * @security-severity 6.1
  * @precision high
- * @id java/custom-xss
+ * @id java/xss-jsp
  * @tags security
  *       external/cwe/cwe-079
+ *       audit
  */
 
 import java
 import semmle.code.java.dataflow.FlowSources
+import semmle.code.java.dataflow.TaintTracking2
 import semmle.code.java.security.XSS
 import DataFlow::PathGraph
 import semmle.code.java.frameworks.Servlets
@@ -90,11 +92,11 @@ class AddAttrCall extends Call {
   AddAttrCall() { this.getCallee().getName() = ["addFlashAttribute", "addAttribute"] }
 
   string getAttrName() { result = asLiteral(this.getArgument(0)) }
-  Expr getAttrValue() { result = this.getArgument(1)}
-  
+
+  Expr getAttrValue() { result = this.getArgument(1) }
 }
 
-// Additional taint step: setting an attribute with a tainted value will make any 
+// Additional taint step: setting an attribute with a tainted value will make any
 // evaluation of the argument in the context of a JSP also tainted
 class JSPTaintStep extends XssAdditionalTaintStep {
   override predicate step(DataFlow::Node node1, DataFlow::Node node2) {
@@ -117,7 +119,7 @@ MethodAccess methodCallOn(string methodName, Variable v) {
   result.getQualifier() = v.getAnAccess() and result.getCallee().getName() = methodName
 }
 
-// additional taint step to support JSP's "for each" constructs 
+// additional taint step to support JSP's "for each" constructs
 class ForEachStep extends XssAdditionalTaintStep {
   override predicate step(DataFlow::Node node1, DataFlow::Node node2) {
     exists(Variable v, string varName, EvalCall eval |

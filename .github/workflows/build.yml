@@ -63,7 +63,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'java', 'javascript' ]
+        language: [ 'csharp', 'java', 'javascript' ]
 
     steps:
       - uses: actions/checkout@v3

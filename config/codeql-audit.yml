@@ -9,3 +9,6 @@ packs:
 
   # > Python
   - advanced-security/codeql-python:suites/codeql-python-audit.qls
+
+  # > Java
+  #- advanced-security/codeql-java:suites/codeql-java-audit.qls
