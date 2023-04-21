@@ -15,4 +15,5 @@
 | Language                                     |                 Projects                  |
 | :------------------------------------------- | :---------------------------------------: |
 | [java](./codeql-java-extensions)             | [100](./codeql-java-extensions/generated) |
+| [csharp](./codeql-csharp-extensions)         |  [5](./codeql-java-extensions/generated)  |
 | [javascript](./codeql-javascript-extensions) |  [0](./codeql-java-extensions/generated)  |

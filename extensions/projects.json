@@ -101,5 +101,12 @@
         "xuxueli/xxl-job",
         "zxing/zxing"
     ],
+    "csharp": [
+        "JamesNK/Newtonsoft.Json",
+        "apache/logging-log4net",
+        "aws/aws-lambda-dotnet",
+        "dotnet/efcore",
+        "ravendb/ravendb"
+    ],
     "javascript": []
 }
