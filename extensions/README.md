@@ -10,9 +10,10 @@
     packs: advanced-security/codeql-${{ matrix.language }}-extensions
 ```
 
-## Generated Summaries
+## Extension Summary
 
 | Language                                     |                 Projects                  |
 | :------------------------------------------- | :---------------------------------------: |
-| [java](./codeql-java-extensions)             | [100](./codeql-java-extensions/generated) |
+| [java](./codeql-java-extensions)             | [104](./codeql-java-extensions/generated) |
+| [csharp](./codeql-csharp-extensions)         |  [6](./codeql-java-extensions/generated)  |
 | [javascript](./codeql-javascript-extensions) |  [0](./codeql-java-extensions/generated)  |
