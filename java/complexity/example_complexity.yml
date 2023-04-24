@@ -1,0 +1,11 @@
+extensions:
+  - addsTo:
+  	pack: advanced-security/codeql-java
+  	extensible: functionComplexityThreshold
+    data:
+  	- [10]
+  - addsTo:
+  	pack: advanced-security/codeql-java
+  	extensible: packageComplexityThreshold
+    data:
+  	- [100]
