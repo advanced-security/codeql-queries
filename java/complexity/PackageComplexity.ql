@@ -11,9 +11,12 @@
 
 import java
 
-from Package package, MetricPackage metrics
+external predicate packageComplexityThreshold(int threshold);
+
+from Package package, MetricPackage metrics, int threshold
 where package.getMetrics() = metrics
 // TODO: accept limit as a data extension
-and metrics.getCyclomaticComplexity() > 100
+and metrics.getCyclomaticComplexity() > threshold
+and packageComplexityThreshold(threshold)
 select package, "High code complexity for package $@: " + metrics.getCyclomaticComplexity() + " > 100",
     package, package.toString()
