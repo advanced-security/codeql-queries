@@ -18,8 +18,12 @@ private import python
 import github.DefaultPasswordDB
 
 from DBColumn column, string varname, string dbname
-where column.hasDefault()
-and column.assignedToVariable() = varname
+where column.hasStaticDefault()
+and (
+    column.assignedToVariable() = varname
+    or
+    column.getColumnName() = varname
+)
 and column.getDbId() = dbname
 and varname in ["password", "secret", "key", "token", "pwd"]
 select column, "Default value in security-sensitive database '" + dbname + "' $@ assigned to variable '" + varname + "'",
