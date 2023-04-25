@@ -18,5 +18,5 @@ where callable.getMetrics() = metrics
 // TODO: accept limit as a data extension
 and metrics.getCyclomaticComplexity() > threshold
 and functionComplexityThreshold(threshold)
-select callable, "High code complexity for function/method $@: " + metrics.getCyclomaticComplexity() + " > 10",
+select callable, "High code complexity for function/method $@: " + metrics.getCyclomaticComplexity() + " > " + threshold,
     callable, callable.toString()

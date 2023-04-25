@@ -18,5 +18,5 @@ where package.getMetrics() = metrics
 // TODO: accept limit as a data extension
 and metrics.getCyclomaticComplexity() > threshold
 and packageComplexityThreshold(threshold)
-select package, "High code complexity for package $@: " + metrics.getCyclomaticComplexity() + " > 100",
+select package, "High code complexity for package $@: " + metrics.getCyclomaticComplexity() + " > " + threshold,
     package, package.toString()
