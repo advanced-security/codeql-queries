@@ -1,0 +1,7 @@
+# Python IDOR
+An Insecure Direct Object Reference (IDOR) happens when a resource that should be protected by access control or conditions is instead directly access using an identifier such as an id or username. For example, an unprivileged user might access another users data record just by asking for records with their id, despite not being authorised to view that record.
+
+
+## Recommendation
+Add access control, conditional checks or capabilities to disallow direct reference of a sensitive record.
+
