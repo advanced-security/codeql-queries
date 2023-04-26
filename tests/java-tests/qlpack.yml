@@ -2,7 +2,7 @@ name: advanced-security/codeql-java-tests
 groups: [java, test]
 dependencies:
   codeql/java-all: "*"
-  github-queries-java: "*"
+  advanced-security/codeql-java: "*"
 
 extractor: java
 tests: .
