@@ -3,8 +3,8 @@ library: true
 name: advanced-security/codeql-csharp-extensions
 version: 0.2.0
 extensionTargets:
-  codeql/csharp-all: ^0.5.5
-  codeql/csharp-queries: ^0.5.5
+  codeql/csharp-all: ^0.6.0
+  codeql/csharp-queries: ^0.6.0
 dataExtensions:
   # manually curated / reviewed models
   - 'models/*.yml'
