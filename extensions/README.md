@@ -3,9 +3,15 @@
 ## Usage
 
 ```yaml
+packs: advanced-security/codeql-${{ matrix.language }}-extensions
+```
+
+**Step Example:**
+
+```yaml
 - name: Initialize CodeQL
-    uses: github/codeql-action/init@v2
-    with:
+  uses: github/codeql-action/init@v2
+  with:
     languages: ${{ matrix.language }}
     packs: advanced-security/codeql-${{ matrix.language }}-extensions
 ```
