@@ -3,6 +3,11 @@ extensions:
       pack: codeql/csharp-queries
       extensible: sinkModel
     data:
+      # > Functions
+      # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.functions.worker?view=azure-dotnet
+       - ["Microsoft.Azure.Functions.Worker", "QueryDefinition", False, "GetHttpRequestDataAsync", "(FunctionContext)", "", "ReturnValue", "remote", "manual"]
+       - ["Microsoft.Azure.Functions.Worker", "FunctionParameter", False, "FunctionParameter", "", "", "Argument[0]", "remote", "manual"]
+
       # > Cosmos DB
       # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.cosmos.querydefinition?view=azure-dotnet
       - ["Microsoft.Azure.Cosmos", "QueryDefinition", False, "QueryDefinition", "(String)", "", "Argument[0]", "sql", "manual"]
