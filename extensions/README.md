@@ -16,6 +16,19 @@ packs: advanced-security/codeql-${{ matrix.language }}-extensions
     packs: advanced-security/codeql-${{ matrix.language }}-extensions
 ```
 
+**CodeQL CLI**
+
+```bash
+# ... init / setup
+codeql database analyze \
+    --extension-packs advanced-security/codeql-$LANGUAGE-extensions \
+    $CODEQL_DATABASE \
+    codeql/$LANGUAGE-queries
+```
+
+The `LANGUAGE` variable must be set to use the correct extension pack, point to the correct database, and add any other additional parameters to the command.
+
+
 ## Extension Summary
 
 | Language                                     |                 Projects                  |
