@@ -6,7 +6,7 @@
 packs: advanced-security/codeql-${{ matrix.language }}-extensions
 ```
 
-**Step Example:**
+#### Actions Step Example
 
 ```yaml
 - name: Initialize CodeQL
@@ -16,7 +16,15 @@ packs: advanced-security/codeql-${{ matrix.language }}-extensions
     packs: advanced-security/codeql-${{ matrix.language }}-extensions
 ```
 
-**CodeQL CLI**
+#### CodeQL CLI
+
+**Install the latest pack**
+
+```bash
+codeql pack download advanced-security/codeql-$LANGUAGE-extensions@latest
+```
+
+**Use pack in analysis:**
 
 ```bash
 # ... init / setup
