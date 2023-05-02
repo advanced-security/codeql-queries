@@ -1,13 +1,25 @@
 extensions:
   - addsTo:
       pack: codeql/csharp-queries
-      extensible: sinkModel
+      extensible: sourceModel
     data:
       # > Functions
       # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.functions.worker?view=azure-dotnet
       - ["Microsoft.Azure.Functions.Worker", "QueryDefinition", False, "GetHttpRequestDataAsync", "(FunctionContext)", "", "ReturnValue", "remote", "manual"]
       - ["Microsoft.Azure.Functions.Worker", "FunctionParameter", False, "FunctionParameter", "", "", "Argument[0]", "remote", "manual"]
 
+      # > ServiceBus (Message Queue)
+        # Assumes a threat model that anything could be put on the ServiceBus
+      # https://learn.microsoft.com/en-us/dotnet/api/azure.messaging.servicebus.servicebusreceiver?view=azure-dotnet
+      - ["Azure.Messaging.ServiceBus", "ServiceBusReceiver", False, "ReceiveMessageAsync", "", "", "ReturnValue", "remote", "manual"]
+      - ["Azure.Messaging.ServiceBus", "ServiceBusReceiver", False, "ReceiveMessagesAsync", "", "", "ReturnValue", "remote", "manual"]
+
+      - ["Azure.Messaging.ServiceBus", "ServiceBusReceivedMessage", False, "Body", "", "", "", "remote", "manual"]
+
+  - addsTo:
+      pack: codeql/csharp-queries
+      extensible: sinkModel
+    data:
       # > Cosmos DB
       # https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.cosmos.querydefinition?view=azure-dotnet
       - ["Microsoft.Azure.Cosmos", "QueryDefinition", False, "QueryDefinition", "(String)", "", "Argument[0]", "sql", "manual"]
@@ -17,14 +29,6 @@ extensions:
       - ["Microsoft.Azure.Cosmos", "CosmosClient", False, "CosmosClient", "(String,String,CosmosClientOptions)", "", "Argument[0]", "url", "manual"]
       - ["Microsoft.Azure.Cosmos", "CosmosClient", False, "CosmosClient", "(String,String,CosmosClientOptions)", "", "Argument[1]", "password", "manual"]
       - ["Microsoft.Azure.Cosmos", "CosmosClient", False, "CosmosClient", "(String,TokenCredential,CosmosClientOptions)", "", "Argument[0]", "url", "manual"]
-
-      # > ServiceBus (Message Queue)
-        # Assumes a threat model that anything could be put on the ServiceBus
-      # https://learn.microsoft.com/en-us/dotnet/api/azure.messaging.servicebus.servicebusreceiver?view=azure-dotnet
-      - ["Azure.Messaging.ServiceBus", "ServiceBusReceiver", False, "ReceiveMessageAsync", "", "", "ReturnValue", "remote", "manual"]
-      - ["Azure.Messaging.ServiceBus", "ServiceBusReceiver", False, "ReceiveMessagesAsync", "", "", "ReturnValue", "remote", "manual"]
-
-      - ["Azure.Messaging.ServiceBus", "ServiceBusReceivedMessage", False, "Body", "", "", "", "remote", "manual"]
 
       # Storage - Blob
       # TODO: Need to do more testing
