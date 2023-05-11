@@ -1,24 +1,27 @@
 name: "GitHub Field CodeQL Configuration"
 
-# https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/customizing-code-scanning#disabling-the-default-queries
 disable-default-queries: true
 
 packs:
+  # > C/C++
+  # security-extended
+  - codeql/cpp-queries:codeql-suites/cpp-security-extended.qls
+
   # > C# queries
   - advanced-security/codeql-csharp
-  - advanced-security/codeql-java-extensions
+  - advanced-security/codeql-csharp-extensions
   # security-extended
   - codeql/csharp-queries:codeql-suites/csharp-security-extended.qls
   # solorigate
   - codeql/csharp-solorigate-queries
 
-  # Java/Kotlin queries
+  # > Java/Kotlin queries
   - advanced-security/codeql-java
   - advanced-security/codeql-java-extensions
   # security-extended
   - codeql/java-queries:codeql-suites/java-security-extended.qls
 
-  # JavaScript/TypeScript queries
+  # > JavaScript/TypeScript queries
   - advanced-security/codeql-javascript
   - advanced-security/codeql-javascript-extensions
   # security-extended
@@ -38,12 +41,6 @@ packs:
   # security-extended
   - codeql/ruby-queries:codeql-suites/ruby-security-extended.qls
 
-queries:
-  # C/CPP queries
-  - uses: advanced-security/codeql-queries/cpp/suites/codeql-cpp.qls@main
-
-  # Ruby queries
-  - uses: advanced-security/codeql-queries/ruby/suites/codeql-ruby.qls@main
 
 paths-ignore:
   # JavaScript
