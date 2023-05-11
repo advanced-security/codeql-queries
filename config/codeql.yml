@@ -6,23 +6,37 @@ disable-default-queries: true
 packs:
   # > C# queries
   - advanced-security/codeql-csharp
+  - advanced-security/codeql-java-extensions
+  # security-extended
   - codeql/csharp-queries:codeql-suites/csharp-security-extended.qls
-  # https://github.com/github/codeql/tree/main/csharp/ql/campaigns/Solorigate
-  # https://github.com/orgs/codeql/packages/container/package/csharp-solorigate-queries
+  # solorigate
   - codeql/csharp-solorigate-queries
 
   # Java/Kotlin queries
   - advanced-security/codeql-java
   - advanced-security/codeql-java-extensions
+  # security-extended
+  - codeql/java-queries:codeql-suites/java-security-extended.qls
 
   # JavaScript/TypeScript queries
   - advanced-security/codeql-javascript
+  - advanced-security/codeql-javascript-extensions
+  # security-extended
+  - codeql/javascript-queries:codeql-suites/javascript-security-extended.qls
 
-  # Python queries
+  # > Python queries
   - advanced-security/codeql-python
+  # security-extended
+  - codeql/python-queries:codeql-suites/python-security-extended.qls
 
-  # Go queries
+  # > Go queries
   - advanced-security/codeql-go
+  # security-extended
+  - codeql/go-queries:codeql-suites/go-security-extended.qls
+
+  # > Ruby
+  # security-extended
+  - codeql/ruby-queries:codeql-suites/ruby-security-extended.qls
 
 queries:
   # C/CPP queries
