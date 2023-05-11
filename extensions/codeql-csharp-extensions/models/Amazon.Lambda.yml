@@ -14,18 +14,18 @@ extensions:
       pack: codeql/csharp-all
       extensible: sinkModel
     data:
-      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogInformation","(System.String)","","Argument[0]","logging","manual"]
-      - ["Amazon.Lambda.APIGatewayEvents","APIGatewayProxyResponse",true,"set_Body","(System.String)","","Argument[0]","xss","manual"]
-      - ["Amazon.Lambda.APIGatewayEvents","APIGatewayProxyResponse",true,"set_Headers","(System.Collections.Generic.IDictionary<System.String,System.String>)","","Argument[this]","xss","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"Log","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogLine","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogTrace","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogDebug","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogInformation","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogWarning","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogError","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"LogCritical","(System.String)","","Argument[0]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"Log","(System.String,System.String)","","Argument[1]","log-injection","manual"]
+      - ["Amazon.Lambda.Core","ILambdaLogger",true,"Log","(Amazon.Lambda.Core.LogLevel,System.String)","","Argument[1]","log-injection","manual"]
 
   - addsTo:
       pack: codeql/csharp-all
       extensible: summaryModel
     data: []
-
-  - addsTo:
-      pack: codeql/csharp-all
-      extensible: neutralModel
-    data:
-      - ["Amazon.Lambda.Core","ILambdaContext","get_Logger","()","manual"]
-      - ["Amazon.Lambda.APIGatewayEvents","APIGatewayProxyResponse","set_StatusCode","(System.Int32)","manual"]

@@ -1,0 +1,48 @@
+extensions:
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: sourceModel
+    data:
+      - ["Amazon.S3.Model","ListObjectsV2Response",true,"get_S3Objects","()","","ReturnValue","local-files","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"ListObjectsV2Async","(Amazon.S3.Model.ListObjectsV2Request,System.Threading.CancellationToken)","","ReturnValue","local-files","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"GetObjectAsync","(Amazon.S3.Model.GetObjectRequest,System.Threading.CancellationToken)","","ReturnValue","local-files","manual"]
+
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: sinkModel
+    data:
+      - ["Amazon.S3","AmazonS3Exception",true,"get_Message","()","","Argument[this]","audit","manual"]
+      - ["Amazon.S3.Model","ListObjectsV2Request",true,"set_BucketName","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"DeleteBucketAsync","(Amazon.S3.Model.DeleteBucketRequest,System.Threading.CancellationToken)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"PutBucketAsync","(Amazon.S3.Model.PutBucketRequest,System.Threading.CancellationToken)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"PutObjectAsync","(Amazon.S3.Model.PutObjectRequest,System.Threading.CancellationToken)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","PutObjectRequest",true,"set_BucketName","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","PutObjectRequest",true,"set_Key","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","CopyObjectRequest",true,"set_SourceBucket","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","CopyObjectRequest",true,"set_SourceKey","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","CopyObjectRequest",true,"set_DestinationBucket","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","DeleteBucketRequest",true,"set_BucketName","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","GetObjectRequest",true,"set_BucketName","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","GetObjectRequest",true,"set_Key","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","PutBucketRequest",true,"set_BucketName","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","S3Object",true,"set_BucketName","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","S3Object",true,"set_Key","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","PutObjectRequest",true,"set_FilePath","(System.String)","","Argument[0]","audit","manual"]
+      - ["Amazon.S3.Model","ListObjectsV2Response",true,"set_S3Objects","(System.Collections.Generic.List<Amazon.S3.Model.S3Object>)","","Argument[0]","audit","manual"]
+
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: summaryModel
+    data: []
+
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: neutralModel
+    data:
+      - ["Amazon.Runtime","AmazonWebServiceResponse","get_HttpStatusCode","()","summary","manual"]
+      - ["Amazon.Runtime","AmazonWebServiceResponse","set_HttpStatusCode","(System.Net.HttpStatusCode)","summary","manual"]
+      - ["Amazon.S3.Model","DeleteObjectRequest","get_BucketName","()","summary","manual"]
+      - ["Amazon.S3.Model","GetObjectRequest","get_Key","()","summary","manual"]
+      - ["Amazon.S3.Model","ListObjectsV2Request","set_MaxKeys","(System.Int32)","summary","manual"]
+      - ["Amazon.S3.Model","S3Object","get_LastModified","()","summary","manual"]
+      - ["Amazon.S3.Model","S3Object","get_Size","()","summary","manual"]

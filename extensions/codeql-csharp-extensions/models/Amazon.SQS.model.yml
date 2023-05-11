@@ -1,0 +1,33 @@
+extensions:
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: sourceModel
+    data:
+      - ["Amazon.SQS.Model","ReceiveMessageResponse",true,"get_Messages","()","","ReturnValue","remote","manual"]
+      - ["Amazon.SQS.Model","Message",true,"get_Body","()","","ReturnValue","remote","manual"]
+      - ["Amazon.SQS.Model","Message",true,"get_Attributes","()","","ReturnValue","remote","manual"]
+      - ["Amazon.SQS","AmazonSQSClient",true,"ReceiveMessageAsync","(Amazon.SQS.Model.ReceiveMessageRequest,System.Threading.CancellationToken)","","ReturnValue","remote","manual"]
+
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: sinkModel
+    data:
+      - ["Amazon.SQS.Model","ReceiveMessageRequest",true,"set_QueueUrl","(System.String)","","Argument[0]","request-forgery","manual"]
+
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: summaryModel
+    data: []
+
+  - addsTo:
+      pack: codeql/csharp-all
+      extensible: neutralModel
+    data:
+      - ["Amazon.SQS.Model","Message","get_MessageId","()","summary","manual"]
+      - ["Amazon.SQS.Model","Message","get_ReceiptHandle","()","summary","manual"]
+      - ["Amazon.SQS.Model","Message","get_MD5OfBody","()","summary","manual"]
+      - ["Amazon.SQS.Model","Message","get_MD5OfMessageAttributes","()","summary","manual"]
+      - ["Amazon.SQS.Model","ReceiveMessageRequest","set_MaxNumberOfMessages","(System.Int32)","summary","manual"]
+      - ["Amazon.SQS.Model","ReceiveMessageRequest","set_VisibilityTimeout","(System.Int32)","summary","manual"]
+      - ["Amazon.SQS.Model","ReceiveMessageRequest","set_WaitTimeSeconds","(System.Int32)","summary","manual"]
+      - ["Amazon.SQS.Model","ReceiveMessageRequest","set_AttributeNames","(System.Collections.Generic.List<System.String>)","summary","manual"]
