@@ -3,9 +3,9 @@ extensions:
       pack: codeql/csharp-all
       extensible: sourceModel
     data:
-      - ["Amazon.S3.Model","ListObjectsV2Response",true,"get_S3Objects","()","","ReturnValue","local-files","manual"]
-      - ["Amazon.S3","IAmazonS3",true,"ListObjectsV2Async","(Amazon.S3.Model.ListObjectsV2Request,System.Threading.CancellationToken)","","ReturnValue","local-files","manual"]
-      - ["Amazon.S3","IAmazonS3",true,"GetObjectAsync","(Amazon.S3.Model.GetObjectRequest,System.Threading.CancellationToken)","","ReturnValue","local-files","manual"]
+      - ["Amazon.S3.Model","ListObjectsV2Response",true,"get_S3Objects","()","","ReturnValue","remote","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"ListObjectsV2Async","(Amazon.S3.Model.ListObjectsV2Request,System.Threading.CancellationToken)","","ReturnValue","remote","manual"]
+      - ["Amazon.S3","IAmazonS3",true,"GetObjectAsync","(Amazon.S3.Model.GetObjectRequest,System.Threading.CancellationToken)","","ReturnValue","remote","manual"]
 
   - addsTo:
       pack: codeql/csharp-all

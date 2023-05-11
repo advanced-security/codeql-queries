@@ -3,10 +3,10 @@ extensions:
       pack: codeql/csharp-all
       extensible: sourceModel
     data:
-      - ["Amazon.DynamoDBv2.DocumentModel","Search",true,"GetNextSetAsync","(System.Threading.CancellationToken)","","ReturnValue","remote-database","manual"]
-      - ["Amazon.DynamoDBv2.DocumentModel","Document",true,"GetAttributeNames","()","","ReturnValue","remote-database","manual"]
-      - ["Amazon.DynamoDBv2.DocumentModel","PrimitiveList",true,"get_Entries","()","","ReturnValue","remote-database","manual"]
-      - ["Amazon.DynamoDBv2.Model","BatchGetItemResponse",true,"get_Responses","()","","ReturnType","remote-database","manual"]
+      - ["Amazon.DynamoDBv2.DocumentModel","Search",true,"GetNextSetAsync","(System.Threading.CancellationToken)","","ReturnValue","remote","manual"]
+      - ["Amazon.DynamoDBv2.DocumentModel","Document",true,"GetAttributeNames","()","","ReturnValue","remote","manual"]
+      - ["Amazon.DynamoDBv2.DocumentModel","PrimitiveList",true,"get_Entries","()","","ReturnValue","remote","manual"]
+      - ["Amazon.DynamoDBv2.Model","BatchGetItemResponse",true,"get_Responses","()","","ReturnType","remote","manual"]
 
   - addsTo:
       pack: codeql/csharp-all
