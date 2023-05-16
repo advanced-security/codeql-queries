@@ -1,6 +1,6 @@
 - description: "GitHub's Field Team CSharp External API Suite"
 
-- import: codeql-suites/java-security-extended.qls
+- import: codeql-suites/csharp-security-extended.qls
   from: codeql/csharp-queries
 
 - queries: '.'
