@@ -1,4 +1,4 @@
-- description: "GitHub's Field Team CSharp External API Suite"
+- description: "GitHub's Field Team CSharp Debugging Suite"
 
 - import: codeql-suites/csharp-security-extended.qls
   from: codeql/csharp-queries
