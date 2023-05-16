@@ -5,6 +5,8 @@ disable-default-queries: true
 queries:
   # C/CPP
   - uses: advanced-security/codeql-queries/cpp/suites/codeql-external-api.qls@main
+  # CSharp
+  - uses: advanced-security/codeql-queries/csharp/suites/codeql-external-api.qls@main
   # Java
   - uses: advanced-security/codeql-queries/java/suites/codeql-external-api.qls@main
   # JavaScript/TypeScript
