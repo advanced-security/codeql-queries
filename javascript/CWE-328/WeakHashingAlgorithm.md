@@ -4,7 +4,7 @@ This query detects the use of a weak hashing algorithm in your code.
 
 ## Recommendation
 
-Use stronger algorithms when hashing data.
+Use stronger algorithm when hashing data.
 
 ```ts
 import crypto from 'crypto';
