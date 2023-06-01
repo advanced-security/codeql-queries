@@ -35,7 +35,7 @@ jobs:
         run: |
           gh extension install github/gh-codeql
           gh codeql pack download "codeql/${{ matrix.language }}-queries"
-          gh codeql pack install "${{ matrix.language }}"
+          gh codeql pack install --additional-packs=./codeql/misc "${{ matrix.language }}"
 
       - name: Compile Queries
         if: steps.changes.outputs.src == 'true'
