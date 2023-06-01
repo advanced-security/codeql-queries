@@ -2,9 +2,8 @@
  * @name Audit: Usage of Code Injection sink
  * @description Usage of Code Injection sink
  * @kind problem
- * @problem.severity error
- * @security-severity 8.0
- * @precision high
+ * @problem.severity warning
+ * @security-severity 3.0
  * @id js/audit/code-injection
  * @tags security
  *       external/cwe/cwe-094
@@ -18,4 +17,4 @@ import javascript
 import semmle.javascript.security.dataflow.CodeInjectionCustomizations
 
 from CodeInjection::Sink sinks
-select sinks, "user-provided value"
+select sinks, "Code Injection sink"
