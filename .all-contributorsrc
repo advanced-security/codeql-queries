@@ -1,10 +1,15 @@
 {
+  "repoType": "github",
+  "repoHost": "https://github.com",
   "projectName": "codeql-queries",
   "projectOwner": "advanced-security",
   "files": [
     "README.md"
   ],
   "imageSize": 100,
+  "contributorsPerLine": 5,
+  "commitConvention": "gitmoji",
+  "skipCi": true,
   "contributors": [
     {
       "login": "geekmasher",
@@ -41,10 +46,5 @@
         "ideas"
       ]
     }
-  ],
-  "repoType": "github",
-  "contributorsPerLine": 7,
-  "repoHost": "https://github.com",
-  "commitConvention": "angular",
-  "skipCi": true
+  ]
 }
