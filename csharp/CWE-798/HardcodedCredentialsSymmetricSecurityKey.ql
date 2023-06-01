@@ -152,18 +152,28 @@ class ToStringSanitizer extends Sanitizer {
  */
 class ConfigurationSanitizer extends Sanitizer {
   ConfigurationSanitizer() {
-    exists(PropertyAccess configuration|
-      configuration.getType().getQualifiedName() = "Microsoft.Extensions.IConfiguration"
-      and configuration.getAChild*() = this.asExpr()
+    exists(PropertyCall configuration, MethodCall call |
+      configuration.getType().getQualifiedName() in [
+        "Microsoft.Extensions.Configuration.IConfiguration", "Microsoft.Extensions.Configuration.ConfigurationManager"
+      ]
+      and call.getQualifier() = configuration
+      and call.getAnArgument() = this.getExpr() 
     )
   }
 }
 
-// predicate config(PropertyAccess configuration, string name, string qname) {
-//   configuration.getType().getName() = name
-//   and configuration.getType().getQualifiedName() = qname
-// }
-
+/**
+ * A call to a file operation, opening or reading from a named file.
+ */
+class FileSanitizer extends Sanitizer {
+  FileSanitizer() {
+    exists(Call c | c.getTarget().hasQualifiedName("System.IO.File", [
+      "ReadAllBytes", "ReadAllText", "Open", "OpenText", "OpenRead", "OpenHandle", "ReadAllTextAsync", "ReadAllBytesAsync", "ReadAllLines", "ReadAllLinesAsync", "ReadLines", "ReadLinesAsync", "OpenTextAsync"
+    ]) and
+      c.getAnArgument() = this.getExpr()
+    )
+  }
+}
 
 from DataFlow::PathNode source, DataFlow::PathNode sink, LiteralToSecurityKeyConfig config
 where config.hasFlowPath(source, sink)
