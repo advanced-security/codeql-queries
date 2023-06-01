@@ -83,9 +83,7 @@ class LiteralToSecurityKeyConfig extends TaintTracking::Configuration {
   override predicate isSource(DataFlow::Node source) { source instanceof Source }
 
   override predicate isSink(DataFlow::Node sink) {
-    sink instanceof Sink and
-    not any(ReturnedByMockObject mock).getAMemberInitializationValue() = sink.asExpr() and
-    not any(ReturnedByMockObject mock).getAnArgument() = sink.asExpr()
+    sink instanceof Sink
   }
 
   override predicate isSanitizer(DataFlow::Node node) { node instanceof Sanitizer }
@@ -113,6 +111,31 @@ class MockSanitizer extends Sanitizer {
     exists(ReturnedByMockObject mock|
       mock.getAMemberInitializationValue() = this.asExpr()
       or mock.getAnArgument() = this.asExpr()
+    )
+  }
+}
+
+/** 
+ *  A result from a mock interface
+ *  The function is not itself marked as a mock, but all uses of it are in mocks.
+*/
+class MockSanitizer2 extends Sanitizer {
+  MockSanitizer2() {
+    exists(Method method, ReturnedByMockObject mock |
+      exists(Call call |
+        call = method.getACall() and method.getAChild*() = this.asExpr() and
+        (
+          mock.getAMemberInitializationValue().getAChild*() = call
+          or mock.getAnArgument().getAChild*() = call
+        )
+      )
+      and not exists(Call call |
+        call = method.getACall() and method.getAChild*() = this.asExpr() and
+        not (
+          mock.getAMemberInitializationValue().getAChild*() = call
+          or mock.getAnArgument().getAChild*() = call
+        )
+        )
     )
   }
 }
@@ -152,7 +175,7 @@ class ToStringSanitizer extends Sanitizer {
  */
 class ConfigurationSanitizer extends Sanitizer {
   ConfigurationSanitizer() {
-    exists(PropertyCall configuration, MethodCall call |
+    exists(Access configuration, MethodCall call |
       configuration.getType().getQualifiedName() in [
         "Microsoft.Extensions.Configuration.IConfiguration", "Microsoft.Extensions.Configuration.ConfigurationManager"
       ]
@@ -171,6 +194,40 @@ class FileSanitizer extends Sanitizer {
       "ReadAllBytes", "ReadAllText", "Open", "OpenText", "OpenRead", "OpenHandle", "ReadAllTextAsync", "ReadAllBytesAsync", "ReadAllLines", "ReadAllLinesAsync", "ReadLines", "ReadLinesAsync", "OpenTextAsync"
     ]) and
       c.getAnArgument() = this.getExpr()
+    )
+  }
+}
+
+/**
+ * An expr within a method of a Class with a TestClass or Fact attribute, or a name that suggests testing
+ */
+class TestClassSanitizer extends Sanitizer {
+  TestClassSanitizer() {
+    exists(Class c |
+      (
+        c.getAnAttribute().getType().getName() = ["TestClassAttribute", "FactAttribute"] or
+        c.getName().matches(["Test%", "%Test", "%Tests"])
+      ) and
+      (
+        this.getExpr() = c.getAMethod().getAChild*() or
+        this.getExpr() = c.getAField().getAChild*() or
+        this.getExpr() = c.getAProperty().getGetter().getBody().getAChild*()
+      )
+    )
+  }
+}
+
+/**
+ * An expr within a method of a Class with inside a Namespace that suggests testing
+ */
+class TestNamespaceSanitizer extends Sanitizer {
+  TestNamespaceSanitizer() {
+    exists(Namespace n | n.getName().matches(["Test%", "%Test", "%Tests"]) and
+      (
+        this.getExpr() = n.getAClass().getAMethod().getAChild*() or
+        this.getExpr() = n.getAClass().getAField().getAChild*() or
+        this.getExpr() = n.getAClass().getAProperty().getGetter().getBody().getAChild*()
+      )
     )
   }
 }
