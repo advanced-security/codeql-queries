@@ -1,0 +1,7 @@
+| app.js:7:24:7:69 | "return ...  + "];" | user-provided value |
+| app.js:9:34:9:79 | "return ...  + "];" | user-provided value |
+| app.js:12:8:12:53 | "return ...  + "];" | user-provided value |
+| app.js:15:22:15:54 | req.par ... ction") | user-provided value |
+| app.js:17:30:17:53 | req.par ... cript") | user-provided value |
+| app.js:19:37:19:70 | req.par ... odule") | user-provided value |
+| app.js:21:19:21:48 | req.par ... ntext") | user-provided value |
