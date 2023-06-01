@@ -1,0 +1,27 @@
+{
+  "projectName": "codeql-queries",
+  "projectOwner": "advanced-security",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "contributors": [
+    {
+      "login": "geekmasher",
+      "name": "Mathew Payne",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2772944?v=3",
+      "profile": "https://geekmasher.dev",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "security"
+      ]
+    }
+  ],
+  "repoType": "github",
+  "contributorsPerLine": 7,
+  "repoHost": "https://github.com",
+  "commitConvention": "angular",
+  "skipCi": true
+}
