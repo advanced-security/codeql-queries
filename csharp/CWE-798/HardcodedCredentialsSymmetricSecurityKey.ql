@@ -27,19 +27,7 @@ abstract class Source extends DataFlow::ExprNode { }
 /**
  * A data flow sink for hard coded credentials.
  */
-abstract class Sink extends DataFlow::ExprNode {
-  /**
-   * Gets a description of this sink, including a placeholder for the sink and a placeholder for
-   * the supplementary element.
-   */
-  abstract string getSinkDescription();
-
-  /** Gets an element that is used as supplementary data in the description. */
-  abstract Element getSupplementaryElement();
-
-  /** Gets the sink name to use when displaying the sink. */
-  abstract string getSinkName();
-}
+abstract class Sink extends DataFlow::ExprNode { }
 
 /**
  * A sanitizer for hard coded credentials.
@@ -94,7 +82,11 @@ class LiteralToSecurityKeyConfig extends TaintTracking::Configuration {
 
   override predicate isSource(DataFlow::Node source) { source instanceof Source }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof Sink }
+  override predicate isSink(DataFlow::Node sink) {
+    sink instanceof Sink and
+    not any(ReturnedByMockObject mock).getAMemberInitializationValue() = sink.asExpr() and
+    not any(ReturnedByMockObject mock).getAnArgument() = sink.asExpr()
+  }
 
   override predicate isSanitizer(DataFlow::Node node) { node instanceof Sanitizer }
 }
@@ -109,12 +101,6 @@ class SymmetricSecurityKey extends Sink {
       ]
     )
   }
-
-  override string getSinkDescription() { result = "SymmetricSecurityKey" }
-
-  override Element getSupplementaryElement() { result = this.getExpr() }
-
-  override string getSinkName() { result = "SymmetricSecurityKey" }
 }
 
 
@@ -159,6 +145,23 @@ class StringReplaceSanitizer extends Sanitizer {
  */
 class ToStringSanitizer extends Sanitizer {
   ToStringSanitizer() { this.getExpr() = any(Call c | c.getTarget().hasName("ToString")) }
+}
+
+/**
+ * A call to a configuration section or access to configuration data, using the string as a key.
+ */
+class ConfigurationSanitizer extends Sanitizer {
+  ConfigurationSanitizer() {
+    exists(PropertyAccess configuration|
+      configuration.getType().getQualifiedName() = "Microsoft.Extensions.IConfiguration"
+      and configuration.getAChild*() = this.asExpr()
+    )
+  }
+}
+
+predicate config(PropertyAccess configuration, string name, string qname) {
+  configuration.getType().getName() = name
+  and configuration.getType().getQualifiedName() = qname
 }
 
 
