@@ -159,10 +159,10 @@ class ConfigurationSanitizer extends Sanitizer {
   }
 }
 
-predicate config(PropertyAccess configuration, string name, string qname) {
-  configuration.getType().getName() = name
-  and configuration.getType().getQualifiedName() = qname
-}
+// predicate config(PropertyAccess configuration, string name, string qname) {
+//   configuration.getType().getName() = name
+//   and configuration.getType().getQualifiedName() = qname
+// }
 
 
 from DataFlow::PathNode source, DataFlow::PathNode sink, LiteralToSecurityKeyConfig config
