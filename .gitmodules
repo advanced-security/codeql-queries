@@ -1,4 +1,3 @@
 [submodule "codeql"]
 	path = codeql
 	url = https://github.com/github/codeql
-    branch = codeql-cli/latest
