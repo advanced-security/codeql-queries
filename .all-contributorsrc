@@ -29,6 +29,17 @@
         "research",
         "security"
       ]
+    },
+    {
+      "login": "felickz",
+      "name": "Chad Bentz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1760475?v=3",
+      "profile": "https://felickz.github.io/",
+      "contributions": [
+        "code",
+        "example",
+        "ideas"
+      ]
     }
   ],
   "repoType": "github",
