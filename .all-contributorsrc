@@ -13,8 +13,22 @@
       "profile": "https://geekmasher.dev",
       "contributions": [
         "code",
-        "doc",
         "review",
+        "research",
+        "maintenance",
+        "security"
+      ]
+    },
+    {
+      "login": "aegilops",
+      "name": "Paul Hodgkinson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41705651?v=3",
+      "profile": "https://aegilops.github.io/",
+      "contributions": [
+        "code",
+        "ideas",
+        "review",
+        "research",
         "security"
       ]
     }
