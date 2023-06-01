@@ -232,6 +232,22 @@ class TestNamespaceSanitizer extends Sanitizer {
   }
 }
 
+/**
+ * A preprocessor directive for DEBUG, so this isn't a real secret used in a Release build.
+ */
+class DebugSanitizer extends Sanitizer {
+  DebugSanitizer() {
+    exists(IfDirective if_d, EndifDirective endif_d, Location if_loc, Location endif_loc, Location loc |
+      loc = this.getLocation() and
+      if_d.getCondition().toString() = "DEBUG" and if_d.getEndifDirective() = endif_d
+      and if_d.getLocation() = if_loc and endif_d.getLocation() = endif_loc
+      and loc.getStartLine() > if_loc.getEndLine()
+      and loc.getEndLine() < endif_loc.getStartLine()
+      and loc.getFile() = if_loc.getFile()
+    )
+  }
+}
+
 from DataFlow::PathNode source, DataFlow::PathNode sink, LiteralToSecurityKeyConfig config
 where config.hasFlowPath(source, sink)
 select source, sink, source, "Hard-coded credential $@ used as SymmetricSecurityKey $@",
