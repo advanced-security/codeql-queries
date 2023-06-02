@@ -206,7 +206,7 @@ class TestClassSanitizer extends Sanitizer {
     exists(Class c |
       (
         c.getAnAttribute().getType().getName() = ["TestClassAttribute", "FactAttribute"] or
-        c.getName().matches(["Test%", "%Test", "%Tests"])
+        c.getName().matches(["Test%", "%Test", "%Tests", "Mock%", "%Mocks", "%Mock", "Fake%"])
       ) and
       (
         this.getExpr() = c.getAMethod().getAChild*() or
@@ -222,7 +222,7 @@ class TestClassSanitizer extends Sanitizer {
  */
 class TestNamespaceSanitizer extends Sanitizer {
   TestNamespaceSanitizer() {
-    exists(Namespace n | n.getName().matches(["Test%", "%Test", "%Tests"]) and
+    exists(Namespace n | n.getName().matches(["Test%", "%Test", "%Tests", "Mock%", "%Mocks", "%Mock", "Fake%"]) and
       (
         this.getExpr() = n.getAClass().getAMethod().getAChild*() or
         this.getExpr() = n.getAClass().getAField().getAChild*() or
