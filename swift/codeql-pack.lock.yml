@@ -1,13 +1,11 @@
 ---
 lockVersion: 1.0.0
 dependencies:
-  codeql/java-all:
-    version: 0.6.2
-  codeql/regex:
-    version: 0.0.13
+  codeql/ssa:
+    version: 0.0.17
+  codeql/swift-all:
+    version: 0.1.0
   codeql/tutorial:
-    version: 0.0.10
-  codeql/typetracking:
     version: 0.0.10
   codeql/util:
     version: 0.0.10

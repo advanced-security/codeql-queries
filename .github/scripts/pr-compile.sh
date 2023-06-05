@@ -12,7 +12,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
         echo "[+] CodeQL submodule changed, compiling all queries in $LANGUAGE"
         gh codeql query compile \
             --threads=0 --check-only \
-            --search-path=./codeql --additional-packs=./codeql \
+            --search-path=./codeql --additional-packs=./codeql:./codeql/misc \
             "./$LANGUAGE/"
     fi
 
@@ -26,7 +26,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
         gh codeql query compile  \
             --threads=0 --check-only \
             --warnings=error \
-            --search-path=./codeql --additional-packs=./codeql \
+            --search-path=./codeql --additional-packs=./codeql:./codeql/misc \
             "./$file"
 
     # if github folder is modified
@@ -35,7 +35,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
         gh codeql query compile \
             --threads=0 --check-only \
             --warnings=error \
-            --search-path=./codeql --additional-packs=./codeql \
+            --search-path=./codeql --additional-packs=./codeql:./codeql/misc \
             "./$LANGUAGE/"
         # set LIBRARY_SCANNED to true to prevent recompiling
         LIBRARY_SCANNED=true
