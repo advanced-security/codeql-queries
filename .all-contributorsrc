@@ -1,0 +1,50 @@
+{
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "codeql-queries",
+  "projectOwner": "advanced-security",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "contributorsPerLine": 5,
+  "commitConvention": "gitmoji",
+  "skipCi": true,
+  "contributors": [
+    {
+      "login": "geekmasher",
+      "name": "Mathew Payne",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2772944?v=3",
+      "profile": "https://geekmasher.dev",
+      "contributions": [
+        "code",
+        "research",
+        "maintenance",
+        "security"
+      ]
+    },
+    {
+      "login": "aegilops",
+      "name": "Paul Hodgkinson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41705651?v=3",
+      "profile": "https://aegilops.github.io/",
+      "contributions": [
+        "code",
+        "ideas",
+        "research",
+        "security"
+      ]
+    },
+    {
+      "login": "felickz",
+      "name": "Chad Bentz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1760475?v=3",
+      "profile": "https://felickz.github.io/",
+      "contributions": [
+        "code",
+        "example",
+        "ideas"
+      ]
+    }
+  ]
+}
