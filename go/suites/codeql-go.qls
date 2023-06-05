@@ -1,13 +1,27 @@
-#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
-#   for additional ways to exclude queries
+# https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
 
-- description: "GitHub's Field Team CodeQL GoLang extended Suite"
+- description: "GitHub's Field Team GoLang Extended Suite"
 
-- import: codeql-suites/go-security-extended.qls
-  from: codeql-go
+# GitHub's Field Team GoLang Suite
+- queries: '.'
+  from: advanced-security/codeql-go
 
+- include:
+    kind:
+    - problem
+    - path-problem
+    precision:
+    - very-high
+    - high
+    - medium
+    - low
+
+# Remove debugging, and audit queries
 - exclude:
-    id:
-      - go/log-injection
-
-- qlpack: github-queries-go
+    tags contain:
+      - debugging
+      - audit
+# Remove local testing folders
+- exclude:
+    query path:
+      - /testing\/.*/

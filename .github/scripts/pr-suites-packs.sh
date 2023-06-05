@@ -15,7 +15,7 @@ for file in $(gh pr view $PR_NUMBER --json files --jq '.files.[].path'); do
         echo "[+] Compiling Suite: $file"
         gh codeql resolve queries \
             --search-path=./codeql \
-            --additional-packs=./codeql \
+            --additional-packs=./codeql:./codeql/misc \
             "$file"
 
     # qlpack file and lock file

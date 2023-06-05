@@ -1,4 +1,7 @@
-name: github-queries-java
-version: 0.0.0
+---
+library: false
+name: advanced-security/codeql-java
+version: 0.1.0
 dependencies:
-  codeql/java-queries: "*"
+  codeql/java-all: "^0.6.2"
+defaultSuiteFile: suites/codeql-java.qls
