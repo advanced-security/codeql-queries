@@ -2,4 +2,8 @@
 codeql/
 codeql-go/
 .cache/
+tests/
+tailor-packs/
+extensions/
+
 
