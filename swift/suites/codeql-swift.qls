@@ -1,0 +1,8 @@
+
+- description: "GitHub's Field Team Swift Super Extended Suite"
+
+- import: codeql-suites/swift-security-extended.qls
+  from: codeql/swift-queries
+
+- queries: '.'
+  from: codeql/swift-queries
