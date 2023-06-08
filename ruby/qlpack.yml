@@ -1,4 +1,7 @@
-name: github-queries-ruby
+---
+library: false
+name: advanced-security/codeql-ruby
 version: 0.1.0
 dependencies:
-  codeql/ruby-queries: "*"
+  codeql/ruby-all: "^0.6.2"
+defaultSuiteFile: suites/codeql-ruby.qls

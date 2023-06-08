@@ -3,5 +3,5 @@ library: false
 name: advanced-security/codeql-csharp
 version: 0.3.0
 dependencies:
-  codeql/csharp-queries: "^0.5.0"
+  codeql/csharp-all: "^0.6.2"
 defaultSuiteFile: suites/codeql-csharp.qls
