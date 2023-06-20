@@ -34,5 +34,5 @@ class HardcodedPasswordBase64 extends TaintTracking::Configuration {
 // ========== Query ==========
 from DataFlow::PathNode source, DataFlow::PathNode sink, HardcodedPasswordBase64 config
 where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "Sensative data is being logged $@.", source.getNode(),
+select sink.getNode(), source, sink, "Sensitive data is being logged $@.", source.getNode(),
   "user-provided value"
