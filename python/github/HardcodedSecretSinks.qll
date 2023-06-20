@@ -44,7 +44,7 @@ class FlaskCredentialSink extends CredentialSink {
         // app = flask.Flask(__name__)
         // app.secret_key = VALUE
         node = Flask::FlaskApp::instance().getMember("secret_key") and
-        stmt = node.getAValueReachableFromSource().asExpr().getParentNode() and
+        stmt = node.getAValueReachingSink().asExpr().getParentNode() and
         this = DataFlow::exprNode(stmt.getValue())
       )
       or
@@ -179,7 +179,7 @@ class PyOtpSink extends CredentialSink {
   PyOtpSink() {
     // import pyotp
     // totp = pyotp.TOTP('base32secret3232')
-    this = API::moduleImport("pyotp").getMember("TOTP").getACall().getArg(1)
+    this = API::moduleImport("pyotp").getMember("TOTP").getACall().getArg(0)
   }
 }
 
