@@ -1,0 +1,8 @@
+---
+library: true
+name: advanced-security/codeql-javascript-extensions
+version: 0.0.1
+extensionTargets:
+  codeql/javascript-queries: 0.5.5
+dataExtensions:
+  - models/*.yml

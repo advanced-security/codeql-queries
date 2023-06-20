@@ -1,0 +1,11 @@
+- description: "GitHub's Field Team CSharp Debugging Suite"
+
+- import: codeql-suites/csharp-security-extended.qls
+  from: codeql/csharp-queries
+
+- queries: '.'
+  from: codeql/csharp-queries
+- include:
+    id:
+      # https://github.com/github/codeql/blob/main/csharp/ql/src/Security%20Features/CWE-020/UntrustedDataToExternalAPI.ql
+      - cs/untrusted-data-to-external-api

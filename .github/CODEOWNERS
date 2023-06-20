@@ -1,0 +1,18 @@
+# CodeQL Queries
+
+config/* @geekmasher @aegilops
+cpp/* @aegilops
+csharp/* @geekmasher @aegilops @felickz
+java/* @geekmasher @aegilops
+javascript/* @geekmasher @aegilops
+python/* @geekmasher @aegilops
+ruby/* @geekmasher @aegilops
+
+extensions/* @geekmasher @aegilops
+
+# CI / Scripts
+.github/workflows/* @geekmasher @aegilops @nickliffen
+.github/scripts/* @geekmasher @aegilops @nickliffen
+
+# Misc for Owner
+* @geekmasher

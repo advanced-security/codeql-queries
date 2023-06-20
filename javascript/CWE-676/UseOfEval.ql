@@ -1,13 +1,13 @@
 /**
- * @name Using JS Eval
- * @description Using JS Eval
+ * @name Audit: Using JS Eval
+ * @description Usage of eval in JavaScript / TypeScript can be dangerous
  * @kind problem
- * @problem.severity warning
- * @security-severity 4.0
- * @id js/using-eval
- * @tags security
+ * @problem.severity recommendation
+ * @security-severity 2.0
+ * @id js/audit/using-eval
+ * @tags maintainability
  *       external/cwe/cwe-676
- *       static
+ *       audit
  */
 
 import javascript

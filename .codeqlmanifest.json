@@ -2,8 +2,7 @@
   "provide": [
     "codeql/*/ql/src/qlpack.yml",
     "codeql/*/ql/lib/qlpack.yml",
-    "codeql-go/*/ql/src/qlpack.yml",
-    "codeql-go/*/ql/lib/qlpack.yml",
+    "extensions/*/qlpack.yml",
     "*/qlpack.yml",
     "*/customizations/qlpack.yml",
     "go/qlpack.yml",

@@ -1,28 +1,25 @@
-#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
-#   for additional ways to exclude queries
+# https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
 
 - description: "GitHub's Field Team Python Extended Suite"
 
-- qlpack: github-queries-python
+# GitHub's Field Team Python Suite
+- queries: '.'
+  from: advanced-security/codeql-python
+
+# Include lows
+- include:
+    kind:
+    - problem
+    - path-problem
+    precision:
+    - low
+
+# Remove debugging, and audit queries
+- exclude:
+    tags contain:
+      - debugging
+      - audit
+# Remove local testing folders
 - exclude:
     query path:
-      - /^testing\/.*/
-    tags contain:
-      - static
-
-- import: codeql-suites/python-security-extended.qls
-  from: codeql/python-queries
-
-- queries: '.'
-  from: codeql/python-queries
-- include:
-    id:
-      - py/template-injection
-      - py/xslt-injection
-      - py/ip-address-spoofing
-      - py/xpath-injection
-      - py/nosql-injection
-      # LDAP
-      - py/ldap-injection
-      - py/improper-ldap-auth
-      - py/insecure-ldap-auth
+      - /testing\/.*/

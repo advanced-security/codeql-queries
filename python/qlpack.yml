@@ -1,3 +1,7 @@
-name: github-queries-python
-version: 0.1.0
-libraryPathDependencies: codeql-python
+---
+library: false
+name: advanced-security/codeql-python
+version: 0.2.0
+dependencies:
+  codeql/python-all: "^0.9.2"
+defaultSuiteFile: suites/codeql-python.qls

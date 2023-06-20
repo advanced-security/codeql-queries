@@ -1,3 +1,7 @@
-name: github-queries-go
+---
+library: false
+name: advanced-security/codeql-go
 version: 0.1.0
-libraryPathDependencies: codeql-go
+dependencies:
+  codeql/go-all: "^0.5.2"
+defaultSuiteFile: suites/codeql-go.qls

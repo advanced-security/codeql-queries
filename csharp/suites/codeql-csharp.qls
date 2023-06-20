@@ -1,30 +1,29 @@
-#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
-#   for additional ways to exclude queries
+# https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
 
-- description: "GitHub's Field Team CodeQL CSharp extended Suite"
+- description: "GitHub's Field Team CSharp Extended Suite"
 
-- import: codeql-suites/csharp-security-extended.qls
-  from: codeql/csharp-queries
-
+# GitHub's Field Team CSharp Suite
 - queries: '.'
-  from: codeql/csharp-queries
+  from: advanced-security/codeql-csharp
+
 - include:
-    id:
-      - cs/webclient-path-injection
-      - cs/web/cookie-httponly-not-set
-      - cs/web/cookie-secure-not-set
-      # Backdoor queries
-      - cs/backdoor/dangerous-native-functions
-      - cs/backdoor/potential-time-bomb
-      - cs/backdoor/process-name-to-hash-function
-      # Serialization
-      - cs/dataset-serialization/defining-potentially-unsafe-xml-serializer
-      - cs/dataset-serialization/unsafe-type-used-data-contract-serializer
-      - cs/dataset-serialization/xml-deserialization-with-dataset
-      # Solorigate
-      - cs/solorigate/modified-fnv-function-detection
-      - cs/solorigate/number-of-known-commands-in-enum-above-threshold
-      - cs/solorigate/number-of-known-hashes-above-threshold
-      - cs/solorigate/number-of-known-literals-above-threshold
-      - cs/solorigate/number-of-known-method-names-above-threshold
-      - cs/solorigate/swallow-everything-exception
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    precision:
+    - very-high
+    - high
+    - medium
+    - low
+
+# Remove debugging, and audit queries
+- exclude:
+    tags contain:
+      - debugging
+      - audit
+# Remove local testing folders
+- exclude:
+    query path:
+      - /testing\/.*/

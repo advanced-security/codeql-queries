@@ -1,0 +1,14 @@
+name: "GitHub Field CodeQL Audit Configuration"
+
+packs:
+  # > C#
+  - advanced-security/codeql-csharp:suites/codeql-csharp-audit.qls
+
+  # > JavaScript/TypeScript
+  - advanced-security/codeql-javascript:suites/codeql-javascript-audit.qls
+
+  # > Python
+  - advanced-security/codeql-python:suites/codeql-python-audit.qls
+
+  # > Java
+  #- advanced-security/codeql-java:suites/codeql-java-audit.qls

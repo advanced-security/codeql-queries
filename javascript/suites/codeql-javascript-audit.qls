@@ -1,0 +1,22 @@
+# This is the field security specialist audit pack
+
+- description: "JavaScript/TypeScript Audit Pack"
+
+# Field query pack with some audit queries
+- qlpack: advanced-security/codeql-javascript
+
+- include:
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    tags contain:
+    - audit
+
+# External API queries
+- queries: '.'
+  from: codeql/javascript-queries
+- include:
+    id:
+      - js/untrusted-data-to-external-api

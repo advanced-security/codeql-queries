@@ -1,0 +1,7 @@
+---
+library: false
+name: advanced-security/codeql-swift
+version: 0.1.0
+dependencies:
+  codeql/swift-all: "^0.1.0"
+defaultSuiteFile: suites/codeql-swift.qls

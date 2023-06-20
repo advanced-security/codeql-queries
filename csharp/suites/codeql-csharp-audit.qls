@@ -1,0 +1,23 @@
+# This is the field security specialist audit pack
+
+- description: "CSharp Audit Pack"
+
+# Field query pack with some audit queries
+- queries: '.'
+  from: advanced-security/codeql-csharp
+
+- include:
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    tags contain:
+    - audit
+
+# External API query
+- queries: '.'
+  from: codeql/csharp-queries
+- include:
+    id:
+      - cs/untrusted-data-to-external-api

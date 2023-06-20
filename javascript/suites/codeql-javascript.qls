@@ -1,27 +1,29 @@
+# https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
 
 - description: "GitHub's Field Team JavaScript/TypeScript extended Suite"
 
-- qlpack: github-queries-javascript
+# GitHub's Field Team Python Suite
+- queries: '.'
+  from: advanced-security/codeql-javascript
+
+- include:
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    precision:
+    - very-high
+    - high
+    - medium
+    - low
+
+# Remove debugging, and audit queries
+- exclude:
+    tags contain:
+      - debugging
+      - audit
+# Remove local testing folders
 - exclude:
     query path:
-      - /^testing\/.*/
-    tags contain:
-      - static
-
-- import: codeql-suites/javascript-security-extended.qls
-  from: codeql/javascript-queries
-
-- queries: '.'
-  from: codeql/javascript-queries
-- include:
-    id:
-      # Cookies
-      - js/insecure-cookie
-      - js/cookie-httponly-not-set
-      # Actions
-      - js/actions/injection
-      - js/actions/pull-request-target
-      # Misc
-      - js/jwt-missing-verification
-      - javascript/ldap-injection
-      - js/missing-postmessageorigin-verification
+      - /testing\/.*/

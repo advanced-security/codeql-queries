@@ -1,49 +1,91 @@
 {
-    "folders": [
-        {
-            "name": "Queries - C/CPP",
-            "path": "cpp"
-        },
-        {
-            "name": "Queries - CSharp",
-            "path": "csharp"
-        },
-        {
-            "name": "Queries - GoLang",
-            "path": "go"
-        },
-        {
-            "name": "Queries - Java",
-            "path": "java"
-        },
-        {
-            "name": "Queries - JavaScript/TypeScript",
-            "path": "javascript"
-        },
-        {
-            "name": "Queries - Python",
-            "path": "python"
-        },
-        {
-            "name": "Queries - Ruby",
-            "path": "ruby"
-        },
-        {
-            "name": "Tests",
-            "path": "tests"
-        },
-        {
-            "name": "CodeQL - Query Languages",
-            "path": "codeql"
-        }
-    ],
-    "settings": {
-        "codeQL.runningQueries.autoSave": true,
-        "codeQL.runningQueries.maxQueries": 50,
-        "codeQL.runningQueries.memory": 8192,
-        "codeQL.runningQueries.numberOfThreads": 4,
-        "codeQL.runningQueries.debug": true,
-        "editor.formatOnSave": true,
-        "editor.formatOnPaste": true
+  "folders": [
+    {
+      "name": "Queries - C/CPP",
+      "path": "cpp"
+    },
+    {
+      "name": "Queries - CSharp",
+      "path": "csharp"
+    },
+    {
+      "name": "Queries - GoLang",
+      "path": "go"
+    },
+    {
+      "name": "Queries - Java/Kotlin",
+      "path": "java"
+    },
+    {
+      "name": "Queries - JavaScript/TypeScript",
+      "path": "javascript"
+    },
+    {
+      "name": "Queries - Python",
+      "path": "python"
+    },
+    {
+      "name": "Queries - Ruby",
+      "path": "ruby"
+    },
+    {
+      "name": "Queries - Swift",
+      "path": "swift"
+    },
+    {
+      "name": "Extensions",
+      "path": "extensions"
+    },
+    {
+      "name": "Tests",
+      "path": "tests"
+    },
+    {
+      "name": "Config",
+      "path": "config"
+    },
+    {
+      "name": "GitHub",
+      "path": ".github"
+    },
+    {
+      "name": "CodeQL - Query Languages",
+      "path": "codeql"
     }
+  ],
+  "settings": {
+    "codeQL.runningQueries.autoSave": true,
+    "codeQL.runningQueries.maxQueries": 50,
+    "codeQL.runningQueries.memory": 8192,
+    "codeQL.runningQueries.numberOfThreads": 4,
+    "codeQL.runningQueries.debug": true,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": true
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Generate Coverage Reports",
+        "type": "shell",
+        "command": "python3 ./.github/scripts/generate-coverage.py -l ${input:language} --disable-cache",
+        "problemMatcher": [],
+        "options": {
+          "cwd": ".."
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "id": "language",
+        "description": "Language",
+        "default": "all",
+        "type": "promptString"
+      }
+    ]
+  }
 }

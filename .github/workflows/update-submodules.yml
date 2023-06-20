@@ -1,14 +1,15 @@
-name: Weekly Update Submodules
+name: Update Submodules
 
 on:
   push:
     branches:
       - main
   schedule:
-    - cron: '0 8 * * 4'
+    - cron: '0 8 * * *'
+  workflow_dispatch:
 
 jobs:
-  update:
+  update-submodules:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,14 +20,14 @@ jobs:
         submodules: true
 
     # Update references
-    - name: Git Sumbodule Update
+    - name: Git Submodule Update
       run: |
         git pull --recurse-submodules
         git submodule update --remote --recursive
 
     - name: Commit update
       run: |
-        git config --global user.name 'Git bot'
-        git config --global user.email 'bot@noreply.github.com'
-        git remote set-url origin https://${{ secrets.COMMIT_USERNAME }}:${{ secrets.ACTIONS_SECRET }}@github.com/${{ github.repository }}
-        git commit -am "Auto updated submodule references" && git push || echo "No changes to commit"
+        git config --global user.name 'Mathew Payne'
+        git config --global user.email '2772944+GeekMasher@users.noreply.github.com'
+        git remote set-url origin https://${{ github.GITHUB_REPOSITORY_OWNER }}:${{ secrets.ACTIONS_SECRET }}@github.com/${{ github.repository }}
+        git commit -am "Auto-updated submodule references" && git push || echo "No changes to commit"

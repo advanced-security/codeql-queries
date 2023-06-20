@@ -12,7 +12,83 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        language: [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'swift' ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        id: changes
+        with:
+          filters: |
+            src:
+              - '${{ matrix.language }}/**'
+              - 'tests/${{ matrix.language }}-tests/**'
+              - 'codeql'
+
+      - name: Install CodeQL
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+          gh codeql pack download "codeql/${{ matrix.language }}-queries"
+          gh codeql pack install --additional-packs=./codeql/misc "${{ matrix.language }}"
+
+      - name: Compile Queries
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./.github/scripts/pr-compile.sh ${{ github.event.number }} ${{ matrix.language }}
+
+      - name: Test Queries
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./.github/scripts/pr-tests.sh ${{ github.event.number }} ${{ matrix.language }}
+
+      - name: Compile / Check Suites & Packs
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./.github/scripts/pr-suites-packs.sh ${{ github.event.number }} ${{ matrix.language }}
+
+  extensions:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp', 'java', 'javascript' ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'extensions/codeql-${{ matrix.language }}-extensions/**'
+
+      - name: Install CodeQL
+        if: steps.changes.outputs.src == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh extension install github/gh-codeql
+          gh codeql pack install "extensions/codeql-${{ matrix.language }}-extensions"
+          gh codeql pack create "extensions/codeql-${{ matrix.language }}-extensions"
+
+  config:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -24,58 +100,13 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           gh extension install github/gh-codeql
-          # gh codeql set-channel nightly
-          gh codeql version
+          LANGS="cpp,csharp,go,java,javascript,python,ruby"
+          for lang in $(echo $LANGS | sed "s/,/ /g"); do
+              gh codeql pack download "codeql/$lang-queries"
+          done
 
-      - name: Compile Queries
+      - name: Compile / Check Suites & Packs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh codeql query compile --warnings=error --search-path=./codeql:./codeql-go ./${{ matrix.language }}/
-          
-      - name: Test Queries
-        run: |
-          if [ -d ./tests/${{ matrix.language }}-tests/ ]; then
-          gh codeql test run --additional-packs=./ --additional-packs=./codeql ./tests/${{ matrix.language }}-tests/
-          fi
-
-  integration-tests:
-    runs-on: ubuntu-latest
-    needs: [ compile ]
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'javascript', 'python' ]
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/checkout@v3
-        with:
-          repository: "advanced-security/codeql-queries"
-          ref: testing
-          token: ${{ github.token }}
-          path: ./tests
-
-      - name: Git Info
-        id: git-info
-        run: |
-          cd ./tests
-          echo ::set-output name=sha::$(git rev-parse HEAD)
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: ${{ matrix.language }}
-          config-file: ./config/codeql.yml
-          # source-root: ./tests/${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-        # with:
-        #   working-directory: ./tests/${{ matrix.language }}
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          # checkout_path: ./tests/${{ matrix.language }}
-          ref: refs/heads/testing
-          sha: ${{ steps.git-info.outputs.sha }}
+          ./.github/scripts/pr-config.sh "${{ github.event.number }}"

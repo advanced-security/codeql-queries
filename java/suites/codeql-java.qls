@@ -1,75 +1,27 @@
-#   See https://help.semmle.com/codeql/codeql-cli/procedures/query-suites.html#filtering-the-queries-in-a-query-suite
-#   for additional ways to exclude queries
+# https://codeql.github.com/docs/codeql-cli/creating-codeql-query-suites/
 
-- description: "GitHub's Field Team Java extended Suite"
+- description: "GitHub's Field Team Java/Kotlin Extended Suite"
 
-- qlpack: github-queries-java
+# GitHub's Field Team Java/Kotlin Suite
+- queries: '.'
+  from: advanced-security/codeql-java
+
 - include:
-    id:
-      # Support JSP
-      - java/custom-xss
-      # Sensitive Information
-      - java/sensitive-information-logging
-      - java/hardcoded-password-field
-      # Crypto
-      - java/weak-cryptographic-algorithm
-      - java/weak-encryption
+    kind:
+    - problem
+    - path-problem
+    precision:
+    - very-high
+    - high
+    - medium
+    - low
+
+# Remove debugging, and audit queries
 - exclude:
     tags contain:
-      - static
-
-
-- import: codeql-suites/java-security-extended.qls
-  from: codeql/java-queries
-
-- queries: '.'
-  from: codeql/java-queries
-- include:
-    id:
-      # Crypto
-      - java/insufficient-key-size
-      - java/hash-without-salt
-      - java/unsafe-tls-version
-
-      # XML
-      - java/xxe-with-experimental-sinks
-      - java/xquery-injection
-
-      # Injection
-      - java/beanshell-injection
-      - java/javaee-expression-injection
-      - java/jshell-injection
-      - java/jython-injection
-      - java/unsafe-eval
-      - java/spel-expression-injection
-      - java/spring-view-manipulation-implicit
-      - java/spring-view-manipulation
-      - java/log-injection
-      - java/jsonp-injection
-
-      # URL / SSRF
-      - java/openstream-called-on-tainted-url
-      - java/incorrect-url-verification
-
-      # Deserialization
-      - java/unsafe-deserialization-rmi
-      - java/unsafe-deserialization-spring-exporter-in-configuration-class
-      - java/unsafe-deserialization-spring-exporter-in-xml-configuration
-
-      # Cookies
-      - java/tomcat-disabled-httponly
-      - java/sensitive-cookie-not-httponly
-
-      # Misc
-      - java/spring-boot-exposed-actuators
-      - java/insecure-trustmanager
-      - java/insecure-smtp-ssl
-      - java/unvalidated-cors-origin-set
-      - java/unsafe-reflection
-      - java/struts-development-mode
-      - java/main-method-in-enterprise-bean
-      - java/main-method-in-web-components
-      - java/insecure-ldap-auth
-      - java/sensitiveinfo-in-logfile
-      - java/server-directory-listing
-      - java/sensitive-query-with-get
+      - debugging
+      - audit
+# Remove local testing folders
+- exclude:
+    query path:
+      - /testing\/.*/

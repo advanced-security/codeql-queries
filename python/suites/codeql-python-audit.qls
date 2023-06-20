@@ -1,0 +1,22 @@
+# This is the field security specialist audit pack
+
+- description: "Python Audit Pack"
+
+# Field query pack with some audit queries
+- queries: '.'
+  from: advanced-security/codeql-python
+- include:
+    kind:
+    - problem
+    - path-problem
+    - metric
+    - diagnostic
+    tags contain:
+    - audit
+
+- queries: '.'
+  from: codeql/python-queries
+
+- include:
+    id:
+      - py/untrusted-data-to-external-api

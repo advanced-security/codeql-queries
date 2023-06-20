@@ -1,0 +1,59 @@
+name: "Create CodeQL Pack Release"
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  release-main:
+    name: "Create CodeQL Pack Release"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp', 'javascript', 'python' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Check and Publish CodeQL Packs"
+        env:
+          GITHUB_TOKEN: ${{ secrets.OCTODEMOBOT_PACKAGES_ACCESS_TOKEN }}
+        run: |
+          PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
+          CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
+
+          if [ "$PUBLISHED_VERSION" != "$CURRENT_VERSION" ]; then
+            gh extension install github/gh-codeql
+            gh codeql pack install "${{ matrix.language }}"
+            gh codeql pack publish "${{ matrix.language }}"
+          fi
+
+  extensions:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp', 'java', 'javascript' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compile / Check Suites & Packs
+        env:
+          GITHUB_TOKEN: ${{ secrets.OCTODEMOBOT_PACKAGES_ACCESS_TOKEN }}
+        run: |
+          PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}-extensions/versions --jq '.[0].metadata.container.tags[0]')
+          CURRENT_VERSION=$(grep version extensions/codeql-${{ matrix.language }}-extensions/qlpack.yml | awk '{print $2}')
+
+          if [ "$PUBLISHED_VERSION" != "$CURRENT_VERSION" ]; then
+            gh extension install github/gh-codeql
+            gh codeql pack install "extensions/codeql-${{ matrix.language }}-extensions"
+            gh codeql pack publish "extensions/codeql-${{ matrix.language }}-extensions"
+          fi

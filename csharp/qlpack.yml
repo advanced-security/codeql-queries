@@ -1,3 +1,7 @@
-name: github-queries-csharp
-version: 0.0.0
-libraryPathDependencies: codeql-csharp
+---
+library: false
+name: advanced-security/codeql-csharp
+version: 0.3.0
+dependencies:
+  codeql/csharp-all: "^0.6.2"
+defaultSuiteFile: suites/codeql-csharp.qls
