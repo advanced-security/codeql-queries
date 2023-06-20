@@ -35,4 +35,11 @@ class MyApp {
         return decodedString;
     }
 
+    public String simpleDecoderString() {
+        byte[] decodedBytes = Base64.getDecoder().decode("U2VjcmV0S2V5");
+
+        String decodedString = new String(decodedBytes);
+        return decodedString;
+    }
+
 }
