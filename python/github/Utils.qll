@@ -20,9 +20,14 @@ class DynamicStrings extends DataFlow::Node {
         this.asExpr() = format.getNode()
       )
       or
-      // q = "WHERE name = %s" % username
       exists(BinaryExpr expr |
-        expr.getOp() instanceof Mod and
+        (
+          // q = "WHERE name = %s" % username
+          expr.getOp() instanceof Mod or
+          // q = "WHERE name = " + username
+          expr.getOp() instanceof Add
+        )
+        and
         expr.getLeft().getParent() = this.asExpr()
       )
     ) and

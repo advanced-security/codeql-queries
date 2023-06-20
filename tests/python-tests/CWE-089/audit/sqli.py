@@ -24,3 +24,8 @@ cursor.execute(query)
 # test 3 - %s
 query = "SELECT * FROM users WHERE username = %s" % username
 cursor.execute(query)
+
+
+# test 4 - string + string
+query = "SELECT * FROM users WHERE username = " + username
+cursor.execute(query)
