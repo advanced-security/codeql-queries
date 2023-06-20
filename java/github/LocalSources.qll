@@ -15,3 +15,17 @@ class FileReadAccess extends LocalUserInput {
     )
   }
 }
+
+class FileWriteAccess extends LocalUserInput {
+  FileWriteAccess() {
+    exists(MethodAccess ma |
+      // https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#copy(java.io.InputStream,%20java.nio.file.Path,%20java.nio.file.CopyOption...)
+      ma.getMethod().hasQualifiedName("java.nio.file", "Files", "copy") and
+      ma.getArgument(0) = this.asExpr()
+      or
+      // https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html
+      ma.getMethod().hasQualifiedName("java.io", "OutputStream", "write") and
+      ma.getArgument(0) = this.asExpr()
+    )
+  }
+}
