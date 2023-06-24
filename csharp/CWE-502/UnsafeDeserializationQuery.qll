@@ -294,6 +294,14 @@ deprecated class TaintToObjectTypeTrackingConfig extends TaintTracking2::Configu
       n2.asExpr() = oc and
       oc.getObjectType() instanceof StrongTypeDeserializer
     )
+    or
+    exists(MethodCall mc, Method m |
+      m = mc.getTarget() and
+      m.getDeclaringType().hasQualifiedName("System.Xml", "XmlDocument") and
+      m.hasName("Load") and
+      n1.asExpr() = mc.getArgument(0) and
+      n2.asExpr() = mc
+    )
   }
 }
 

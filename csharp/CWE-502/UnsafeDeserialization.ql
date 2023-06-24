@@ -12,7 +12,7 @@
  */
 
 import csharp
-import semmle.code.csharp.security.dataflow.UnsafeDeserializationQuery
+import UnsafeDeserializationQuery
 
 from Call deserializeCall, Sink sink
 where deserializeCall.getAnArgument() = sink.asExpr()
