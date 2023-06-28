@@ -5,10 +5,11 @@
  * @problem.severity warning
  * @security-severity 7.5
  * @precision high
- * @id csharp/weak-password-data-hashing
+ * @id csharp/weak-password-hashing
  * @tags security
  *       external/cwe/cwe-327
  *       external/cwe/cwe-328
+ *       external/cwe/cwe-916
  */
 
 import csharp
