@@ -1,0 +1,11 @@
+- description: "GitHub's Field Team JavaScript Debugging Suite"
+
+- import: codeql-suites/javascript-security-extended.qls
+  from: codeql/javascript-queries
+
+- queries: '.'
+  from: codeql/javascript-queries
+- include:
+    id:
+      # https://github.com/github/codeql/blob/main/javascript/ql/src/Security/CWE-020/UntrustedDataToExternalAPI.ql
+      - js/untrusted-data-to-external-api
