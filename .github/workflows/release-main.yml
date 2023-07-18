@@ -2,7 +2,7 @@ name: "Create CodeQL Pack Release"
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -16,14 +16,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'javascript', 'python' ]
+        language: ["csharp", "javascript", "python"]
 
     steps:
       - uses: actions/checkout@v3
 
       - name: "Check and Publish CodeQL Packs"
         env:
-          GITHUB_TOKEN: ${{ secrets.OCTODEMOBOT_PACKAGES_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CODEQL_FIELD_TOKEN }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
@@ -40,14 +40,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'java', 'javascript' ]
+        language: ["csharp", "java", "javascript"]
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Compile / Check Suites & Packs
         env:
-          GITHUB_TOKEN: ${{ secrets.OCTODEMOBOT_PACKAGES_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CODEQL_FIELD_TOKEN }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}-extensions/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version extensions/codeql-${{ matrix.language }}-extensions/qlpack.yml | awk '{print $2}')
