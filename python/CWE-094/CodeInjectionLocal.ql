@@ -40,31 +40,4 @@ import CodeInjectionFlows::PathGraph //importing the path graph from the module
 
 from CodeInjectionFlows::PathNode source, CodeInjectionFlows::PathNode sink //Using PathNode from the module
 where CodeInjectionFlows::flowPath(source, sink) //using flowPath instead of hasFlowPath
-select sink.getNode(), source, sink, "This $@ is written to a log file.", source.getNode(),
-  "potentially sensitive information"
-
-
-
-/**
- * 
- * -----------------------------------------------------------------------------
- * Below is the old code which has been updated to use the new dataflow library
- * -----------------------------------------------------------------------------
- * 
- * A taint-tracking configuration for detecting code injection vulnerabilities.
- */
-//class CodeInjectionConfiguration extends TaintTracking::Configuration {
-  //CodeInjectionConfiguration() { this = "CodeInjectionConfiguration" }
-
-  //override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
-
-  //override predicate isSink(DataFlow::Node sink) { sink instanceof CodeInjection::Sink }
-
-  //override predicate isSanitizer(DataFlow::Node node) { node instanceof CodeInjection::Sanitizer }
-//}
-
-
-//from CodeInjectionConfiguration config, DataFlow::PathNode source, DataFlow::PathNode sink
-//where config.hasFlowPath(source, sink)
-//select sink.getNode(), source, sink, "$@ flows to here and is interpreted as code.",
-  //source.getNode(), "A user-provided value"
+select sink.getNode(), source, sink, "This $@ is written to a log file.", source.getNode(), "potentially sensitive information"

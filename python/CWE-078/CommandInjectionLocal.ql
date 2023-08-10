@@ -21,26 +21,22 @@ import semmle.python.dataflow.new.TaintTracking
 import semmle.python.Concepts
 import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
-import DataFlow::PathGraph
+//import DataFlow::PathGraph
 import github.LocalSources
 private import semmle.python.security.dataflow.CommandInjectionCustomizations
 
-/**
- * This configuration is used to find local command injection vulnerabilities.
- */
-class CommandInjectionConfiguration extends TaintTracking::Configuration {
-  CommandInjectionConfiguration() { this = "LocalCommandInjectionConfiguration" }
+private module CommandInjectionConfiguration implements DataFlow::ConfigSig{ 
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
+  predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof CommandInjection::Sink }
+  predicate isSink(DataFlow::Node sink) { sink instanceof CommandInjection::Sink }
 
-  override predicate isSanitizer(DataFlow::Node node) {
-    node instanceof CommandInjection::Sanitizer
-  }
+  predicate isBarrier(DataFlow::Node node) { node instanceof CommandInjection::Sanitizer }
 }
 
-from CommandInjectionConfiguration config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "This command depends on $@.", source.getNode(),
-  "a user-provided value"
+module CommandInjectionFlows = DataFlow::Global<CommandInjectionConfiguration>;
+import CommandInjectionFlows::PathGraph //importing the path graph from the module
+
+from CommandInjectionFlows::PathNode source, CommandInjectionFlows::PathNode sink //Using PathNode from the module
+where CommandInjectionFlows::flowPath(source, sink) //using flowPath instead of hasFlowPath
+select sink.getNode(), source, sink, "This command depend son $@.", source.getNode(), "a user-provided value"
