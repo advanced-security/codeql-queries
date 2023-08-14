@@ -15,7 +15,7 @@ import java
 import semmle.code.java.dataflow.DataFlow
 import semmle.code.java.dataflow.FlowSources
 import semmle.code.java.dataflow.TaintTracking2
-import DataFlow::PathGraph
+// import DataFlow::PathGraph
 // Internal
 import github.SensitiveInformation
 
@@ -28,18 +28,20 @@ class Base64Sinks extends DataFlow::Node {
   }
 }
 
-class Base64EncryptionConfig extends TaintTracking::Configuration {
-  Base64EncryptionConfig() { this = "Base64EncryptionConfig" }
+module Base64EncryptionUsage implements DataFlow::ConfigSig {
 
-  override predicate isSource(DataFlow::Node source) {
-    source instanceof SensitiveInformationSources
+  predicate isSource(DataFlow::Node source) { source instanceof SensitiveInformationSources }
+
+  predicate isSink(DataFlow::Node sink) { sink instanceof Base64Sinks }
+
+  predicate isBarrier(DataFlow::Node node) {
+    exists(Type t | t = node.getType() | t instanceof BoxedType or t instanceof PrimitiveType)
   }
-
-  override predicate isSink(DataFlow::Node sink) { sink instanceof Base64Sinks }
 }
 
-// ========== Query ==========
-from DataFlow::PathNode source, DataFlow::PathNode sink, Base64EncryptionConfig config
-where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "Sensative data is being logged $@.", source.getNode(),
-  "user-provided value"
+module Base64EncryptionFlows = TaintTracking::Global<Base64EncryptionUsage>;
+import Base64EncryptionFlows::PathGraph //importing the path graph from the module
+
+from Base64EncryptionFlows::PathNode source, Base64EncryptionFlows::PathNode sink //Using PathNode from the module
+where Base64EncryptionFlows::flowPath(source, sink) //using flowPath instead of hasFlowPath
+select sink.getNode(), source, sink, "Sensitive data is being 'encrypted' with Base64 Encoding: $@", source.getNode(), "user-provided value"
