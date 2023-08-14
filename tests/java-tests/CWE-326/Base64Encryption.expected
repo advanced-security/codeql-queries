@@ -11,4 +11,4 @@ nodes
 | Base64Encryption.java:18:66:18:80 | getBytes(...) : byte[] | semmle.label | getBytes(...) : byte[] |
 subpaths
 #select
-| Base64Encryption.java:18:31:18:81 | encodeToString(...) | Base64Encryption.java:17:31:17:62 | getAttribute(...) : Object | Base64Encryption.java:18:31:18:81 | encodeToString(...) | Sensitive data is being logged with Base64: $@ | Base64Encryption.java:17:31:17:62 | getAttribute(...) | user-provided value |
+| Base64Encryption.java:18:31:18:81 | encodeToString(...) | Base64Encryption.java:17:31:17:62 | getAttribute(...) : Object | Base64Encryption.java:18:31:18:81 | encodeToString(...) | Sensitive data is being 'encrypted' with Base64 Encoding: $@ | Base64Encryption.java:17:31:17:62 | getAttribute(...) | user-provided value |
