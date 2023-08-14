@@ -29,10 +29,7 @@ class Base64Sinks extends DataFlow::Node {
 }
 
 module Base64EncryptionUsage implements DataFlow::ConfigSig {
-
-  predicate isSource(DataFlow::Node source) {
-    source instanceof SensitiveInformationSources
-  }
+  predicate isSource(DataFlow::Node source) { source instanceof SensitiveInformationSources }
 
   predicate isSink(DataFlow::Node sink) { sink instanceof Base64Sinks }
 
@@ -42,8 +39,10 @@ module Base64EncryptionUsage implements DataFlow::ConfigSig {
 }
 
 module Base64EncryptionFlows = DataFlow::Global<Base64EncryptionUsage>;
+
 import Base64EncryptionFlows::PathGraph //importing the path graph from the module
 
 from Base64EncryptionFlows::PathNode source, Base64EncryptionFlows::PathNode sink //Using PathNode from the module
 where Base64EncryptionFlows::flowPath(source, sink) //using flowPath instead of hasFlowPath
-select sink.getNode(), source, sink, "Sensitive data is being logged with Base64: $@", source.getNode(), "user-provided value"
+select sink.getNode(), source, sink, "Sensitive data is being logged with Base64: $@",
+  source.getNode(), "user-provided value"
