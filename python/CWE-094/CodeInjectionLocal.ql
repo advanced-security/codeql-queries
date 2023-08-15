@@ -22,24 +22,22 @@ import semmle.python.dataflow.new.TaintTracking
 import semmle.python.Concepts
 import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
-import DataFlow::PathGraph
 import github.LocalSources
 private import semmle.python.security.dataflow.CodeInjectionCustomizations
 
-/**
- * A taint-tracking configuration for detecting code injection vulnerabilities.
- */
-class CodeInjectionConfiguration extends TaintTracking::Configuration {
-  CodeInjectionConfiguration() { this = "CodeInjectionConfiguration" }
+private module CodeInjectionConfiguration implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
+  predicate isSink(DataFlow::Node sink) { sink instanceof CodeInjection::Sink }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof CodeInjection::Sink }
-
-  override predicate isSanitizer(DataFlow::Node node) { node instanceof CodeInjection::Sanitizer }
+  predicate isBarrier(DataFlow::Node node) { node instanceof CodeInjection::Sanitizer }
 }
 
-from CodeInjectionConfiguration config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "$@ flows to here and is interpreted as code.",
-  source.getNode(), "A user-provided value"
+module CodeInjectionFlows = TaintTracking::Global<CodeInjectionConfiguration>;
+
+import CodeInjectionFlows::PathGraph
+
+from CodeInjectionFlows::PathNode source, CodeInjectionFlows::PathNode sink
+where CodeInjectionFlows::flowPath(source, sink)
+select sink.getNode(), source, sink, "This $@ is written to a log file.", source.getNode(),
+  "potentially sensitive information"
