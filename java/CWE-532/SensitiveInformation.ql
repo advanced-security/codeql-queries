@@ -15,23 +15,26 @@ import java
 import semmle.code.java.dataflow.DataFlow
 import semmle.code.java.dataflow.FlowSources
 import semmle.code.java.dataflow.TaintTracking2
-import DataFlow::PathGraph
+//import DataFlow::PathGraph
 // Internal
 import github.Logging
 import github.SensitiveInformation
 
-class SensitiveInformationLoggingConfig extends TaintTracking::Configuration {
-  SensitiveInformationLoggingConfig() { this = "SensitiveInformationLoggingConfig" }
+module SensitiveInformationConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof SensitiveInformationSources }
 
-  override predicate isSource(DataFlow::Node source) {
-    source instanceof SensitiveInformationSources
+  predicate isSink(DataFlow::Node sink) { sink instanceof LoggingMethodsSinks }
+
+  predicate isBarrier(DataFlow::Node node) {
+    exists(Type t | t = node.getType() | t instanceof BoxedType or t instanceof PrimitiveType)
   }
-
-  override predicate isSink(DataFlow::Node sink) { sink instanceof LoggingMethodsSinks }
 }
 
+module SensitiveInformationFlow = TaintTracking::Global<SensitiveInformationConfig>;
+import SensitiveInformationFlow::PathGraph //importing the path graph from the module
+
+
 // ========== Query ==========
-from DataFlow::PathNode source, DataFlow::PathNode sink, SensitiveInformationLoggingConfig config
-where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "Sensative data is being logged $@.", source.getNode(),
-  "user-provided value"
+from SensitiveInformationFlow::PathNode source, SensitiveInformationFlow::PathNode sink
+where SensitiveInformationFlow::flowPath(source, sink) //using flowPath instead of hasFlowPath
+select sink.getNode(), source, sink, "Sensative data is being logged $@.", source.getNode(), "user-provided value"
