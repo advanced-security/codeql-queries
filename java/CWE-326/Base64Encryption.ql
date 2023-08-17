@@ -28,7 +28,7 @@ class Base64Sinks extends DataFlow::Node {
   }
 }
 
-module Base64EncryptionUsage implements DataFlow::ConfigSig {
+module Base64EncryptionUsageConfig implements DataFlow::ConfigSig {
 
   predicate isSource(DataFlow::Node source) { source instanceof SensitiveInformationSources }
 
@@ -39,9 +39,9 @@ module Base64EncryptionUsage implements DataFlow::ConfigSig {
   }
 }
 
-module Base64EncryptionFlows = TaintTracking::Global<Base64EncryptionUsage>;
-import Base64EncryptionFlows::PathGraph //importing the path graph from the module
+module Base64EncryptionFlow = TaintTracking::Global<Base64EncryptionUsageConfig>;
+import Base64EncryptionFlow::PathGraph //importing the path graph from the module
 
-from Base64EncryptionFlows::PathNode source, Base64EncryptionFlows::PathNode sink //Using PathNode from the module
-where Base64EncryptionFlows::flowPath(source, sink) //using flowPath instead of hasFlowPath
+from Base64EncryptionFlow::PathNode source, Base64EncryptionFlow::PathNode sink //Using PathNode from the module
+where Base64EncryptionFlow::flowPath(source, sink) //using flowPath instead of hasFlowPath
 select sink.getNode(), source, sink, "Sensitive data is being 'encrypted' with Base64 Encoding: $@", source.getNode(), "user-provided value"
