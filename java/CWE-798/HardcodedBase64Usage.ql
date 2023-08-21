@@ -15,21 +15,25 @@ import java
 import semmle.code.java.dataflow.DataFlow
 import semmle.code.java.dataflow.FlowSources
 import semmle.code.java.dataflow.TaintTracking2
-import DataFlow::PathGraph
+//import DataFlow::PathGraph0
 // Internal
 import github.Encoding
 import github.Hardcoded
 
-class HardcodedPasswordBase64 extends TaintTracking::Configuration {
-  HardcodedPasswordBase64() { this = "HardcodedPasswordBase64" }
+module HardcodedPasswordBase64Config implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof Hardcoded }
 
-  override predicate isSource(DataFlow::Node source) { source instanceof Hardcoded }
+  predicate isSink(DataFlow::Node sink) { sink instanceof Base64::Decoding}
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof Base64::Decoding }
+  predicate isBarrier(DataFlow::Node node) {
+    exists(Type t | t = node.getType() | t instanceof BoxedType or t instanceof PrimitiveType)
+  }
 }
 
+module HardcodedPasswordBase64Flow = TaintTracking::Global<HardcodedPasswordBase64Config>;
+import HardcodedPasswordBase64Flow::PathGraph //importing the path graph from the module
+
 // ========== Query ==========
-from DataFlow::PathNode source, DataFlow::PathNode sink, HardcodedPasswordBase64 config
-where config.hasFlowPath(source, sink)
-select sink.getNode(), source, sink, "Sensitive data is being logged $@.", source.getNode(),
-  "user-provided value"
+from HardcodedPasswordBase64Flow::PathNode source, HardcodedPasswordBase64Flow::PathNode sink //Using PathNode from the module
+where HardcodedPasswordBase64Flow::flowPath(source, sink) //using flowPath instead of hasFlowPath
+select sink.getNode(), source, sink, "Sensitive data is being logged $@.", source.getNode()
