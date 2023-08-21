@@ -36,4 +36,4 @@ import HardcodedPasswordBase64Flow::PathGraph //importing the path graph from th
 // ========== Query ==========
 from HardcodedPasswordBase64Flow::PathNode source, HardcodedPasswordBase64Flow::PathNode sink //Using PathNode from the module
 where HardcodedPasswordBase64Flow::flowPath(source, sink) //using flowPath instead of hasFlowPath
-select sink.getNode(), source, sink, "Sensitive data is being logged $@.", source.getNode()
+select sink.getNode(), source, "Sensitive data is being logged $@.", source.getNode()
