@@ -1,0 +1,85 @@
+name: "GitHub Field CodeQL Super Extended Configuration"
+
+disable-default-queries: true
+
+packs:
+  # > C/C++
+  # security-experimental
+  - codeql/cpp-queries:codeql-suites/cpp-security-experimental.qls
+
+  # > C# queries
+  - advanced-security/codeql-csharp
+  - advanced-security/codeql-csharp-extensions
+  # security-experimental
+  - codeql/csharp-queries:codeql-suites/csharp-security-experimental.qls
+  # solorigate
+  - codeql/csharp-solorigate-queries
+
+  # > Java/Kotlin queries
+  - advanced-security/codeql-java
+  - advanced-security/codeql-java-extensions
+  # security-experimental
+  - codeql/java-queries:codeql-suites/java-security-experimental.qls
+
+  # > JavaScript/TypeScript queries
+  - advanced-security/codeql-javascript
+  - advanced-security/codeql-javascript-extensions
+  # security-experimental
+  - codeql/javascript-queries:codeql-suites/javascript-security-experimental.qls
+
+  # > Python queries
+  - advanced-security/codeql-python
+  # security-experimental
+  - codeql/python-queries:codeql-suites/python-security-experimental.qls
+
+  # > Go queries
+  - advanced-security/codeql-go
+  # security-experimental
+  - codeql/go-queries:codeql-suites/go-security-experimental.qls
+
+  # > Ruby
+  # security-experimental
+  - codeql/ruby-queries:codeql-suites/ruby-security-experimental.qls
+
+# Pull in all queries from the codeql pack
+- queries: '.'
+  from: codeql/cpp-queries
+
+  - queries: '.'
+  from: codeql/csharp-queries
+
+  - queries: '.'
+  from: codeql/java-queries
+
+  - queries: '.'
+  from: codeql/javascript-queries
+
+  - queries: '.'
+  from: codeql/python-queries
+
+  - queries: '.'
+  from: codeql/go-queries
+
+  - queries: '.'
+  from: codeql/ruby-queries
+
+  # Include lows
+- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain:
+    - security
+    precision:
+    - low
+
+paths-ignore:
+  # JavaScript
+  - 'node_modules'
+  - '**/*.test.js'
+  # JavaScript Frameworks/Libraries
+  - '**/bootstrap.js'
+  - '**/bootstrap.min.js'
+  - '**/jquery-*.js'
+  # Python
+  - '.env'
