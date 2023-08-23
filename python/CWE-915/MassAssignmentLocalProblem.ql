@@ -17,6 +17,6 @@ import python
 // GitHub Field lib
 import github.MassAssignment
 
-from MassAssignment::MassAssignmentLocalConfig config, DataFlow::Node source, DataFlow::Node sink
+from  DataFlow::Node source, DataFlow::Node sink
 where config.hasFlow(source, sink)
 select sink, "Use of $@.", source, "mass assignment"

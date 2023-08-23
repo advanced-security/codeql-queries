@@ -20,21 +20,21 @@ import semmle.python.Concepts
 import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
-import DataFlow::PathGraph
+import HardcodedFrameworkSecretsInst::PathGraph
 import github.HardcodedSecretSinks
 
 class HardcodedValue extends DataFlow::Node {
   HardcodedValue() { exists(StrConst literal | this = DataFlow::exprNode(literal)) }
 }
 
-class HardcodedFrameworkSecrets extends TaintTracking::Configuration {
-  HardcodedFrameworkSecrets() { this = "Hardcoded framework secret configuration" }
+module HardcodedFrameworkSecretsInst = TaintTracking::Global<HardcodedFrameworkSecretsImpl>;
 
-  override predicate isSource(DataFlow::Node source) { source instanceof HardcodedValue }
+private module HardcodedFrameworkSecretsImpl implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof HardcodedValue }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof CredentialSink }
+  predicate isSink(DataFlow::Node sink) { sink instanceof CredentialSink }
 }
 
-from HardcodedFrameworkSecrets config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
+from HardcodedFrameworkSecretsInst::PathNode source, HardcodedFrameworkSecretsInst::PathNode sink
+where HardcodedFrameworkSecretsInst::flowPath(source, sink)
 select sink.getNode(), source, sink, "Use of $@.", source.getNode(), "hardcoded credentials"

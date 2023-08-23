@@ -20,7 +20,7 @@ import semmle.python.Concepts
 import semmle.python.dataflow.new.RemoteFlowSources
 import semmle.python.dataflow.new.BarrierGuards
 import semmle.python.ApiGraphs
-import DataFlow::PathGraph
+import UnsafeDeserializationConfigurationInst::PathGraph
 // Extending library
 import semmle.python.security.dataflow.UnsafeDeserializationCustomizations
 // Internal library
@@ -30,18 +30,19 @@ import github.LocalSources
  * A taint-tracking configuration for detecting arbitrary code execution
  * vulnerabilities due to deserializing user-controlled data.
  */
-class UnsafeDeserializationConfiguration extends TaintTracking::Configuration {
-  UnsafeDeserializationConfiguration() { this = "UnsafeDeserializationConfiguration" }
+module UnsafeDeserializationConfigurationInst =
+  TaintTracking::Global<UnsafeDeserializationConfigurationImpl>;
 
-  override predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
+private module UnsafeDeserializationConfigurationImpl implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof LocalSources::Range }
 
-  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeDeserialization::Sink }
+  predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeDeserialization::Sink }
 
-  override predicate isSanitizer(DataFlow::Node node) {
-    node instanceof UnsafeDeserialization::Sanitizer
-  }
+  predicate isBarrier(DataFlow::Node node) { node instanceof UnsafeDeserialization::Sanitizer }
 }
 
-from UnsafeDeserializationConfiguration config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
+from
+  UnsafeDeserializationConfigurationInst::PathNode source,
+  UnsafeDeserializationConfigurationInst::PathNode sink
+where UnsafeDeserializationConfigurationInst::flowPath(source, sink)
 select sink.getNode(), source, sink, "Deserializing of $@.", source.getNode(), "untrusted input"

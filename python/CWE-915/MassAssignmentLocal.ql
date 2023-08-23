@@ -13,10 +13,10 @@
  */
 
 import python
-import DataFlow::PathGraph
+import MassAssignmentLocalConfigInst::PathGraph
 // GitHub Field lib
 import github.MassAssignment
 
-from MassAssignment::MassAssignmentLocalConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
+from  MassAssignmentLocalConfigInst::PathNode source, MassAssignmentLocalConfigInst::PathNode sink
+where MassAssignmentLocalConfigInst::flowPath(source,sink)
 select sink.getNode(), source, sink, "Use of $@.", source.getNode(), "mass assignment"
