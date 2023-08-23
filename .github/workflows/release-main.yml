@@ -23,7 +23,7 @@ jobs:
 
       - name: "Check and Publish CodeQL Packs"
         env:
-          GITHUB_TOKEN: ${{ secrets.CODEQL_FIELD_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version ${{ matrix.language }}/qlpack.yml | awk '{print $2}')
@@ -47,7 +47,7 @@ jobs:
 
       - name: Compile / Check Suites & Packs
         env:
-          GITHUB_TOKEN: ${{ secrets.CODEQL_FIELD_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PUBLISHED_VERSION=$(gh api /orgs/advanced-security/packages/container/codeql-${{ matrix.language }}-extensions/versions --jq '.[0].metadata.container.tags[0]')
           CURRENT_VERSION=$(grep version extensions/codeql-${{ matrix.language }}-extensions/qlpack.yml | awk '{print $2}')
