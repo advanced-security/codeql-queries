@@ -5,7 +5,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-public class XMLParser {
+public class XXELocal {
     public static void main(String[] args) throws Exception {
         // Get user input from file
         File file = new File("input.xml");
