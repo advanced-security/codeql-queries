@@ -13,7 +13,6 @@
  */
 
 import python
-// import MassAssignmentConfigInst::PathGraph
 // GitHub Field lib
 import github.MassAssignment::MassAssignment
 
