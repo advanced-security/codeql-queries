@@ -4,3 +4,4 @@ version: 0.2.0
 defaultSuiteFile: suites/codeql-java.qls
 dependencies:
   codeql/java-all: 0.7.2
+  advanced-security/codeql-java-extensions: 0.3.2
