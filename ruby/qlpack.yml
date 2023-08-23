@@ -1,7 +1,6 @@
----
 library: false
 name: advanced-security/codeql-ruby
-version: 0.1.0
-dependencies:
-  codeql/ruby-all: "^0.6.2"
+version: 0.2.0
 defaultSuiteFile: suites/codeql-ruby.qls
+dependencies:
+  codeql/ruby-all: 0.7.2
