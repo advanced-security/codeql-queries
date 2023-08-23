@@ -1,7 +1,6 @@
----
 library: false
 name: advanced-security/codeql-java
-version: 0.1.0
-dependencies:
-  codeql/java-all: "^0.6.2"
+version: 0.2.0
 defaultSuiteFile: suites/codeql-java.qls
+dependencies:
+  codeql/java-all: 0.7.2
