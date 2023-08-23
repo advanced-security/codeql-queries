@@ -42,26 +42,14 @@ packs:
   - codeql/ruby-queries:codeql-suites/ruby-security-experimental.qls
 
 # Pull in all queries from the codeql pack
-- queries: '.'
-  from: codeql/cpp-queries
-
-  - queries: '.'
-  from: codeql/csharp-queries
-
-  - queries: '.'
-  from: codeql/java-queries
-
-  - queries: '.'
-  from: codeql/javascript-queries
-
-  - queries: '.'
-  from: codeql/python-queries
-
-  - queries: '.'
-  from: codeql/go-queries
-
-  - queries: '.'
-  from: codeql/ruby-queries
+queries: 
+  - codeql/cpp-queries
+  - codeql/csharp-queries
+  - codeql/java-queries
+  - codeql/javascript-queries
+  - codeql/python-queries
+  - codeql/go-queries
+  - codeql/ruby-queries
 
   # Include lows
 - include:
