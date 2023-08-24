@@ -7,6 +7,7 @@
 .cache
 *.testproj/
 *.actual
+*/codeql-pack.lock.yml
 
 # Test files / folders
 test.ql
