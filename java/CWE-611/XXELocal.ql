@@ -20,21 +20,22 @@ import semmle.code.java.dataflow.TaintTracking2
 //import DataFlow::PathGraph
 import github.LocalSources
 
-class SafeSAXSourceFlowConfig extends TaintTracking2::Configuration {
-  SafeSAXSourceFlowConfig() { this = "XmlParsers::SafeSAXSourceFlowConfig" }
 
-  override predicate isSource(DataFlow::Node src) { src.asExpr() instanceof SafeSaxSource }
+module SafeSAXSourceFlowConfig implements DataFlow::ConfigSig{
+  predicate isSource(DataFlow::Node src) { src.asExpr() instanceof SafeSaxSource }
 
-  override predicate isSink(DataFlow::Node sink) {
+  predicate isSink(DataFlow::Node sink) {
     sink.asExpr() = any(XmlParserCall parse).getSink()
   }
 
-  override int fieldFlowBranchLimit() { result = 0 }
+  int fieldFlowBranchLimit() { result = 0 }
 }
+
+module SafeSAXSourceFlow = TaintTracking::Global<SafeSAXSourceFlowConfig>;
 
 class UnsafeXxeSink extends DataFlow::ExprNode {
   UnsafeXxeSink() {
-    not exists(SafeSAXSourceFlowConfig safeSource | safeSource.hasFlowTo(this)) and
+    not exists(SafeSAXSourceFlow::flowPath(this)) and
     exists(XmlParserCall parse |
       parse.getSink() = this.getExpr() and
       not parse.isSafe()
@@ -43,7 +44,9 @@ class UnsafeXxeSink extends DataFlow::ExprNode {
 }
 
 module XXELocalConfig implements DataFlow::ConfigSig {
-  predicate isSource(DataFlow::Node source) { source instanceof LocalUserInput }
+  predicate isSource(DataFlow::Node source) { 
+    source instanceof LocalUserInput and
+    not exists(DataFlow::Node src | src.asExpr() instanceof SafeSaxSource)}
 
   predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeXxeSink }
 }
