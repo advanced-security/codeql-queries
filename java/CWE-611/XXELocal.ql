@@ -35,7 +35,7 @@ module SafeSAXSourceFlow = TaintTracking::Global<SafeSAXSourceFlowConfig>;
 
 class UnsafeXxeSink extends DataFlow::ExprNode {
   UnsafeXxeSink() {
-    not exists(SafeSAXSourceFlow::flowPath(this)) and
+    not exists(SafeSAXSourceFlow::flowTo(this)) and
     exists(XmlParserCall parse |
       parse.getSink() = this.getExpr() and
       not parse.isSafe()
