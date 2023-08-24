@@ -2,7 +2,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
 
 public class XXELocal {
@@ -18,20 +21,30 @@ public class XXELocal {
         // Parse XML
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
-        saxParser.parse(inputSource, xmlReader);
+        saxParser.parse(inputSource, new MyHandler());
     }
 
     private static XMLReader getXMLReader() throws Exception {
-        // Create XML reader
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
         XMLReader xmlReader = saxParser.getXMLReader();
-
-        // Set properties for XML reader
-        xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
-        xmlReader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        xmlReader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-
         return xmlReader;
+    }
+
+    private static class MyHandler extends DefaultHandler {
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+            // Handle start element
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+            // Handle end element
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            // Handle character data
+        }
     }
 }

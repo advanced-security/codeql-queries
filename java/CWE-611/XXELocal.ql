@@ -17,7 +17,7 @@ import java
 import semmle.code.java.security.XmlParsers
 import semmle.code.java.dataflow.FlowSources
 import semmle.code.java.dataflow.TaintTracking2
-import DataFlow::PathGraph
+//import DataFlow::PathGraph
 import github.LocalSources
 
 class SafeSAXSourceFlowConfig extends TaintTracking2::Configuration {
@@ -42,15 +42,16 @@ class UnsafeXxeSink extends DataFlow::ExprNode {
   }
 }
 
-class XxeConfig extends TaintTracking::Configuration {
-  XxeConfig() { this = "XXE.ql::XxeConfig" }
+module XXELocalConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { source instanceof LocalUserInput }
 
-  override predicate isSource(DataFlow::Node src) { src instanceof LocalUserInput }
-
-  override predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeXxeSink }
+  predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeXxeSink }
 }
 
-from DataFlow::PathNode source, DataFlow::PathNode sink, XxeConfig conf
-where conf.hasFlowPath(source, sink)
+module XXELocalFlow = TaintTracking::Global<XXELocalConfig>;
+import XXELocalFlow::PathGraph
+
+from XXELocalFlow::PathNode source, XXELocalFlow::PathNode sink
+where XXELocalFlow::flowPath(source, sink)
 select sink.getNode(), source, sink, "Unsafe parsing of XML file from $@.", source.getNode(),
   "user input"
