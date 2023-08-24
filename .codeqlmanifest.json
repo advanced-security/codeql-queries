@@ -2,11 +2,9 @@
   "provide": [
     "codeql/*/ql/src/qlpack.yml",
     "codeql/*/ql/lib/qlpack.yml",
-    "extensions/*/qlpack.yml",
     "*/qlpack.yml",
-    "*/customizations/qlpack.yml",
-    "go/qlpack.yml",
-    "tests/go-tests/qlpack.yml"
+    "extensions/*/qlpack.yml",
+    "tests/*/qlpack.yml"
   ],
   "versionPolicies": {
     "default": {

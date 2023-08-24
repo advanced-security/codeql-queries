@@ -1,7 +1,6 @@
----
 library: false
 name: advanced-security/codeql-go
-version: 0.1.0
-dependencies:
-  codeql/go-all: "^0.5.2"
+version: 0.2.0
 defaultSuiteFile: suites/codeql-go.qls
+dependencies:
+  codeql/go-all: 0.6.2

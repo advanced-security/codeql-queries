@@ -4,42 +4,42 @@ disable-default-queries: true
 
 packs:
   # > C/C++
-  # security-extended
-  - codeql/cpp-queries:codeql-suites/cpp-security-extended.qls
+  # security-experimental
+  - codeql/cpp-queries:codeql-suites/cpp-security-experimental.qls
 
   # > C# queries
   - advanced-security/codeql-csharp
   - advanced-security/codeql-csharp-extensions
-  # security-extended
-  - codeql/csharp-queries:codeql-suites/csharp-security-extended.qls
+  # security-experimental
+  - codeql/csharp-queries:codeql-suites/csharp-security-experimental.qls
   # solorigate
   - codeql/csharp-solorigate-queries
 
   # > Java/Kotlin queries
   - advanced-security/codeql-java
   - advanced-security/codeql-java-extensions
-  # security-extended
-  - codeql/java-queries:codeql-suites/java-security-extended.qls
+  # security-experimental
+  - codeql/java-queries:codeql-suites/java-security-experimental.qls
 
   # > JavaScript/TypeScript queries
   - advanced-security/codeql-javascript
   - advanced-security/codeql-javascript-extensions
-  # security-extended
-  - codeql/javascript-queries:codeql-suites/javascript-security-extended.qls
+  # security-experimental
+  - codeql/javascript-queries:codeql-suites/javascript-security-experimental.qls
 
   # > Python queries
   - advanced-security/codeql-python
-  # security-extended
-  - codeql/python-queries:codeql-suites/python-security-extended.qls
+  # security-experimental
+  - codeql/python-queries:codeql-suites/python-security-experimental.qls
 
   # > Go queries
   - advanced-security/codeql-go
-  # security-extended
-  - codeql/go-queries:codeql-suites/go-security-extended.qls
+  # security-experimental
+  - codeql/go-queries:codeql-suites/go-security-experimental.qls
 
   # > Ruby
-  # security-extended
-  - codeql/ruby-queries:codeql-suites/ruby-security-extended.qls
+  # security-experimental
+  - codeql/ruby-queries:codeql-suites/ruby-security-experimental.qls
 
 
 paths-ignore:
