@@ -20,17 +20,6 @@ import semmle.code.java.dataflow.TaintTracking2
 //import DataFlow::PathGraph
 import github.LocalSources
 
-module XXELocalConfig implements DataFlow::ConfigSig {
-  predicate isSource(DataFlow::Node source) { 
-    source instanceof LocalUserInput and
-    not exists(DataFlow::Node src | src.asExpr() instanceof SafeSaxSource)}
-
-  predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeXxeSink }
-}
-
-module XXELocalFlow = TaintTracking::Global<XXELocalConfig>;
-import XXELocalFlow::PathGraph
-
 module SafeSAXSourceFlowConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node src) { src.asExpr() instanceof SafeSaxSource }
 
@@ -45,13 +34,25 @@ module SafeSAXSourceFlow = TaintTracking::Global<SafeSAXSourceFlowConfig>;
 
 class UnsafeXxeSink extends DataFlow::ExprNode {
   UnsafeXxeSink() {
-    not exists(SafeSAXSourceFlow::flowTo(this)) and
+    not SafeSAXSourceFlow::flowTo(this) and
     exists(XmlParserCall parse |
       parse.getSink() = this.getExpr() and
       not parse.isSafe()
     )
   }
 }
+
+module XXELocalConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node source) { 
+    source instanceof LocalUserInput and
+    not exists(DataFlow::Node src | src.asExpr() instanceof SafeSaxSource)}
+
+  predicate isSink(DataFlow::Node sink) { sink instanceof UnsafeXxeSink }
+}
+
+module XXELocalFlow = TaintTracking::Global<XXELocalConfig>;
+import XXELocalFlow::PathGraph
+
 from XXELocalFlow::PathNode source, XXELocalFlow::PathNode sink
 where XXELocalFlow::flowPath(source, sink)
 select sink.getNode(), source, sink, "Unsafe parsing of XML file from $@.", source.getNode(),
