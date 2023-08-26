@@ -7,6 +7,9 @@
 .cache
 *.testproj/
 *.actual
+*.class
+*/*.class
+
 
 # Test files / folders
 test.ql
