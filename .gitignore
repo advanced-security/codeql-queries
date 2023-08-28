@@ -9,6 +9,8 @@
 *.actual
 *.class
 */*.class
+*/*/codeql-pack.lock.yml
+*/codeql-pack.lock.yml
 
 # Test files / folders
 test.ql
