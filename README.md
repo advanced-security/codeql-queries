@@ -24,9 +24,9 @@ To add the field CodeQL packs in Actions, you only will need to add the followin
 
 ```yaml
 # standard pack
-packs: +advanced-security/codeql-${{ matrix.language }}@latest
+packs: +advanced-security/codeql-${{ matrix.language }}
 # extension pack
-packs: +advanced-security/codeql-${{ matrix.language }}-extensions@latest
+packs: +advanced-security/codeql-${{ matrix.language }}-extensions
 ```
 
 **Configuration file (multi-language, all packs):**
