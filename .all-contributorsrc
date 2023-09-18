@@ -20,7 +20,8 @@
         "code",
         "research",
         "maintenance",
-        "security"
+        "security",
+        "ideas"
       ]
     },
     {
@@ -45,6 +46,19 @@
         "example",
         "ideas"
       ]
-    }
+    },
+    {
+      "login": "securingdev",
+      "name": "Keith Hoodlet",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22803099?v=4",
+      "profile": "https://securing.dev",
+      "contributions": [
+        "code",
+        "security",
+        "research",
+        "ideas",
+        "maintenance"
+      ]
+    },
   ]
 }

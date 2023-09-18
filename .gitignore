@@ -10,7 +10,6 @@
 *.class
 */*.class
 
-
 # Test files / folders
 test.ql
 test-*.ql
