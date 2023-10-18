@@ -1,3 +1,5 @@
+⚠️ This repository is no longer maintained and all work has been migrated to [GitHubSecurityLab/CodeQL-Community-Packs](https://github.com/GitHubSecurityLab/CodeQL-Community-Packs) repository ⚠️
+
 # codeql-queries
 
 <!-- markdownlint-disable -->
