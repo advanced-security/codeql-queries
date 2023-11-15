@@ -2,9 +2,9 @@ version: 2
 
 updates:
   # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
-  - package-ecosystem: gitsubmodule
-    schedule:
-      interval: "weekly"
-    directory: /
-    commit-message:
-        prefix: "Auto-updated submodule references"
+  # - package-ecosystem: gitsubmodule
+  #   schedule:
+  #     interval: "weekly"
+  #   directory: /
+  #   commit-message:
+  #       prefix: "Auto-updated submodule references"
