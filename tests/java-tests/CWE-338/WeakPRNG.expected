@@ -1,0 +1,2 @@
+| WeakPRNG.java:26:28:26:43 | nextInt(...) | Using weak PRNG |
+| WeakPRNG.java:31:31:31:43 | random(...) | Using weak PRNG |
