@@ -2,6 +2,9 @@ name: "GitHub Field CodeQL Local Threat Model Configuration"
 
 disable-default-queries: true
 
+# expand thread model - https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning#extending-codeql-coverage-with-threat-models
+threat-models: local
+
 queries:
   # Java local queries
   - uses: advanced-security/codeql-queries/java/suites/codeql-java-local.qls@main
